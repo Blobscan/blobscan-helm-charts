@@ -1,15 +1,15 @@
 
-# blobscan-indexer
+# blobscan-api
 
 ![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
+Blobscan tRPC API
 
 **Homepage:** <https://blobscan.com>
 
 ## Source Code
 
-* <https://github.com/blobscan/blobscan-indexer>
+* <https://github.com/blobscan/blobscan/>
 
 ## Values
 
@@ -19,18 +19,19 @@ Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `[]` | Custom args for the blobscan-indexer container |
-| customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
+| customArgs | list | `["api"]` | Custom args for the blobscan container |
+| customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"BLOBSCAN_API_ENDPOINT","value":"http://blobscan-api:3001"},{"name":"EXECUTION_NODE_RPC","value":"http://your-execution-node:8545"},{"name":"BEACON_NODE_RPC","value":"http://your-beacon-node:5052"},{"name":"SECRET_KEY","value":"supersecret"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"DATABASE_URL","value":"postgresql://postgres:postgres@blobscan-postgresql:5432/blobscan?ssl=false"},{"name":"BLOBSCAN_API_PORT","value":"3001"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| image.pullPolicy | string | `"IfNotPresent"` | blobscan-indexer container pull policy |
-| image.repository | string | `"blossomlabs/blobscan-indexer"` | blobscan-indexer container image repository |
-| image.tag | string | `"master"` | blobscan-indexer container image tag |
+| httpPort | int | `3001` | Ports |
+| image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
+| image.repository | string | `"blossomlabs/blobscan"` | blobscan container image repository |
+| image.tag | string | `"next"` | blobscan container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -38,12 +39,14 @@ Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
 | ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
+| livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
+| readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Secret env variables injected via a created secret |

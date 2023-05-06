@@ -1,11 +1,15 @@
 
 # blobscan-indexer
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
 
-**Homepage:** <https://github.com/blobscan/blobscan-indexer>
+**Homepage:** <https://blobscan.com>
+
+## Source Code
+
+* <https://github.com/blobscan/blobscan-indexer>
 
 ## Values
 
@@ -18,15 +22,15 @@ Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"MONGODB_URI","value":"mongodb://mongodb:27017"},{"name":"MONGODB_DB","value":"blobscan"},{"name":"EXECUTION_NODE_RPC","value":"http://your-execution-node:8545"},{"name":"BEACON_NODE_RPC","value":"http://your-beacon-node:5052"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"BLOBSCAN_API_ENDPOINT","value":"http://blobscan-api:3001"},{"name":"EXECUTION_NODE_RPC","value":"http://your-execution-node:8545"},{"name":"BEACON_NODE_RPC","value":"http://your-beacon-node:5052"},{"name":"SECRET_KEY","value":"supersecret"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan-indexer container pull policy |
-| image.repository | string | `"ethpandaops/blobscan-indexer"` | blobscan-indexer container image repository |
-| image.tag | string | `"latest"` | blobscan-indexer container image tag |
+| image.repository | string | `"blossomlabs/blobscan-indexer"` | blobscan-indexer container image repository |
+| image.tag | string | `"master"` | blobscan-indexer container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

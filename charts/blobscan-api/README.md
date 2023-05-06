@@ -1,21 +1,15 @@
 
-# blobscan
+# blobscan-api
 
 ![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
+Blobscan tRPC API
 
 **Homepage:** <https://blobscan.com>
 
 ## Source Code
 
 * <https://github.com/blobscan/blobscan/>
-
-## Requirements
-
-| Repository | Name | Version |
-|------------|------|---------|
-| https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 12.5.1 |
 
 ## Values
 
@@ -25,16 +19,16 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["web"]` | Custom args for the blobscan container |
+| customArgs | list | `["api"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"DATABASE_URL","value":"postgresql://postgres:postgres@blobscan-postgresql:5432/blobscan?schema=public"},{"name":"NEXTAUTH_URL","value":"http://localhost:3000"},{"name":"NEXTAUTH_SECRET","value":"supersecret"},{"name":"NEXT_PUBLIC_BEACON_BASE_URL","value":"http://134.209.87.158:8080/"},{"name":"NEXT_PUBLIC_EXPLORER_BASE_URL","value":"https://explorer.4844-devnet-5.etpandaops.io/"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"DATABASE_URL","value":"postgresql://postgres:postgres@blobscan-postgresql:5432/blobscan?ssl=false"},{"name":"BLOBSCAN_API_PORT","value":"3001"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | int | `3000` | Ports |
+| httpPort | int | `3001` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
 | image.repository | string | `"blossomlabs/blobscan"` | blobscan container image repository |
 | image.tag | string | `"next"` | blobscan container image tag |
@@ -51,18 +45,6 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
-| postgresql.auth.database | string | `"blobscan"` |  |
-| postgresql.auth.password | string | `"postgres"` |  |
-| postgresql.auth.postgresPassword | string | `"postgres"` |  |
-| postgresql.auth.username | string | `"postgres"` |  |
-| postgresql.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
-| postgresql.image.registry | string | `"docker.io"` |  |
-| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
-| postgresql.image.tag | string | `"14.8.0"` |  |
-| postgresql.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
-| postgresql.persistence.enabled | bool | `true` |  |
-| postgresql.persistence.size | string | `"8Gi"` |  |
-| postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
@@ -85,4 +67,3 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
-| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

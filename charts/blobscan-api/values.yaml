@@ -19,7 +19,7 @@ image:
 secretEnv: {}
 
 # -- Ports
-httpPort: 3000
+httpPort: 3001
 
 # -- Command arguments
 args: []
@@ -27,15 +27,9 @@ args: []
 # -- Additional env variables
 extraEnv:
   - name: DATABASE_URL
-    value: "postgresql://postgres:postgres@blobscan-postgresql:5432/blobscan?schema=public"
-  - name: NEXTAUTH_URL
-    value: "http://localhost:3000"
-  - name: NEXTAUTH_SECRET
-    value: "supersecret"
-  - name: NEXT_PUBLIC_BEACON_BASE_URL
-    value: "http://134.209.87.158:8080/"
-  - name: NEXT_PUBLIC_EXPLORER_BASE_URL
-    value: "https://explorer.4844-devnet-5.etpandaops.io/"
+    value: "postgresql://postgres:postgres@blobscan-postgresql:5432/blobscan?ssl=false"
+  - name: BLOBSCAN_API_PORT
+    value: "3001"
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -55,7 +49,7 @@ ingress:
   #      - chart-example.local
 
 # -- Custom args for the blobscan container
-customArgs: ["web"]
+customArgs: ["api"]
 
 # -- Command replacement for the blobscan container
 customCommand: [] # Only change this if you need to change the default command
@@ -147,10 +141,6 @@ terminationGracePeriodSeconds: 30
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
 
-# -- Topology Spread Constraints for pods
-## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
-topologySpreadConstraints: []
-
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created
 podDisruptionBudget: {}
@@ -197,25 +187,3 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
-
-postgresql:
-  # -- If enabled a postgres chart will be deployed as a dependency
-  enabled: true
-  auth:
-    postgresPassword: postgres
-    username: postgres
-    password: postgres
-    database: blobscan
-  image:
-    registry: docker.io
-    repository: bitnami/postgresql
-    tag: 14.8.0
-  pullPolicy: IfNotPresent
-  persistence:
-    enabled: true
-    size: 8Gi
-  # -- How to init the PSQL DB
-  # @default -- See `values.yaml`
-  initdbScripts:
-    init_01.sql: |
-      CREATE DATABASE blobscan;

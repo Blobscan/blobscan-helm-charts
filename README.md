@@ -8,20 +8,20 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
 ```sh
-helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
+helm repo add blobscan-helm-charts https://blobscan.github.io/blobscan-helm-charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run the following command to see the charts.
 
 ```sh
-helm search repo ethereum-helm-charts
+helm search repo blobscan-helm-charts
 ```
 
 To install the ethstats chart:
 
 ```sh
-helm install ethstats ethereum-helm-charts/ethstats
+helm install ethstats blobscan-helm-charts/ethstats
 ```
 
 To uninstall the chart:
@@ -32,4 +32,4 @@ helm delete ethstats
 
 ## More infos
 
-You can find the source code for all charts under [github.com/ethpandaops/ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts/).
+You can find the source code for all charts under [github.com/blobscan/blobscan-helm-charts](https://github.com/blobscan/blobscan-helm-charts/).

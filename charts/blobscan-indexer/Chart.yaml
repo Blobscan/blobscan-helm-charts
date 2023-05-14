@@ -1,12 +1,12 @@
 apiVersion: v2
 name: blobscan-indexer
-description: Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
+description: Blobscan-indexer indexes blobs using Blobscan API.
 home: https://blobscan.com
 icon: https://raw.githubusercontent.com/Blobscan/blobscan/next/.github/assets/blobi.jpeg
 sources:
   - https://github.com/blobscan/blobscan-indexer
 type: application
-version: 0.2.0
+version: 0.2.2
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org

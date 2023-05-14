@@ -1,7 +1,6 @@
 # Ethereum Helm Charts
 
-[![Release Helm Charts](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml)
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/ethereum-helm-charts)](https://artifacthub.io/packages/search?repo=ethereum-helm-charts)
+[![Release Helm Charts](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml)
 
 A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethereum](https://ethereum.org/) blockchain on [Kubernetes](https://kubernetes.io/).
 
@@ -15,26 +14,26 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
 ```sh
-helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
+helm repo add blobscan-helm-charts https://ethpandaops.github.io/blobscan-helm-charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run the following command to see the charts.
 
 ```sh
-helm search repo ethereum-helm-charts
+helm search repo blobscan-helm-charts
 ```
 
-To install the ethstats chart:
+To install the blobscan chart:
 
 ```sh
-helm install ethstats ethereum-helm-charts/ethstats
+helm install blobscan blobscan-helm-charts/blobscan
 ```
 
 To uninstall the chart:
 
 ```sh
-helm delete ethstats
+helm delete blobscan
 ```
 
 ## List of charts

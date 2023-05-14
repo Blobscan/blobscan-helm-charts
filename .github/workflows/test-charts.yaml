@@ -48,8 +48,6 @@ jobs:
         run: >
           ct install --config ct.yaml
           --excluded-charts ethereum-node
-          --excluded-charts beaconchain-explorer
-          --excluded-charts blockscout
-          --excluded-charts fauceth
-          --excluded-charts eth-faucet
-          --excluded-charts genesis-generator
+          --excluded-charts blobscan
+          --excluded-charts blobscan-api
+          --excluded-charts blobscan-indexer

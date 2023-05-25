@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
 
@@ -28,7 +28,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"DATABASE_URL","value":"postgresql://postgres:postgres@blobscan-postgresql:5432/blobscan?schema=public"},{"name":"NEXTAUTH_URL","value":"http://localhost:3000"},{"name":"NEXTAUTH_SECRET","value":"supersecret"},{"name":"NEXT_PUBLIC_BEACON_BASE_URL","value":"http://134.209.87.158:8080/"},{"name":"NEXT_PUBLIC_EXPLORER_BASE_URL","value":"https://explorer.4844-devnet-5.etpandaops.io/"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"DATABASE_URL","value":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public"},{"name":"SECRET_KEY","value":"supersecret"},{"name":"NEXT_PUBLIC_BEACON_BASE_URL","value":"http://134.209.87.158:8080/"},{"name":"NEXT_PUBLIC_EXPLORER_BASE_URL","value":"https://explorer.4844-devnet-5.etpandaops.io/"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |

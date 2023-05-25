@@ -27,7 +27,9 @@ args: []
 # -- Additional env variables
 extraEnv:
   - name: DATABASE_URL
-    value: "postgresql://postgres:postgres@blobscan-postgresql:5432/blobscan?ssl=false"
+    value: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  - name: SECRET_KEY
+    value: "supersecret"
   - name: BLOBSCAN_API_PORT
     value: "3001"
 
@@ -110,10 +112,10 @@ resources: {}
 # -- The security context for pods
 # @default -- See `values.yaml`
 securityContext:
-  fsGroup: 10001
-  runAsGroup: 10001
+  fsGroup: 1000
+  runAsGroup: 1000
   runAsNonRoot: true
-  runAsUser: 10001
+  runAsUser: 1000
 
 # -- The security context for containers
 # @default -- See `values.yaml`

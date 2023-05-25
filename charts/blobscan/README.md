@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
 
@@ -24,6 +24,18 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| blobscandb.auth.database | string | `"blobscan"` |  |
+| blobscandb.auth.password | string | `"postgres"` |  |
+| blobscandb.auth.postgresPassword | string | `"postgres"` |  |
+| blobscandb.auth.username | string | `"postgres"` |  |
+| blobscandb.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
+| blobscandb.image.registry | string | `"docker.io"` |  |
+| blobscandb.image.repository | string | `"bitnami/postgresql"` |  |
+| blobscandb.image.tag | string | `"14.8.0"` |  |
+| blobscandb.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
+| blobscandb.persistence.enabled | bool | `true` |  |
+| blobscandb.persistence.size | string | `"8Gi"` |  |
+| blobscandb.pullPolicy | string | `"IfNotPresent"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
@@ -51,18 +63,6 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
-| postgresql.auth.database | string | `"blobscan"` |  |
-| postgresql.auth.password | string | `"postgres"` |  |
-| postgresql.auth.postgresPassword | string | `"postgres"` |  |
-| postgresql.auth.username | string | `"postgres"` |  |
-| postgresql.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
-| postgresql.image.registry | string | `"docker.io"` |  |
-| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
-| postgresql.image.tag | string | `"14.8.0"` |  |
-| postgresql.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
-| postgresql.persistence.enabled | bool | `true` |  |
-| postgresql.persistence.size | string | `"8Gi"` |  |
-| postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |

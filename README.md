@@ -1,4 +1,4 @@
-# Ethereum Helm Charts
+# Blobscan Helm Charts
 
 [![Release Helm Charts](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml)
 

@@ -196,7 +196,7 @@ serviceMonitor:
   # -- ServiceMonitor relabelings
   relabelings: []
 
-postgresql:
+blobscandb:
   # -- If enabled a postgres chart will be deployed as a dependency
   enabled: true
   auth:

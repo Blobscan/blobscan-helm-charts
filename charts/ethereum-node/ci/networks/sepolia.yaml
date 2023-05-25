@@ -1,5 +1,0 @@
-global:
-  main:
-    network: "sepolia"
-  checkpointSync:
-    enabled: true

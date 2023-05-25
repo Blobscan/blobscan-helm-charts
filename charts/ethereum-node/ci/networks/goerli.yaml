@@ -1,5 +1,0 @@
-global:
-  main:
-    network: "goerli"
-  checkpointSync:
-    enabled: true

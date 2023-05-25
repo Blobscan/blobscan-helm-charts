@@ -1,5 +1,0 @@
-global:
-  main:
-    network: "mainnet"
-  checkpointSync:
-    enabled: true

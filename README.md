@@ -2,9 +2,7 @@
 
 [![Release Helm Charts](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml)
 
-A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethereum](https://ethereum.org/) blockchain on [Kubernetes](https://kubernetes.io/).
-
-Deployment examples that use these helm charts can be found under [ethpandaops/ethereum-k8s-testnets](https://github.com/ethpandaops/ethereum-k8s-testnets).
+A set of [Helm](https://helm.sh/) charts to run blobscan on [Kubernetes](https://kubernetes.io/).
 
 ## Usage
 
@@ -38,25 +36,9 @@ helm delete blobscan
 
 ## List of charts
 
-Execution layer clients
-
-- [`geth`](charts/geth)
-- ['reth'](charts/reth)
-
-Consensus layer clients
-
-- [`lighthouse`](charts/lighthouse)
-- [`prysm`](charts/prysm)
-
-Generic
-
-- [`ethereum-node`](charts/ethereum-node) - Umbrella chart that uses the execution and consensus layer client charts.
-
-Tooling
-
 - [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
 - [`blobscan-api`](charts/blobscan-api) - Blobscan tRPC API.
-- [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
+- [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in Postgresql for use with Blobscan.
 
 ## Development
 

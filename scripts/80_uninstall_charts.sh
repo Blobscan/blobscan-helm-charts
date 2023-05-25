@@ -5,4 +5,4 @@ helm uninstall blobscan-api
 helm uninstall blobscan-indexer
 helm uninstall blobscan
 
-kubectl delete pvc data-blobscan-postgresql-0
+kubectl delete pvc data-blobscan-blobscandb-0

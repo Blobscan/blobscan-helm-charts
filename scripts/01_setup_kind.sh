@@ -43,6 +43,9 @@ kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/usage.yaml
 
 # DONE - TESTING
+#
+# TODO: Wait until pods are ready
+#
 # should output "foo-app"
 curl localhost/foo/hostname
 # should output "bar-app"

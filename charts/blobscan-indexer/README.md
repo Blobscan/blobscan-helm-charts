@@ -1,7 +1,7 @@
 
 # blobscan-indexer
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan-indexer indexes blobs using Blobscan API.
 
@@ -22,7 +22,7 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"SECRET_KEY","value":"supersecret"},{"name":"BLOBSCAN_API_ENDPOINT","value":"http://blobscan-api:3001"},{"name":"EXECUTION_NODE_RPC","value":"http://geth-prysm-001:8545"},{"name":"BEACON_NODE_RPC","value":"http://prysm-geth-001:5052"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"SECRET_KEY","value":"supersecret"},{"name":"BLOBSCAN_API_ENDPOINT","value":"http://blobscan-api:3001"},{"name":"EXECUTION_NODE_ENDPOINT","value":"http://geth-prysm-001:8545"},{"name":"BEACON_NODE_ENDPOINT","value":"http://prysm-geth-001:5052"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
@@ -30,7 +30,7 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan-indexer container pull policy |
 | image.repository | string | `"blossomlabs/blobscan-indexer"` | blobscan-indexer container image repository |
-| image.tag | string | `"master"` | blobscan-indexer container image tag |
+| image.tag | string | `"latest"` | blobscan-indexer container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

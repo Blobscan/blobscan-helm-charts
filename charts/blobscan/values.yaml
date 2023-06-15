@@ -33,7 +33,7 @@ extraEnv:
   - name: NEXT_PUBLIC_BEACON_BASE_URL
     value: "http://134.209.87.158:8080/"
   - name: NEXT_PUBLIC_EXPLORER_BASE_URL
-    value: "https://explorer.4844-devnet-5.etpandaops.io/"
+    value: "https://explorer.4844-devnet-6.ethpandaops.io/"
 
 ingress:
   # -- Ingress resource for the HTTP API

@@ -6,10 +6,8 @@ icon: https://raw.githubusercontent.com/Blobscan/blobscan/next/.github/assets/bl
 sources:
   - https://github.com/blobscan/blobscan/
 type: application
-version: 0.2.4
+version: 0.2.5
 maintainers:
-  - name: samcm
-    email: sam.calder-mason@ethereum.org
   - name: PabloCastellano
     email: pablo@anche.no
 dependencies:

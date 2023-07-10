@@ -61,9 +61,16 @@ spec:
               {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
             {{- end }}
           ports:
+            - name: http
+              containerPort: {{ include "blobscan.httpPort" . }}
+              protocol: TCP
             {{- if .Values.extraPodPorts }}
               {{ toYaml .Values.extraPodPorts | nindent 10 }}
             {{- end }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -71,7 +78,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "blobscan-indexer.fullname" $ }}-env
+                  name: {{ include "blobscan.fullname" $ }}-env
                   key: {{ $key }}
           {{- end }}
           {{- if .Values.extraEnv }}

@@ -12,7 +12,7 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
 ```sh
-helm repo add blobscan-helm-charts https://ethpandaops.github.io/blobscan-helm-charts
+helm repo add blobscan-helm-charts https://blobscan.github.io/blobscan-helm-charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve

@@ -21,14 +21,6 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| BEACON_NODE_ENDPOINT | string | `"http://beacon-node:5052"` |  |
-| DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public"` |  |
-| NEXTAUTH_URL | string | `""` | Environment variables |
-| NEXT_PUBLIC_BEACON_BASE_URL | string | `""` |  |
-| NEXT_PUBLIC_EXPLORER_BASE_URL | string | `""` |  |
-| NEXT_PUBLIC_NETWORK_NAME | string | `"mainnet"` |  |
-| NODE_ENV | string | `""` |  |
-| SECRET_KEY | string | `"supersecret"` |  |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
@@ -44,6 +36,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.persistence.enabled | bool | `true` |  |
 | blobscandb.persistence.size | string | `"8Gi"` |  |
 | blobscandb.pullPolicy | string | `"IfNotPresent"` |  |
+| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public","NEXTAUTH_URL":"","NEXT_PUBLIC_BEACON_BASE_URL":"","NEXT_PUBLIC_EXPLORER_BASE_URL":"","NEXT_PUBLIC_NETWORK_NAME":"mainnet","NODE_ENV":"","SECRET_KEY":"supersecret"}` | Application configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |

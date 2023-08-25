@@ -15,13 +15,10 @@ Blobscan tRPC API
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| BEACON_NODE_ENDPOINT | string | `"http://beacon-node:5052"` |  |
-| CHAIN_ID | string | `"1"` |  |
-| DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Environment variables |
-| SECRET_KEY | string | `"supersecret"` |  |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false","SECRET_KEY":"supersecret"}` | Application configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["api"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |

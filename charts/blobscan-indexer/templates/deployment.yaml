@@ -68,15 +68,15 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: SECRET_KEY
-              value: {{ .Values.SECRET_KEY | quote }}
+              value: {{ .Values.config.SECRET_KEY | quote }}
             - name: BLOBSCAN_API_ENDPOINT
-              value: {{ .Values.BLOBSCAN_API_ENDPOINT | quote }}
+              value: {{ .Values.config.BLOBSCAN_API_ENDPOINT | quote }}
             - name: BEACON_NODE_ENDPOINT
-              value: {{ .Values.BEACON_NODE_ENDPOINT | quote }}
+              value: {{ .Values.config.BEACON_NODE_ENDPOINT | quote }}
             - name: EXECUTION_NODE_ENDPOINT
-              value: {{ .Values.EXECUTION_NODE_ENDPOINT | quote }}
+              value: {{ .Values.config.EXECUTION_NODE_ENDPOINT | quote }}
             - name: SENTRY_DSN
-              value: {{ .Values.SENTRY_DSN | quote }}
+              value: {{ .Values.config.SENTRY_DSN | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

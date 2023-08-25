@@ -21,12 +21,13 @@ secretEnv: {}
 # -- Command arguments
 args: []
 
-# -- Environment variables
-SECRET_KEY: "supersecret"
-BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"
-BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
-EXECUTION_NODE_ENDPOINT: "http://execution-node:8545"
-SENTRY_DSN: ""
+# -- Application configuration
+config:
+  SECRET_KEY: "supersecret"
+  BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"
+  BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
+  EXECUTION_NODE_ENDPOINT: "http://execution-node:8545"
+  SENTRY_DSN: ""
 
 # -- Additional env variables
 extraEnv: []

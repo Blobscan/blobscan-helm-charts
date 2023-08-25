@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan tRPC API
 
@@ -18,7 +18,7 @@ Blobscan tRPC API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false","SECRET_KEY":"supersecret"}` | Application configuration |
+| config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["api"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |

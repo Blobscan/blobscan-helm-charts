@@ -77,6 +77,8 @@ spec:
               value: {{ .Values.config.EXECUTION_NODE_ENDPOINT | quote }}
             - name: SENTRY_DSN
               value: {{ .Values.config.SENTRY_DSN | quote }}
+            - name: RUST_LOG
+              value: {{ .Values.config.RUST_LOG | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

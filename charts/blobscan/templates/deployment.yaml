@@ -76,8 +76,6 @@ spec:
           env:
             - name: DATABASE_URL
               value: {{ .Values.config.DATABASE_URL | quote }}
-            - name: NEXTAUTH_URL
-              value: {{ .Values.config.NEXTAUTH_URL | quote}}
             - name: SECRET_KEY
               value: {{ .Values.config.SECRET_KEY | quote}}
             - name: NEXT_PUBLIC_NETWORK_NAME
@@ -86,10 +84,32 @@ spec:
               value: {{ .Values.config.NEXT_PUBLIC_BEACON_BASE_URL | quote }}
             - name: NEXT_PUBLIC_EXPLORER_BASE_URL
               value: {{ .Values.config.NEXT_PUBLIC_EXPLORER_BASE_URL | quote }}
-            - name: BEACON_NODE_ENDPOINT
-              value: {{ .Values.config.BEACON_NODE_ENDPOINT | quote }}
-            - name: NODE_ENV
-              value: {{ .Values.config.NODE_ENV | quote }}
+            - name: CHAIN_ID
+              value: {{ .Values.config.CHAIN_ID | quote }}
+            - name: POSTGRES_STORAGE_ENABLED
+              value: {{ .Values.config.POSTGRES_STORAGE_ENABLED | quote }}
+            - name: SWARM_STORAGE_ENABLED
+              value: {{ .Values.config.SWARM_STORAGE_ENABLED | quote }}
+            - name: GOOGLE_STORAGE_ENABLED
+              value: {{ .Values.config.GOOGLE_STORAGE_ENABLED | quote }}
+            - name: GOOGLE_STORAGE_BUCKET_NAME
+              value: {{ .Values.config.GOOGLE_STORAGE_BUCKET_NAME | quote }}
+            - name: GOOGLE_STORAGE_PROJECT_ID
+              value: {{ .Values.config.GOOGLE_STORAGE_PROJECT_ID | quote }}
+            - name: GOOGLE_SERVICE_KEY
+              value: {{ .Values.config.GOOGLE_SERVICE_KEY | quote }}
+            - name: OTLP_AUTH_USERNAME
+              value: {{ .Values.config.OTLP_AUTH_USERNAME | quote }}
+            - name: OTLP_AUTH_PASSWORD
+              value: {{ .Values.config.OTLP_AUTH_PASSWORD | quote }}
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: {{ .Values.config.OTEL_EXPORTER_OTLP_PROTOCOL | quote }}
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: {{ .Values.config.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
+            - name: METRICS_ENABLED
+              value: {{ .Values.config.METRICS_ENABLED | quote }}
+            - name: TRACES_ENABLED
+              value: {{ .Values.config.TRACES_ENABLED | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan tRPC API
 
@@ -18,11 +18,12 @@ Blobscan tRPC API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false","SECRET_KEY":"supersecret"}` | Application configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["api"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"DATABASE_URL","value":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"},{"name":"SECRET_KEY","value":"supersecret"},{"name":"BLOBSCAN_API_PORT","value":"3001"}]` | Additional env variables |
+| extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |

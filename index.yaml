@@ -2,6 +2,29 @@ apiVersion: v1
 entries:
   blobscan:
   - apiVersion: v2
+    created: "2023-08-25T16:05:13.60253061Z"
+    dependencies:
+    - alias: blobscandb
+      condition: blobscandb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.9.13
+    description: Blobscan is the first blockchain explorer that helps to navigate
+      and visualize those EIP-4844 blobs
+    digest: 9352be3a075fa952f0c4921938f052abcfde13ea45d2319f767715f13c7ebb30
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/next/.github/assets/blobi.jpeg
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-0.2.9/blobscan-0.2.9.tgz
+    version: 0.2.9
+  - apiVersion: v2
     created: "2023-08-25T15:38:06.037070873Z"
     dependencies:
     - alias: blobscandb
@@ -424,4 +447,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-indexer-0.2.1/blobscan-indexer-0.2.1.tgz
     version: 0.2.1
-generated: "2023-08-25T15:38:06.370000359Z"
+generated: "2023-08-25T16:05:13.602602311Z"

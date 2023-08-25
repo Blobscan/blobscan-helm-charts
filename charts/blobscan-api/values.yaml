@@ -32,7 +32,37 @@ config:
   CHAIN_ID: "1"
 
 # -- Additional env variables
-extraEnv: []
+extraEnv:
+  - name: BLOBSCAN_API_PORT
+    value: "3001"
+  - name: POSTGRES_STORAGE_ENABLED
+    value: "true"
+  - name: SWARM_STORAGE_ENABLED
+    value: "false"
+  - name: GOOGLE_STORAGE_ENABLED
+    value: "false"
+  - name: GOOGLE_STORAGE_BUCKET_NAME
+    value: ""
+  - name: GOOGLE_STORAGE_PROJECT_ID
+    value: ""
+  - name: GOOGLE_SERVICE_KEY
+    value: ""
+  - name: OTLP_AUTH_USERNAME
+    value: ""
+  - name: OTLP_AUTH_PASSWORD
+    value: ""
+  - name: OTEL_EXPORTER_OTLP_PROTOCOL
+    value: ""
+  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+    value: ""
+  - name: METRICS_ENABLED
+    value: "true"
+  - name: TRACES_ENABLED
+    value: "false"
+  - name: BEE_DEBUG_ENDPOINT
+    value: "http://localhost:1635"
+  - name: BEE_ENDPOINT
+    value: "http://localhost:1633"
 
 ingress:
   # -- Ingress resource for the HTTP API

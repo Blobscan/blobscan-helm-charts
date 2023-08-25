@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
 
@@ -36,12 +36,12 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.persistence.enabled | bool | `true` |  |
 | blobscandb.persistence.size | string | `"8Gi"` |  |
 | blobscandb.pullPolicy | string | `"IfNotPresent"` |  |
-| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public","NEXTAUTH_URL":"http://localhost:3000","NEXT_PUBLIC_BEACON_BASE_URL":"https://dencun-devnet-8.beaconcha.in/","NEXT_PUBLIC_EXPLORER_BASE_URL":"https://explorer.dencun-devnet-8.ethpandaops.io","NEXT_PUBLIC_NETWORK_NAME":"mainnet","NODE_ENV":"","SECRET_KEY":"supersecret"}` | Application configuration |
+| config | object | `{"CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public","NEXT_PUBLIC_BEACON_BASE_URL":"https://dencun-devnet-8.beaconcha.in/","NEXT_PUBLIC_EXPLORER_BASE_URL":"https://explorer.dencun-devnet-8.ethpandaops.io","NEXT_PUBLIC_NETWORK_NAME":"mainnet","SECRET_KEY":"supersecret"}` | Application configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | list | `[{"name":"POSTGRES_STORAGE_ENABLED","value":"true"},{"name":"SWARM_STORAGE_ENABLED","value":"false"},{"name":"GOOGLE_STORAGE_ENABLED","value":"false"},{"name":"GOOGLE_STORAGE_BUCKET_NAME","value":""},{"name":"GOOGLE_STORAGE_PROJECT_ID","value":""},{"name":"GOOGLE_SERVICE_KEY","value":""},{"name":"OTLP_AUTH_USERNAME","value":""},{"name":"OTLP_AUTH_PASSWORD","value":""},{"name":"OTEL_EXPORTER_OTLP_PROTOCOL","value":""},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":""},{"name":"METRICS_ENABLED","value":"true"},{"name":"TRACES_ENABLED","value":"false"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |

@@ -26,17 +26,39 @@ args: []
 
 # -- Application configuration
 config:
-  NEXTAUTH_URL: "http://localhost:3000"
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public"
   SECRET_KEY: "supersecret"
   NEXT_PUBLIC_NETWORK_NAME: "mainnet"
   NEXT_PUBLIC_BEACON_BASE_URL: "https://dencun-devnet-8.beaconcha.in/"
   NEXT_PUBLIC_EXPLORER_BASE_URL: "https://explorer.dencun-devnet-8.ethpandaops.io"
-  BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
-  NODE_ENV: ""
+  CHAIN_ID: "1"
 
 # -- Additional env variables
-extraEnv: []
+extraEnv:
+  - name: POSTGRES_STORAGE_ENABLED
+    value: "true"
+  - name: SWARM_STORAGE_ENABLED
+    value: "false"
+  - name: GOOGLE_STORAGE_ENABLED
+    value: "false"
+  - name: GOOGLE_STORAGE_BUCKET_NAME
+    value: ""
+  - name: GOOGLE_STORAGE_PROJECT_ID
+    value: ""
+  - name: GOOGLE_SERVICE_KEY
+    value: ""
+  - name: OTLP_AUTH_USERNAME
+    value: ""
+  - name: OTLP_AUTH_PASSWORD
+    value: ""
+  - name: OTEL_EXPORTER_OTLP_PROTOCOL
+    value: ""
+  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+    value: ""
+  - name: METRICS_ENABLED
+    value: "true"
+  - name: TRACES_ENABLED
+    value: "false"
 
 ingress:
   # -- Ingress resource for the HTTP API

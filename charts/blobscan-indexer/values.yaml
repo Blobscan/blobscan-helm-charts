@@ -27,10 +27,13 @@ config:
   BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"
   BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
   EXECUTION_NODE_ENDPOINT: "http://execution-node:8545"
-  SENTRY_DSN: ""
 
 # -- Additional env variables
-extraEnv: []
+extraEnv:
+  - name: SENTRY_DSN
+    value: ""
+  - name: RUST_LOG
+    value: "blob_indexer=INFO" 
 
 ingress:
   # -- Ingress resource for the HTTP API

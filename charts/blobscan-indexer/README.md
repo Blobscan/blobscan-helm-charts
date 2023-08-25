@@ -1,7 +1,7 @@
 
 # blobscan-indexer
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan-indexer indexes blobs using Blobscan API.
 
@@ -18,12 +18,12 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","SECRET_KEY":"supersecret","SENTRY_DSN":""}` | Application configuration |
+| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","SECRET_KEY":"supersecret"}` | Application configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | list | `[{"name":"SENTRY_DSN","value":""},{"name":"RUST_LOG","value":"blob_indexer=INFO"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |

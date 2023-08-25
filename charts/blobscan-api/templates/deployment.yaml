@@ -83,7 +83,7 @@ spec:
             - name: BEACON_NODE_ENDPOINT
               value: {{ .Values.config.BEACON_NODE_ENDPOINT | quote }}
             - name: CHAIN_ID
-              value: {{ .Values.CHAIN_ID | quote }}
+              value: {{ .Values.config.CHAIN_ID | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

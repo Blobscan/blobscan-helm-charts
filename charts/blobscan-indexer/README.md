@@ -1,7 +1,7 @@
 
 # blobscan-indexer
 
-![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan-indexer indexes blobs using Blobscan API.
 
@@ -15,6 +15,11 @@ Blobscan-indexer indexes blobs using Blobscan API.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| BEACON_NODE_ENDPOINT | string | `"http://beacon-node:5052"` |  |
+| BLOBSCAN_API_ENDPOINT | string | `"http://blobscan-api:3001"` |  |
+| EXECUTION_NODE_ENDPOINT | string | `"http://execution-node:8545"` |  |
+| SECRET_KEY | string | `"supersecret"` | Environment variables |
+| SENTRY_DSN | string | `""` |  |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
@@ -22,7 +27,7 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"SECRET_KEY","value":"supersecret"},{"name":"BLOBSCAN_API_ENDPOINT","value":"http://blobscan-api:3001"},{"name":"EXECUTION_NODE_ENDPOINT","value":"http://geth-prysm-001:8545"},{"name":"BEACON_NODE_ENDPOINT","value":"http://prysm-geth-001:5052"}]` | Additional env variables |
+| extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |

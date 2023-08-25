@@ -24,14 +24,14 @@ httpPort: 3001
 # -- Command arguments
 args: []
 
+# -- Environment variables
+DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+SECRET_KEY: "supersecret"
+BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
+CHAIN_ID: "1"
+
 # -- Additional env variables
-extraEnv:
-  - name: DATABASE_URL
-    value: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
-  - name: SECRET_KEY
-    value: "supersecret"
-  - name: BLOBSCAN_API_PORT
-    value: "3001"
+extraEnv: []
 
 ingress:
   # -- Ingress resource for the HTTP API

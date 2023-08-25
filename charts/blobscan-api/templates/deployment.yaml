@@ -74,6 +74,16 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: BLOBSCAN_API_PORT
+              value: {{ .Values.httpPort | quote }}
+            - name: DATABASE_URL
+              value: {{ .Values.DATABASE_URL | quote }}
+            - name: SECRET_KEY
+              value: {{ .Values.SECRET_KEY | quote }}
+            - name: BEACON_NODE_ENDPOINT
+              value: {{ .Values.BEACON_NODE_ENDPOINT | quote }}
+            - name: CHAIN_ID
+              value: {{ .Values.CHAIN_ID | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

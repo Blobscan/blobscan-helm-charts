@@ -74,6 +74,22 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: DATABASE_URL
+              value: {{ .Values.DATABASE_URL | quote }}
+            - name: NEXTAUTH_URL
+              value: {{ .Values.NEXTAUTH_URL | quote}}
+            - name: SECRET_KEY
+              value: {{ .Values.SECRET_KEY | quote}}
+            - name: NEXT_PUBLIC_NETWORK_NAME
+              value: {{ .Values.NEXT_PUBLIC_NETWORK_NAME | quote }}
+            - name: NEXT_PUBLIC_BEACON_BASE_URL
+              value: {{ .Values.NEXT_PUBLIC_BEACON_BASE_URL | quote }}
+            - name: NEXT_PUBLIC_EXPLORER_BASE_URL
+              value: {{ .Values.NEXT_PUBLIC_EXPLORER_BASE_URL | quote }}
+            - name: BEACON_NODE_ENDPOINT
+              value: {{ .Values.BEACON_NODE_ENDPOINT | quote }}
+            - name: NODE_ENV
+              value: {{ .Values.NODE_ENV | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

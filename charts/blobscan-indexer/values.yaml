@@ -33,7 +33,7 @@ extraEnv:
   - name: SENTRY_DSN
     value: ""
   - name: RUST_LOG
-    value: "blob_indexer=INFO" 
+    value: "blob_indexer=INFO"
 
 ingress:
   # -- Ingress resource for the HTTP API

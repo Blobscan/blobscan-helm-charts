@@ -36,12 +36,12 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.persistence.enabled | bool | `true` |  |
 | blobscandb.persistence.size | string | `"8Gi"` |  |
 | blobscandb.pullPolicy | string | `"IfNotPresent"` |  |
-| config | object | `{"CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public","NEXT_PUBLIC_BEACON_BASE_URL":"https://dencun-devnet-8.beaconcha.in/","NEXT_PUBLIC_EXPLORER_BASE_URL":"https://explorer.dencun-devnet-8.ethpandaops.io","NEXT_PUBLIC_NETWORK_NAME":"mainnet","SECRET_KEY":"supersecret"}` | Application configuration |
+| config | object | `{"CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public","GOOGLE_SERVICE_KEY":"","GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","METRICS_ENABLED":"true","NEXT_PUBLIC_BEACON_BASE_URL":"https://dencun-devnet-8.beaconcha.in/","NEXT_PUBLIC_EXPLORER_BASE_URL":"https://explorer.dencun-devnet-8.ethpandaops.io","NEXT_PUBLIC_NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"","OTEL_EXPORTER_OTLP_PROTOCOL":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","SECRET_KEY":"supersecret","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"}` | Application configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"POSTGRES_STORAGE_ENABLED","value":"true"},{"name":"SWARM_STORAGE_ENABLED","value":"false"},{"name":"GOOGLE_STORAGE_ENABLED","value":"false"},{"name":"GOOGLE_STORAGE_BUCKET_NAME","value":""},{"name":"GOOGLE_STORAGE_PROJECT_ID","value":""},{"name":"GOOGLE_SERVICE_KEY","value":""},{"name":"OTLP_AUTH_USERNAME","value":""},{"name":"OTLP_AUTH_PASSWORD","value":""},{"name":"OTEL_EXPORTER_OTLP_PROTOCOL","value":""},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":""},{"name":"METRICS_ENABLED","value":"true"},{"name":"TRACES_ENABLED","value":"false"}]` | Additional env variables |
+| extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |

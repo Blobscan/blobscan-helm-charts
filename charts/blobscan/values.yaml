@@ -32,33 +32,25 @@ config:
   NEXT_PUBLIC_BEACON_BASE_URL: "https://dencun-devnet-8.beaconcha.in/"
   NEXT_PUBLIC_EXPLORER_BASE_URL: "https://explorer.dencun-devnet-8.ethpandaops.io"
   CHAIN_ID: "1"
+  # Storages
+  POSTGRES_STORAGE_ENABLED: "true"
+  SWARM_STORAGE_ENABLED: "false"
+  GOOGLE_STORAGE_ENABLED: "false"
+  # GCS specific
+  GOOGLE_STORAGE_BUCKET_NAME: ""
+  GOOGLE_STORAGE_PROJECT_ID: ""
+  GOOGLE_SERVICE_KEY: ""
+  # Opentelemetry
+  OTLP_AUTH_USERNAME: ""
+  OTLP_AUTH_PASSWORD: ""
+  OTEL_EXPORTER_OTLP_PROTOCOL: ""
+  OTEL_EXPORTER_OTLP_ENDPOINT: ""
+  METRICS_ENABLED: "true"
+  TRACES_ENABLED: "false"
+
 
 # -- Additional env variables
-extraEnv:
-  - name: POSTGRES_STORAGE_ENABLED
-    value: "true"
-  - name: SWARM_STORAGE_ENABLED
-    value: "false"
-  - name: GOOGLE_STORAGE_ENABLED
-    value: "false"
-  - name: GOOGLE_STORAGE_BUCKET_NAME
-    value: ""
-  - name: GOOGLE_STORAGE_PROJECT_ID
-    value: ""
-  - name: GOOGLE_SERVICE_KEY
-    value: ""
-  - name: OTLP_AUTH_USERNAME
-    value: ""
-  - name: OTLP_AUTH_PASSWORD
-    value: ""
-  - name: OTEL_EXPORTER_OTLP_PROTOCOL
-    value: ""
-  - name: OTEL_EXPORTER_OTLP_ENDPOINT
-    value: ""
-  - name: METRICS_ENABLED
-    value: "true"
-  - name: TRACES_ENABLED
-    value: "false"
+extraEnv: []
 
 ingress:
   # -- Ingress resource for the HTTP API

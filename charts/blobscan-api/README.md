@@ -18,12 +18,12 @@ Blobscan tRPC API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false","SECRET_KEY":"supersecret"}` | Application configuration |
+| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","BEE_DEBUG_ENDPOINTvalue":"http://localhost:1635","BEE_ENDPOINT":"http://localhost:1633","BLOBSCAN_API_PORT":"3001","CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false","GOOGLE_SERVICE_KEY":"","GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","METRICS_ENABLED":"true","OTEL_EXPORTER_OTLP_ENDPOINT":"","OTEL_EXPORTER_OTLP_PROTOCOL":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","SECRET_KEY":"supersecret","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"}` | Application configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["api"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"BLOBSCAN_API_PORT","value":"3001"},{"name":"POSTGRES_STORAGE_ENABLED","value":"true"},{"name":"SWARM_STORAGE_ENABLED","value":"false"},{"name":"GOOGLE_STORAGE_ENABLED","value":"false"},{"name":"GOOGLE_STORAGE_BUCKET_NAME","value":""},{"name":"GOOGLE_STORAGE_PROJECT_ID","value":""},{"name":"GOOGLE_SERVICE_KEY","value":""},{"name":"OTLP_AUTH_USERNAME","value":""},{"name":"OTLP_AUTH_PASSWORD","value":""},{"name":"OTEL_EXPORTER_OTLP_PROTOCOL","value":""},{"name":"OTEL_EXPORTER_OTLP_ENDPOINT","value":""},{"name":"METRICS_ENABLED","value":"true"},{"name":"TRACES_ENABLED","value":"false"},{"name":"BEE_DEBUG_ENDPOINT","value":"http://localhost:1635"},{"name":"BEE_ENDPOINT","value":"http://localhost:1633"}]` | Additional env variables |
+| extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |

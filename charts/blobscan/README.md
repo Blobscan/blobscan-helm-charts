@@ -21,6 +21,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| BEACON_NODE_ENDPOINT | string | `"http://beacon-node:5052"` |  |
 | DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public"` |  |
 | NEXTAUTH_URL | string | `""` | Environment variables |
 | NEXT_PUBLIC_BEACON_BASE_URL | string | `""` |  |

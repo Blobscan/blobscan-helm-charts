@@ -16,9 +16,8 @@ Blobscan tRPC API
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | BEACON_NODE_ENDPOINT | string | `"http://beacon-node:5052"` |  |
-| BLOBSCAN_API_PORT | string | `"{{ .Values.httpPort }}"` | Environment variables |
 | CHAIN_ID | string | `"1"` |  |
-| DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` |  |
+| DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Environment variables |
 | SECRET_KEY | string | `"supersecret"` |  |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |

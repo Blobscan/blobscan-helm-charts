@@ -74,8 +74,6 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: BLOBSCAN_API_PORT
-              value: {{ .Values.httpPort | quote }}
             - name: DATABASE_URL
               value: {{ .Values.config.DATABASE_URL | quote }}
             - name: SECRET_KEY
@@ -84,6 +82,36 @@ spec:
               value: {{ .Values.config.BEACON_NODE_ENDPOINT | quote }}
             - name: CHAIN_ID
               value: {{ .Values.config.CHAIN_ID | quote }}
+            - name: BLOBSCAN_API_PORT
+              value: {{ .Values.httpPort | quote }}
+            - name: POSTGRES_STORAGE_ENABLED
+              value: {{ .Values.config.POSTGRES_STORAGE_ENABLED | quote }}
+            - name: SWARM_STORAGE_ENABLED
+              value: {{ .Values.config.SWARM_STORAGE_ENABLED | quote }}
+            - name: GOOGLE_STORAGE_ENABLED
+              value: {{ .Values.config.GOOGLE_STORAGE_ENABLED | quote }}
+            - name: GOOGLE_STORAGE_BUCKET_NAME
+              value: {{ .Values.config.GOOGLE_STORAGE_BUCKET_NAME | quote }}
+            - name: GOOGLE_STORAGE_PROJECT_ID
+              value: {{ .Values.config.GOOGLE_STORAGE_PROJECT_ID | quote }}
+            - name: GOOGLE_SERVICE_KEY
+              value: {{ .Values.config.GOOGLE_SERVICE_KEY | quote }}
+            - name: OTLP_AUTH_USERNAME
+              value: {{ .Values.config.OTLP_AUTH_USERNAME | quote }}
+            - name: OTLP_AUTH_PASSWORD
+              value: {{ .Values.config.OTLP_AUTH_PASSWORD | quote }}
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: {{ .Values.config.OTEL_EXPORTER_OTLP_PROTOCOL | quote }}
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: {{ .Values.config.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
+            - name: METRICS_ENABLED
+              value: {{ .Values.config.METRICS_ENABLED | quote }}
+            - name: TRACES_ENABLED
+              value: {{ .Values.config.TRACES_ENABLED | quote }}
+            - name: BEE_DEBUG_ENDPOINT
+              value: {{ .Values.config.BEE_DEBUG_ENDPOINT | quote }}
+            - name: BEE_ENDPOINT
+              value: {{ .Values.config.BEE_ENDPOINT | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

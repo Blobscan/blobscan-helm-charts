@@ -227,7 +227,7 @@ blobscandb:
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 14.8.0
+    tag: 14-debian-11
   pullPolicy: IfNotPresent
   persistence:
     enabled: true

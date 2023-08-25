@@ -15,7 +15,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 12.6.0 |
+| https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 11.9.13 |
 
 ## Values
 
@@ -31,7 +31,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
 | blobscandb.image.registry | string | `"docker.io"` |  |
 | blobscandb.image.repository | string | `"bitnami/postgresql"` |  |
-| blobscandb.image.tag | string | `"14.8.0"` |  |
+| blobscandb.image.tag | string | `"14-debian-11"` |  |
 | blobscandb.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
 | blobscandb.persistence.enabled | bool | `true` |  |
 | blobscandb.persistence.size | string | `"8Gi"` |  |

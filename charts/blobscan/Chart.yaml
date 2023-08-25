@@ -12,7 +12,7 @@ maintainers:
     email: pablo@anche.no
 dependencies:
 - name: postgresql
-  version: "12.6.0"
+  version: "11.9.13"
   repository: "https://charts.bitnami.com/bitnami"
   alias: blobscandb
   condition: blobscandb.enabled

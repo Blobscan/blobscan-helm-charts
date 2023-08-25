@@ -24,7 +24,9 @@ httpPort: 3001
 # -- Command arguments
 args: []
 
-# -- Application configuration
+# -- Config file
+# @default -- See `values.yaml`
+# https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
   SECRET_KEY: "supersecret"

@@ -18,7 +18,7 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","RUST_LOG":"blob_indexer=INFO","SECRET_KEY":"supersecret","SENTRY_DSN":""}` | Application configuration |
+| config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |

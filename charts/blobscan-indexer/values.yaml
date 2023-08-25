@@ -21,7 +21,9 @@ secretEnv: {}
 # -- Command arguments
 args: []
 
-# -- Application configuration
+# -- Config file
+# @default -- See `values.yaml`
+# https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:
   SECRET_KEY: "supersecret"
   BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"

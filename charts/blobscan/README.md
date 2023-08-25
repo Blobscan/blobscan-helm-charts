@@ -36,7 +36,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.persistence.enabled | bool | `true` |  |
 | blobscandb.persistence.size | string | `"8Gi"` |  |
 | blobscandb.pullPolicy | string | `"IfNotPresent"` |  |
-| config | object | `{"CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public","GOOGLE_SERVICE_KEY":"","GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","METRICS_ENABLED":"true","NEXT_PUBLIC_BEACON_BASE_URL":"https://dencun-devnet-8.beaconcha.in/","NEXT_PUBLIC_EXPLORER_BASE_URL":"https://explorer.dencun-devnet-8.ethpandaops.io","NEXT_PUBLIC_NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"","OTEL_EXPORTER_OTLP_PROTOCOL":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","SECRET_KEY":"supersecret","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"}` | Application configuration |
+| config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |

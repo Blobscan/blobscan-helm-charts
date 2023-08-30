@@ -231,7 +231,7 @@ blobscandb:
   pullPolicy: IfNotPresent
   persistence:
     enabled: true
-    size: 8Gi
+    size: 100Gi
   # -- How to init the PSQL DB
   # @default -- See `values.yaml`
   initdbScripts:

@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.10](https://img.shields.io/badge/Version-0.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
 
@@ -34,7 +34,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.image.tag | string | `"14-debian-11"` |  |
 | blobscandb.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
 | blobscandb.persistence.enabled | bool | `true` |  |
-| blobscandb.persistence.size | string | `"8Gi"` |  |
+| blobscandb.persistence.size | string | `"100Gi"` |  |
 | blobscandb.pullPolicy | string | `"IfNotPresent"` |  |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |

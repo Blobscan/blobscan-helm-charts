@@ -6,13 +6,13 @@ icon: https://raw.githubusercontent.com/Blobscan/blobscan/next/.github/assets/bl
 sources:
   - https://github.com/blobscan/blobscan/
 type: application
-version: 0.2.10
+version: 0.2.11
 maintainers:
   - name: PabloCastellano
     email: pablo@anche.no
 dependencies:
 - name: postgresql
-  version: "11.9.13"
   repository: "https://charts.bitnami.com/bitnami"
+  version: "11.9.13"
   alias: blobscandb
   condition: blobscandb.enabled

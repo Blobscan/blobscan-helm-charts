@@ -218,6 +218,7 @@ serviceMonitor:
 
 blobscandb:
   # -- If enabled a postgres chart will be deployed as a dependency
+  # Check out https://artifacthub.io/packages/helm/bitnami/postgresql for all possible commands
   enabled: true
   auth:
     postgresPassword: postgres
@@ -228,12 +229,8 @@ blobscandb:
     registry: docker.io
     repository: bitnami/postgresql
     tag: 14-debian-11
-  pullPolicy: IfNotPresent
-  persistence:
-    enabled: true
-    size: 100Gi
-  # -- How to init the PSQL DB
-  # @default -- See `values.yaml`
-  initdbScripts:
-    init_01.sql: |
-      CREATE DATABASE blobscan;
+    pullPolicy: IfNotPresent
+  primary:
+    persistence:
+      enabled: true
+      size: 100Gi

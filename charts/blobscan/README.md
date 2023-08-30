@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.2.10](https://img.shields.io/badge/Version-0.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.11](https://img.shields.io/badge/Version-0.2.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
 
@@ -28,14 +28,13 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.auth.password | string | `"postgres"` |  |
 | blobscandb.auth.postgresPassword | string | `"postgres"` |  |
 | blobscandb.auth.username | string | `"postgres"` |  |
-| blobscandb.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
+| blobscandb.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency Check out https://artifacthub.io/packages/helm/bitnami/postgresql for all possible commands |
+| blobscandb.image.pullPolicy | string | `"IfNotPresent"` |  |
 | blobscandb.image.registry | string | `"docker.io"` |  |
 | blobscandb.image.repository | string | `"bitnami/postgresql"` |  |
 | blobscandb.image.tag | string | `"14-debian-11"` |  |
-| blobscandb.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
-| blobscandb.persistence.enabled | bool | `true` |  |
-| blobscandb.persistence.size | string | `"100Gi"` |  |
-| blobscandb.pullPolicy | string | `"IfNotPresent"` |  |
+| blobscandb.primary.persistence.enabled | bool | `true` |  |
+| blobscandb.primary.persistence.size | string | `"100Gi"` |  |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan container |

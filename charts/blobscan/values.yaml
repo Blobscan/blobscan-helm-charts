@@ -46,8 +46,9 @@ config:
   # Opentelemetry
   OTLP_AUTH_USERNAME: ""
   OTLP_AUTH_PASSWORD: ""
-  OTEL_EXPORTER_OTLP_PROTOCOL: ""
-  OTEL_EXPORTER_OTLP_ENDPOINT: ""
+  OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
+
   METRICS_ENABLED: "true"
   TRACES_ENABLED: "false"
 
@@ -216,9 +217,9 @@ serviceMonitor:
   # -- ServiceMonitor relabelings
   relabelings: []
 
+# Check out https://artifacthub.io/packages/helm/bitnami/postgresql for all possible configs
 blobscandb:
   # -- If enabled a postgres chart will be deployed as a dependency
-  # Check out https://artifacthub.io/packages/helm/bitnami/postgresql for all possible commands
   enabled: true
   auth:
     postgresPassword: postgres

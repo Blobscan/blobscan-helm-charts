@@ -1,4 +1,4 @@
-# Blobscan Helm Charts
+# Blobscan Helm Charts <a href="#"><img align="right" src=".github/assets/logo.svg" height="80px" /></a>
 
 [![Release Helm Charts](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/blobscan/blobscan-helm-charts/actions/workflows/release.yaml)
 

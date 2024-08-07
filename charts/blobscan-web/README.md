@@ -1,9 +1,9 @@
 
-# blobscan-api
+# blobscan-web
 
 ![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Blobscan API
+Blobscan Web UI
 
 **Homepage:** <https://blobscan.com>
 
@@ -20,8 +20,8 @@ Blobscan API
 | args | list | `[]` | Command arguments |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/main/.env.example |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["api"]` | Custom args for the blobscan-api container |
-| customCommand | list | `[]` | Command replacement for the blobscan-api container |
+| customArgs | list | `["web"]` | Custom args for the blobscan-web container |
+| customCommand | list | `[]` | Command replacement for the blobscan-web container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
@@ -29,10 +29,10 @@ Blobscan API
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | int | `3001` | Ports |
-| image.pullPolicy | string | `"IfNotPresent"` | blobscan-api container pull policy |
-| image.repository | string | `"blossomlabs/blobscan-api"` | blobscan-api container image repository |
-| image.tag | string | `"latest"` | blobscan-api container image tag |
+| httpPort | int | `3000` | Ports |
+| image.pullPolicy | string | `"IfNotPresent"` | blobscan-web container pull policy |
+| image.repository | string | `"blossomlabs/blobscan-web"` | blobscan-web container image repository |
+| image.tag | string | `"latest"` | blobscan-web container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -68,3 +68,4 @@ Blobscan API
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

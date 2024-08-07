@@ -8,48 +8,46 @@ fullnameOverride: ""
 replicas: 1
 
 image:
-  # -- blobscan-api container image repository
-  repository: blossomlabs/blobscan-api
-  # -- blobscan-api container image tag
+  # -- blobscan-web container image repository
+  repository: blossomlabs/blobscan-web
+  # -- blobscan-web container image tag
   tag: latest
-  # -- blobscan-api container pull policy
+  # -- blobscan-web container pull policy
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
 secretEnv: {}
 
 # -- Ports
-httpPort: 3001
+httpPort: 3000
 
 # -- Command arguments
 args: []
+
 
 # -- Config file
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/main/.env.example
 config:
-  CHAIN_ID: "1"
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
-  REDIS_URI: "redis://blobscan-redis-master:6379/1"
-  SECRET_KEY: "supersecret"
   NETWORK_NAME: "mainnet"
   BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
   BLOBSCAN_API_PORT: 3001
-  # Storages: General
+  SECRET_KEY: "supersecret"
+  # Storages
   POSTGRES_STORAGE_ENABLED: "true"
   SWARM_STORAGE_ENABLED: "false"
   GOOGLE_STORAGE_ENABLED: "false"
-  # Storages: Google Cloud specific
+  # GCS specific
   GOOGLE_STORAGE_BUCKET_NAME: ""
   GOOGLE_STORAGE_PROJECT_ID: ""
   GOOGLE_SERVICE_KEY: ""
-  # Storages: Swarm specific
-  BEE_ENDPOINT: "http://localhost:1633"
   # Opentelemetry
   OTLP_AUTH_USERNAME: ""
   OTLP_AUTH_PASSWORD: ""
   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
+
   METRICS_ENABLED: "true"
   TRACES_ENABLED: "false"
 
@@ -73,10 +71,10 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# -- Custom args for the blobscan-api container
-customArgs: ["api"]
+# -- Custom args for the blobscan-web container
+customArgs: ["web"]
 
-# -- Command replacement for the blobscan-api container
+# -- Command replacement for the blobscan-web container
 customCommand: [] # Only change this if you need to change the default command
 
 service:
@@ -165,6 +163,10 @@ terminationGracePeriodSeconds: 30
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
 
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created

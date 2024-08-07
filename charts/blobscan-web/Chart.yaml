@@ -1,0 +1,16 @@
+apiVersion: v2
+name: blobscan-web
+version: 0.3.1
+description: Blobscan Web UI
+type: application
+keywords:
+  - ethereum
+  - eip4844
+  - blobs
+home: https://blobscan.com
+sources:
+  - https://github.com/blobscan/blobscan/
+maintainers:
+  - name: PabloCastellano
+    email: pablo@anche.no
+icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg

@@ -18,10 +18,10 @@ Blobscan API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
+| config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/main/.env.example |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["api"]` | Custom args for the blobscan container |
-| customCommand | list | `[]` | Command replacement for the blobscan container |
+| customArgs | list | `["api"]` | Custom args for the blobscan-api container |
+| customCommand | list | `[]` | Command replacement for the blobscan-api container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
@@ -30,9 +30,9 @@ Blobscan API
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3001` | Ports |
-| image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
-| image.repository | string | `"blossomlabs/blobscan-api"` | blobscan container image repository |
-| image.tag | string | `"latest"` | blobscan container image tag |
+| image.pullPolicy | string | `"IfNotPresent"` | blobscan-api container pull policy |
+| image.repository | string | `"blossomlabs/blobscan-api"` | blobscan-api container image repository |
+| image.tag | string | `"latest"` | blobscan-api container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

@@ -8,11 +8,11 @@ fullnameOverride: ""
 replicas: 1
 
 image:
-  # -- blobscan container image repository
+  # -- blobscan-api container image repository
   repository: blossomlabs/blobscan-api
-  # -- blobscan container image tag
+  # -- blobscan-api container image tag
   tag: latest
-  # -- blobscan container pull policy
+  # -- blobscan-api container pull policy
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
@@ -26,7 +26,7 @@ args: []
 
 # -- Config file
 # @default -- See `values.yaml`
-# https://github.com/Blobscan/blobscan/blob/next/.env.example
+# https://github.com/Blobscan/blobscan/blob/main/.env.example
 config:
   CHAIN_ID: "1"
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
@@ -73,10 +73,10 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# -- Custom args for the blobscan container
+# -- Custom args for the blobscan-api container
 customArgs: ["api"]
 
-# -- Command replacement for the blobscan container
+# -- Command replacement for the blobscan-api container
 customCommand: [] # Only change this if you need to change the default command
 
 service:

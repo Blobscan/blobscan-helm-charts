@@ -3,7 +3,7 @@
 
 ![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
+Blobscan Web UI
 
 **Homepage:** <https://blobscan.com>
 

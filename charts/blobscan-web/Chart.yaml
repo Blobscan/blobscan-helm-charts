@@ -1,7 +1,7 @@
 apiVersion: v2
 name: blobscan-web
 version: 0.3.1
-description: Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
+description: Blobscan Web UI
 type: application
 keywords:
   - ethereum

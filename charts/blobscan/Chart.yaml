@@ -1,6 +1,6 @@
 apiVersion: v2
 name: blobscan
-version: 0.4.0
+version: 0.4.1
 description: Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 type: application
 keywords:
@@ -13,13 +13,13 @@ sources:
 dependencies:
 - name: blobscan-web
   repository: "https://blobscan.github.io/blobscan-helm-charts"
-  version: 0.3.1
+  version: 0.3.2
 - name: blobscan-api
   repository: "https://blobscan.github.io/blobscan-helm-charts"
-  version: 0.3.1
+  version: 0.3.2
 - name: blobscan-indexer
   repository: "https://blobscan.github.io/blobscan-helm-charts"
-  version: 0.2.10
+  version: 0.2.11
 - name: postgresql
   repository: "https://charts.bitnami.com/bitnami"
   version: 15.5.20

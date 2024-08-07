@@ -18,16 +18,16 @@ the latest versions of the packages.  You can then run the following command to 
 helm search repo blobscan-helm-charts
 ```
 
-To install the ethstats chart:
+To install the blobscan chart:
 
 ```sh
-helm install ethstats blobscan-helm-charts/ethstats
+helm install blobscan blobscan-helm-charts/blobscan
 ```
 
 To uninstall the chart:
 
 ```sh
-helm delete ethstats
+helm delete blobscan
 ```
 
 ## More infos

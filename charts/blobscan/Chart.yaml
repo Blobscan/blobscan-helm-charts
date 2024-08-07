@@ -1,7 +1,7 @@
 apiVersion: v2
 name: blobscan
-version: 0.3.0
-description: Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
+version: 0.4.0
+description: Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 type: application
 keywords:
   - ethereum
@@ -11,6 +11,15 @@ home: https://blobscan.com
 sources:
   - https://github.com/blobscan/blobscan/
 dependencies:
+- name: blobscan-web
+  repository: "https://blobscan.github.io/blobscan-helm-charts"
+  version: 0.3.1
+- name: blobscan-api
+  repository: "https://blobscan.github.io/blobscan-helm-charts"
+  version: 0.3.1
+- name: blobscan-indexer
+  repository: "https://blobscan.github.io/blobscan-helm-charts"
+  version: 0.2.10
 - name: postgresql
   repository: "https://charts.bitnami.com/bitnami"
   version: 15.5.20

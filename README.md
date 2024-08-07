@@ -36,9 +36,10 @@ helm delete blobscan
 
 ## List of charts
 
-- [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
-- [`blobscan-api`](charts/blobscan-api) - Blobscan tRPC API.
-- [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in Postgresql for use with Blobscan.
+- [`blobscan`](charts/blobscan) - Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer).
+- [`blobscan-api`](charts/blobscan-api) - Blobscan API.
+- [`blobscan-web`](charts/blobscan-web) - Blobscan Web UI.
+- [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan blob indexer.
 
 ## Development
 

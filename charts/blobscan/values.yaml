@@ -9,9 +9,9 @@ replicas: 1
 
 image:
   # -- blobscan container image repository
-  repository: blossomlabs/blobscan
+  repository: blossomlabs/blobscan-web
   # -- blobscan container image tag
-  tag: next
+  tag: latest
   # -- blobscan container pull policy
   pullPolicy: IfNotPresent
 
@@ -29,12 +29,11 @@ args: []
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:
-  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?schema=public"
+  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  NETWORK_NAME: "mainnet"
+  BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
+  BLOBSCAN_API_PORT: 3001
   SECRET_KEY: "supersecret"
-  NEXT_PUBLIC_NETWORK_NAME: "mainnet"
-  NEXT_PUBLIC_BEACON_BASE_URL: "https://beaconcha.in/"
-  NEXT_PUBLIC_EXPLORER_BASE_URL: "https://etherscan.io/"
-  CHAIN_ID: "1"
   # Storages
   POSTGRES_STORAGE_ENABLED: "true"
   SWARM_STORAGE_ENABLED: "false"
@@ -51,7 +50,6 @@ config:
 
   METRICS_ENABLED: "true"
   TRACES_ENABLED: "false"
-
 
 # -- Additional env variables
 extraEnv: []
@@ -229,9 +227,16 @@ blobscandb:
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 14-debian-11
+    tag: 16-debian-12
     pullPolicy: IfNotPresent
   primary:
     persistence:
       enabled: true
       size: 100Gi
+
+redis:
+  # -- If enabled a redis chart will be deployed as a dependency
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: false

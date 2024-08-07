@@ -2,11 +2,11 @@ apiVersion: v2
 name: blobscan-indexer
 description: Blobscan-indexer indexes blobs using Blobscan API.
 home: https://blobscan.com
-icon: https://raw.githubusercontent.com/Blobscan/blobscan/next/.github/assets/blobi.jpeg
+icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
 sources:
   - https://github.com/blobscan/blobscan-indexer
 type: application
-version: 0.2.9
+version: 0.2.10
 maintainers:
   - name: PabloCastellano
     email: pablo@anche.no

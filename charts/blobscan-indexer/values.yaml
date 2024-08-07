@@ -25,12 +25,14 @@ args: []
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:
-  SECRET_KEY: "supersecret"
-  BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"
   BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
+  BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"
   EXECUTION_NODE_ENDPOINT: "http://execution-node:8545"
-  SENTRY_DSN: ""
+  SECRET_KEY: "supersecret"
+  NETWORK_NAME: "mainnet"
+  # DENCUN_FORK_SLOT
   RUST_LOG: "blob_indexer=INFO"
+  SENTRY_DSN: ""
 
 # -- Additional env variables
 extraEnv: []

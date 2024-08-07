@@ -74,14 +74,18 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: DATABASE_URL
-              value: {{ .Values.config.DATABASE_URL | quote }}
-            - name: SECRET_KEY
-              value: {{ .Values.config.SECRET_KEY | quote }}
-            - name: BEACON_NODE_ENDPOINT
-              value: {{ .Values.config.BEACON_NODE_ENDPOINT | quote }}
             - name: CHAIN_ID
               value: {{ .Values.config.CHAIN_ID | quote }}
+            - name: DATABASE_URL
+              value: {{ .Values.config.DATABASE_URL | quote }}
+            - name: REDIS_URI
+              value: {{ .Values.config.REDIS_URI | quote }}
+            - name: SECRET_KEY
+              value: {{ .Values.config.SECRET_KEY | quote }}
+            - name: NETWORK_NAME
+              value: {{ .Values.config.NETWORK_NAME | quote }}
+            - name: BLOBSCAN_API_BASE
+              value: {{ .Values.config.BLOBSCAN_API_BASE | quote }}
             - name: BLOBSCAN_API_PORT
               value: {{ .Values.httpPort | quote }}
             - name: POSTGRES_STORAGE_ENABLED
@@ -108,8 +112,6 @@ spec:
               value: {{ .Values.config.METRICS_ENABLED | quote }}
             - name: TRACES_ENABLED
               value: {{ .Values.config.TRACES_ENABLED | quote }}
-            - name: BEE_DEBUG_ENDPOINT
-              value: {{ .Values.config.BEE_DEBUG_ENDPOINT | quote }}
             - name: BEE_ENDPOINT
               value: {{ .Values.config.BEE_ENDPOINT | quote }}
           {{- range $key, $value := .Values.secretEnv }}

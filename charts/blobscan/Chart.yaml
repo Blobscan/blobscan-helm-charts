@@ -1,18 +1,27 @@
 apiVersion: v2
 name: blobscan
+version: 0.3.0
 description: Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
+type: application
+keywords:
+  - ethereum
+  - eip4844
+  - blobs
 home: https://blobscan.com
-icon: https://raw.githubusercontent.com/Blobscan/blobscan/next/.github/assets/blobi.jpeg
 sources:
   - https://github.com/blobscan/blobscan/
-type: application
-version: 0.2.12
-maintainers:
-  - name: PabloCastellano
-    email: pablo@anche.no
 dependencies:
 - name: postgresql
   repository: "https://charts.bitnami.com/bitnami"
-  version: "11.9.13"
+  version: 15.5.20
   alias: blobscandb
   condition: blobscandb.enabled
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 19.6.4
+  alias: redis
+  condition: redis.enabled
+maintainers:
+  - name: PabloCastellano
+    email: pablo@anche.no
+icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg

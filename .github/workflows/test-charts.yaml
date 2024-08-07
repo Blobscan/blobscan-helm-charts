@@ -58,3 +58,6 @@ jobs:
           ct install
           --config ct.yaml
           --target-branch ${{ github.event.repository.default_branch }}
+          --excluded-charts blobscan-web
+          --excluded-charts blobscan-api
+          --excluded-charts blobscan-indexer

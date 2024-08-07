@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.2.12](https://img.shields.io/badge/Version-0.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
 
@@ -15,7 +15,8 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 11.9.13 |
+| https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.20 |
+| https://charts.bitnami.com/bitnami | redis(redis) | 19.6.4 |
 
 ## Values
 
@@ -32,7 +33,7 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | blobscandb.image.pullPolicy | string | `"IfNotPresent"` |  |
 | blobscandb.image.registry | string | `"docker.io"` |  |
 | blobscandb.image.repository | string | `"bitnami/postgresql"` |  |
-| blobscandb.image.tag | string | `"14-debian-11"` |  |
+| blobscandb.image.tag | string | `"16-debian-12"` |  |
 | blobscandb.primary.persistence.enabled | bool | `true` |  |
 | blobscandb.primary.persistence.size | string | `"100Gi"` |  |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
@@ -48,8 +49,8 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3000` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
-| image.repository | string | `"blossomlabs/blobscan"` | blobscan container image repository |
-| image.tag | string | `"next"` | blobscan container image tag |
+| image.repository | string | `"blossomlabs/blobscan-web"` | blobscan container image repository |
+| image.tag | string | `"latest"` | blobscan container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -65,6 +66,9 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
+| redis.architecture | string | `"standalone"` |  |
+| redis.auth.enabled | bool | `false` |  |
+| redis.enabled | bool | `true` | If enabled a redis chart will be deployed as a dependency |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Secret env variables injected via a created secret |

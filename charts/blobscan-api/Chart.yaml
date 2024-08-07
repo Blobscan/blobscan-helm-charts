@@ -1,12 +1,12 @@
 apiVersion: v2
 name: blobscan-api
-description: Blobscan tRPC API
+description: Blobscan API
 home: https://blobscan.com
-icon: https://raw.githubusercontent.com/Blobscan/blobscan/next/.github/assets/blobi.jpeg
+icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
 sources:
   - https://github.com/blobscan/blobscan/
 type: application
-version: 0.2.8
+version: 0.3.0
 maintainers:
   - name: PabloCastellano
     email: pablo@anche.no

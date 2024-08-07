@@ -9,9 +9,9 @@ replicas: 1
 
 image:
   # -- blobscan container image repository
-  repository: blossomlabs/blobscan
+  repository: blossomlabs/blobscan-api
   # -- blobscan container image tag
-  tag: next
+  tag: latest
   # -- blobscan container pull policy
   pullPolicy: IfNotPresent
 
@@ -28,19 +28,23 @@ args: []
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:
-  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
-  SECRET_KEY: "supersecret"
-  BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
   CHAIN_ID: "1"
-  BLOBSCAN_API_PORT: "3001"
-  # Storages
+  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  REDIS_URI: "redis://blobscan-redis-master:6379/1"
+  SECRET_KEY: "supersecret"
+  NETWORK_NAME: "mainnet"
+  BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
+  BLOBSCAN_API_PORT: 3001
+  # Storages: General
   POSTGRES_STORAGE_ENABLED: "true"
   SWARM_STORAGE_ENABLED: "false"
   GOOGLE_STORAGE_ENABLED: "false"
-  # Google cloud storage specific
+  # Storages: Google Cloud specific
   GOOGLE_STORAGE_BUCKET_NAME: ""
   GOOGLE_STORAGE_PROJECT_ID: ""
   GOOGLE_SERVICE_KEY: ""
+  # Storages: Swarm specific
+  BEE_ENDPOINT: "http://localhost:1633"
   # Opentelemetry
   OTLP_AUTH_USERNAME: ""
   OTLP_AUTH_PASSWORD: ""
@@ -48,9 +52,6 @@ config:
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
   METRICS_ENABLED: "true"
   TRACES_ENABLED: "false"
-  # Swarm storage specific
-  BEE_DEBUG_ENDPOINT: "http://localhost:1635"
-  BEE_ENDPOINT: "http://localhost:1633"
 
 # -- Additional env variables
 extraEnv: []

@@ -15,10 +15,10 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-api | 0.3.2 |
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-indexer | 0.2.11 |
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-web | 0.3.2 |
-| https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.20 |
+| https://blobscan.github.io/blobscan-helm-charts | blobscan-api | 0.3.1 |
+| https://blobscan.github.io/blobscan-helm-charts | blobscan-indexer | 0.2.10 |
+| https://blobscan.github.io/blobscan-helm-charts | blobscan-web | 0.3.1 |
+| https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.19 |
 | https://charts.bitnami.com/bitnami | redis(redis) | 19.6.4 |
 
 ## Values

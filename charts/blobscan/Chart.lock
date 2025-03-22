@@ -1,18 +1,18 @@
 dependencies:
 - name: blobscan-web
   repository: https://blobscan.github.io/blobscan-helm-charts
-  version: 0.3.1
+  version: 0.3.3
 - name: blobscan-api
   repository: https://blobscan.github.io/blobscan-helm-charts
-  version: 0.3.1
+  version: 0.3.3
 - name: blobscan-indexer
   repository: https://blobscan.github.io/blobscan-helm-charts
-  version: 0.2.10
+  version: 0.2.11
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 15.5.20
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.6.4
-digest: sha256:e8842c17ad3d93c50e016790b730a3d4ba5f88afe8ce32ade9898bbfdbd73995
-generated: "2024-08-07T19:43:58.805369682+02:00"
+digest: sha256:b031dc96239643b5eb6e667fdeb3c06b3b7a98155434ee409819fdbd66ece47e
+generated: "2025-03-22T18:43:22.494343419+01:00"

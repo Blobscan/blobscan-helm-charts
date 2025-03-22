@@ -76,6 +76,8 @@ spec:
           env:
             - name: DATABASE_URL
               value: {{ .Values.config.DATABASE_URL | quote }}
+            - name: DIRECT_URL
+              value: {{ .Values.config.DIRECT_URL | quote }}
             - name: NETWORK_NAME
               value: {{ .Values.config.NETWORK_NAME | quote }}
             - name: BLOBSCAN_API_BASE_URL

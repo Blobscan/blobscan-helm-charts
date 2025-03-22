@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -19,6 +19,27 @@ Blobscan API
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/main/.env.example |
+| config.BEE_ENDPOINT | string | `"http://localhost:1633"` | Swarm Bee node endpoint for decentralized storage |
+| config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
+| config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
+| config.CHAIN_ID | string | `"1"` | Ethereum network chain ID (1 for mainnet) |
+| config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | PostgreSQL connection string for the main database connection |
+| config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Direct PostgreSQL connection string, used for Prisma direct database access |
+| config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
+| config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
+| config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
+| config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
+| config.METRICS_ENABLED | string | `"true"` | Enable metrics collection and reporting |
+| config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
+| config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
+| config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol used for OpenTelemetry data export |
+| config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
+| config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
+| config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
+| config.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
+| config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
+| config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
+| config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["api"]` | Custom args for the blobscan-api container |
 | customCommand | list | `[]` | Command replacement for the blobscan-api container |

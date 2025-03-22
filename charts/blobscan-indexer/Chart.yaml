@@ -6,7 +6,7 @@ icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/lo
 sources:
   - https://github.com/blobscan/blobscan-indexer
 type: application
-version: 0.2.10
+version: 0.2.11
 maintainers:
   - name: PabloCastellano
     email: pablo@anche.no

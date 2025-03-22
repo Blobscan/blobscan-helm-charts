@@ -28,29 +28,47 @@ args: []
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/main/.env.example
 config:
+  # -- Ethereum network chain ID (1 for mainnet)
   CHAIN_ID: "1"
+  # -- PostgreSQL connection string for the main database connection
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  # -- Direct PostgreSQL connection string, used for Prisma direct database access
+  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  # -- Redis connection URI for caching and queue management
   REDIS_URI: "redis://blobscan-redis-master:6379/1"
+  # -- Secret key used for session management and encryption
   SECRET_KEY: "supersecret"
+  # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
   NETWORK_NAME: "mainnet"
+  # -- Base URL for the Blobscan API service
   BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
+  # -- Port on which the Blobscan API service listens
   BLOBSCAN_API_PORT: 3001
-  # Storages: General
+  # -- Enable PostgreSQL storage for blob data
   POSTGRES_STORAGE_ENABLED: "true"
+  # -- Enable Swarm decentralized storage for blob data
   SWARM_STORAGE_ENABLED: "false"
+  # -- Enable Google Cloud Storage for blob data
   GOOGLE_STORAGE_ENABLED: "false"
-  # Storages: Google Cloud specific
+  # -- Google Cloud Storage bucket name for blob data storage
   GOOGLE_STORAGE_BUCKET_NAME: ""
+  # -- Google Cloud project ID for blob data storage
   GOOGLE_STORAGE_PROJECT_ID: ""
+  # -- Google Cloud service account key for authentication (JSON format)
   GOOGLE_SERVICE_KEY: ""
-  # Storages: Swarm specific
+  # -- Swarm Bee node endpoint for decentralized storage
   BEE_ENDPOINT: "http://localhost:1633"
-  # Opentelemetry
+  # -- Username for OpenTelemetry authentication
   OTLP_AUTH_USERNAME: ""
+  # -- Password for OpenTelemetry authentication
   OTLP_AUTH_PASSWORD: ""
+  # -- Protocol used for OpenTelemetry data export
   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+  # -- Endpoint URL for OpenTelemetry data export
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
+  # -- Enable metrics collection and reporting
   METRICS_ENABLED: "true"
+  # -- Enable distributed tracing
   TRACES_ENABLED: "false"
 
 # -- Additional env variables

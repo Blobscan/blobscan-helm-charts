@@ -33,7 +33,7 @@ config:
   # -- PostgreSQL connection string for the main database connection
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
   # -- Direct PostgreSQL connection string, used for Prisma direct database access
-  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  DIRECT_URL: ""
   # -- Redis connection URI for caching and queue management
   REDIS_URI: "redis://blobscan-redis-master:6379/1"
   # -- Secret key used for session management and encryption

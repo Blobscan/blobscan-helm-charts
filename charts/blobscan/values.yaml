@@ -32,7 +32,7 @@ config:
   # -- Database connection URL for PostgreSQL
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
   # -- Direct database connection URL (no pgbouncer) for PostgreSQL
-  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  DIRECT_URL: ""
   # -- Ethereum network name (e.g., mainnet, sepolia, holesky, gnosis)
   NETWORK_NAME: "mainnet"
   # -- Base URL for the Blobscan API service

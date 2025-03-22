@@ -43,7 +43,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
 | config.BLOBSCAN_API_PORT | int | `3001` | Port number for the Blobscan API service |
 | config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Database connection URL for PostgreSQL |
-| config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Direct database connection URL (no pgbouncer) for PostgreSQL |
+| config.DIRECT_URL | string | `""` | Direct database connection URL (no pgbouncer) for PostgreSQL |
 | config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication |
 | config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Name of the Google Cloud Storage bucket for blob storage |
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blobs |

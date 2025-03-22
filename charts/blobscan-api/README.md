@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.3](https://img.shields.io/badge/Version-0.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -24,7 +24,7 @@ Blobscan API
 | config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
 | config.CHAIN_ID | string | `"1"` | Ethereum network chain ID (1 for mainnet) |
 | config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | PostgreSQL connection string for the main database connection |
-| config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Direct PostgreSQL connection string, used for Prisma direct database access |
+| config.DIRECT_URL | string | `""` | Direct PostgreSQL connection string, used for Prisma direct database access |
 | config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
 | config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |

@@ -32,7 +32,7 @@ config:
   # -- PostgreSQL connection string for the main database connection
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
   # -- Direct PostgreSQL connection string, used for Prisma direct database access
-  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  DIRECT_URL: ""
   # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
   NETWORK_NAME: "mainnet"
   # -- Base URL for the Blobscan API service

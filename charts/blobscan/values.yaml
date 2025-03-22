@@ -33,9 +33,9 @@ blobscan-web:
       memory: 128Mi
   config:
     # -- PostgreSQL connection string for blobscan-web
-    DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true"
+    DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"
     # -- Direct PostgreSQL connection string for Prisma (no pgbouncer)
-    DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true" # TODO: pgbouncer
+    DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"
     # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
     NETWORK_NAME: "mainnet"
     # -- Base URL for the Blobscan API service
@@ -99,7 +99,9 @@ blobscan-api:
     # -- Ethereum network chain ID (1 for mainnet)
     CHAIN_ID: "1"
     # -- PostgreSQL connection string for blobscan-api with read-write access
-    DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+    DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"
+    # -- Direct PostgreSQL connection string for Prisma (no pgbouncer)
+    DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"
     # -- Redis connection URI for caching and queue management
     REDIS_URI: "redis://blobscan-redis-master:6379/1"
     # -- Secret key used for session management and encryption

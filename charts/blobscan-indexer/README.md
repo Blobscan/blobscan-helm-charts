@@ -33,11 +33,6 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | image.repository | string | `"blossomlabs/blobscan-indexer"` | blobscan-indexer container image repository |
 | image.tag | string | `"latest"` | blobscan-indexer container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
-| ingress.annotations | object | `{}` | Annotations for Ingress |
-| ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
-| ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths | list | `[]` |  |
-| ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
@@ -45,7 +40,6 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
-| replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |

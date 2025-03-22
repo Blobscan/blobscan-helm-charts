@@ -4,9 +4,6 @@ nameOverride: ""
 # -- Overrides the chart's computed fullname
 fullnameOverride: ""
 
-# -- Number of replicas
-replicas: 1
-
 image:
   # -- blobscan-indexer container image repository
   repository: blossomlabs/blobscan-indexer
@@ -36,23 +33,6 @@ config:
 
 # -- Additional env variables
 extraEnv: []
-
-ingress:
-  # -- Ingress resource for the HTTP API
-  enabled: false
-  # -- Annotations for Ingress
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  # -- Ingress host
-  hosts:
-    - host: chart-example.local
-      paths: []
-  # -- Ingress TLS
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 # -- Custom args for the blobscan-indexer container
 customArgs: []

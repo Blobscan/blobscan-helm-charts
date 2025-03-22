@@ -29,26 +29,42 @@ args: []
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:
+  # -- Database connection URL for PostgreSQL
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  # -- Direct database connection URL (no pgbouncer) for PostgreSQL
+  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+  # -- Ethereum network name (e.g., mainnet, sepolia, holesky, gnosis)
   NETWORK_NAME: "mainnet"
+  # -- Base URL for the Blobscan API service
   BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
+  # -- Port number for the Blobscan API service
   BLOBSCAN_API_PORT: 3001
+  # -- Secret key for session encryption and security
   SECRET_KEY: "supersecret"
-  # Storages
+  # -- Enable PostgreSQL storage for blobs
   POSTGRES_STORAGE_ENABLED: "true"
+  # -- Enable Swarm storage for blobs
   SWARM_STORAGE_ENABLED: "false"
+  # -- Enable Google Cloud Storage for blobs
   GOOGLE_STORAGE_ENABLED: "false"
-  # GCS specific
+  # -- Name of the Google Cloud Storage bucket for blob storage
   GOOGLE_STORAGE_BUCKET_NAME: ""
+  # -- Google Cloud project ID for GCS
   GOOGLE_STORAGE_PROJECT_ID: ""
+  # -- Google Cloud service account key for authentication
   GOOGLE_SERVICE_KEY: ""
-  # Opentelemetry
+  # -- Username for OpenTelemetry authentication
   OTLP_AUTH_USERNAME: ""
+  # -- Password for OpenTelemetry authentication
   OTLP_AUTH_PASSWORD: ""
+  # -- Protocol for OpenTelemetry exporter
   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+  # -- Endpoint URL for OpenTelemetry exporter
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
 
+  # -- Enable metrics collection
   METRICS_ENABLED: "true"
+  # -- Enable distributed tracing
   TRACES_ENABLED: "false"
 
 # -- Additional env variables

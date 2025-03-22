@@ -40,6 +40,24 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscandb.primary.persistence.enabled | bool | `true` |  |
 | blobscandb.primary.persistence.size | string | `"100Gi"` |  |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
+| config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
+| config.BLOBSCAN_API_PORT | int | `3001` | Port number for the Blobscan API service |
+| config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Database connection URL for PostgreSQL |
+| config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Direct database connection URL (no pgbouncer) for PostgreSQL |
+| config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication |
+| config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Name of the Google Cloud Storage bucket for blob storage |
+| config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blobs |
+| config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for GCS |
+| config.METRICS_ENABLED | string | `"true"` | Enable metrics collection |
+| config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (e.g., mainnet, sepolia, holesky, gnosis) |
+| config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry exporter |
+| config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol for OpenTelemetry exporter |
+| config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
+| config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
+| config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blobs |
+| config.SECRET_KEY | string | `"supersecret"` | Secret key for session encryption and security |
+| config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm storage for blobs |
+| config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |

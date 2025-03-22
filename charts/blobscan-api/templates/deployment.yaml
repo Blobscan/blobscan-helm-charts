@@ -78,6 +78,8 @@ spec:
               value: {{ .Values.config.CHAIN_ID | quote }}
             - name: DATABASE_URL
               value: {{ .Values.config.DATABASE_URL | quote }}
+            - name: DIRECT_URL
+              value: {{ .Values.config.DIRECT_URL | quote }}
             - name: REDIS_URI
               value: {{ .Values.config.REDIS_URI | quote }}
             - name: SECRET_KEY

@@ -41,7 +41,6 @@ Blobscan API
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["api"]` | Custom args for the blobscan-api container |
 | customCommand | list | `[]` | Command replacement for the blobscan-api container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |

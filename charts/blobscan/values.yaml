@@ -4,16 +4,228 @@ nameOverride: ""
 # -- Overrides the chart's computed fullname
 fullnameOverride: ""
 
-# -- Number of replicas
-replicas: 1
+# -- Values for the blobscan-web subchart
+blobscan-web:
+  # -- Enable or disable the blobscan-web component
+  enabled: true
+  # -- Number of blobscan-web replicas
+  replicas: 1
+  image:
+    # -- Docker image repository for blobscan-web
+    repository: blossomlabs/blobscan-web
+    # -- Docker image tag for blobscan-web
+    tag: latest
+    # -- Docker image pull policy for blobscan-web
+    pullPolicy: IfNotPresent
+  resources:
+    # TODO: Adjust
+    # -- Resource limits for blobscan-web pods
+    limits:
+      # -- CPU limit for blobscan-web
+      cpu: 3
+      # -- Memory limit for blobscan-web
+      memory: 512Mi
+    # -- Resource requests for blobscan-web pods
+    requests:
+      # -- CPU request for blobscan-web
+      cpu: 1
+      # -- Memory request for blobscan-web
+      memory: 128Mi
+  config:
+    # -- PostgreSQL connection string for blobscan-web
+    DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true"
+    # -- Direct PostgreSQL connection string for Prisma (no pgbouncer)
+    DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true" # TODO: pgbouncer
+    # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
+    NETWORK_NAME: "mainnet"
+    # -- Base URL for the Blobscan API service
+    BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
+    # -- Port on which the Blobscan API service listens
+    BLOBSCAN_API_PORT: 3001
+    # -- Secret key used for session management and encryption
+    SECRET_KEY: "supersecret"
+    # -- Enable PostgreSQL storage for blob data
+    POSTGRES_STORAGE_ENABLED: "true"
+    # -- Enable Swarm decentralized storage for blob data
+    SWARM_STORAGE_ENABLED: "false"
+    # -- Enable Google Cloud Storage for blob data
+    GOOGLE_STORAGE_ENABLED: "false"
+    # -- Google Cloud Storage bucket name for blob data storage
+    GOOGLE_STORAGE_BUCKET_NAME: ""
+    # -- Google Cloud project ID for blob data storage
+    GOOGLE_STORAGE_PROJECT_ID: ""
+    # -- Google Cloud service account key for authentication (JSON format)
+    GOOGLE_SERVICE_KEY: ""
+    # -- Username for OpenTelemetry authentication
+    OTLP_AUTH_USERNAME: ""
+    # -- Password for OpenTelemetry authentication
+    OTLP_AUTH_PASSWORD: ""
+    # -- Protocol used for OpenTelemetry data export
+    OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+    # -- Endpoint URL for OpenTelemetry data export
+    OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
+    # -- Enable metrics collection and reporting
+    METRICS_ENABLED: "true"
+    # -- Enable distributed tracing
+    TRACES_ENABLED: "false"
 
-image:
-  # -- blobscan container image repository
-  repository: blossomlabs/blobscan-web
-  # -- blobscan container image tag
-  tag: latest
-  # -- blobscan container pull policy
-  pullPolicy: IfNotPresent
+# -- Values for the blobscan-api subchart
+blobscan-api:
+  # -- Enable or disable the blobscan-api component
+  enabled: true
+  # -- Number of blobscan-api replicas
+  replicas: 1
+  image:
+    # -- Docker image repository for blobscan-api
+    repository: blossomlabs/blobscan-api
+    # -- Docker image tag for blobscan-api
+    tag: latest
+    # -- Docker image pull policy for blobscan-api
+    pullPolicy: IfNotPresent
+  resources:
+    # -- Resource limits for blobscan-api pods
+    limits:
+      # -- CPU limit for blobscan-api
+      cpu: 3
+      # -- Memory limit for blobscan-api
+      memory: 1Gi
+    # -- Resource requests for blobscan-api pods
+    requests:
+      # -- CPU request for blobscan-api
+      cpu: 1
+      # -- Memory request for blobscan-api
+      memory: 512Mi
+  config:
+    # -- Ethereum network chain ID (1 for mainnet)
+    CHAIN_ID: "1"
+    # -- PostgreSQL connection string for blobscan-api with read-write access
+    DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
+    # -- Redis connection URI for caching and queue management
+    REDIS_URI: "redis://blobscan-redis-master:6379/1"
+    # -- Secret key used for session management and encryption
+    SECRET_KEY: "supersecret"
+    # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
+    NETWORK_NAME: "mainnet"
+    # -- Base URL for the Blobscan API service
+    BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
+    # -- Port on which the Blobscan API service listens
+    BLOBSCAN_API_PORT: 3001
+    # -- Enable PostgreSQL storage for blob data
+    POSTGRES_STORAGE_ENABLED: "true"
+    # -- Enable Swarm decentralized storage for blob data
+    SWARM_STORAGE_ENABLED: "false"
+    # -- Enable Google Cloud Storage for blob data
+    GOOGLE_STORAGE_ENABLED: "false"
+    # -- Username for OpenTelemetry authentication
+    OTLP_AUTH_USERNAME: ""
+    # -- Password for OpenTelemetry authentication
+    OTLP_AUTH_PASSWORD: ""
+    # -- Protocol used for OpenTelemetry data export
+    OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+    # -- Endpoint URL for OpenTelemetry data export
+    OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
+    # -- Enable metrics collection and reporting
+    METRICS_ENABLED: "true"
+    # -- Enable distributed tracing
+    TRACES_ENABLED: "false"
+
+# -- Values for the blobscan-indexer subchart
+blobscan-indexer:
+  # -- Enable or disable the blobscan-indexer component
+  enabled: false
+  # -- Number of blobscan-indexer replicas
+  replicas: 1
+  resources:
+    # -- Resource limits for blobscan-indexer pods
+    limits:
+      # -- CPU limit for blobscan-indexer
+      cpu: 1000m
+      # -- Memory limit for blobscan-indexer
+      memory: 100Mi
+    # -- Resource requests for blobscan-indexer pods
+    requests:
+      # -- CPU request for blobscan-indexer
+      cpu: 500m
+      # -- Memory request for blobscan-indexer
+      memory: 200Mi
+
+# -- Values for the PostgreSQL subchart
+blobscandb:
+  # -- Enable or disable the PostgreSQL database component
+  enabled: true
+  image:
+    # -- PostgreSQL image pull policy
+    pullPolicy: "IfNotPresent"
+    # -- PostgreSQL image registry
+    registry: "docker.io"
+    # -- PostgreSQL image repository
+    repository: "bitnami/postgresql"
+    # -- PostgreSQL image tag
+    tag: "16-debian-12"
+  auth:
+    # -- PostgreSQL username
+    username: postgres
+    # -- PostgreSQL password
+    password: postgres
+    # -- PostgreSQL database name
+    database: blobscan
+  primary:
+    # -- Enable PostgreSQL primary instance
+    enabled: true
+    persistence:
+      # -- Size of the PostgreSQL persistent volume
+      size: 8Gi
+
+# Values for the Redis subchart
+redis:
+  # -- If enabled a redis chart will be deployed as a dependency
+  enabled: true
+
+  # Redis architecture configuration
+  architecture: standalone  # Can be "standalone" or "replication"
+
+  # Authentication configuration
+  auth:
+    enabled: false  # Set to true to enable password authentication
+    password: ""    # Password for Redis if auth is enabled
+
+  # Redis master configuration
+  master:
+    persistence:
+      enabled: true
+      size: 8Gi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+
+  # Redis replica configuration (used when architecture is "replication")
+  replica:
+    replicaCount: 1
+    persistence:
+      enabled: true
+      size: 8Gi
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  # Service configuration
+  service:
+    type: ClusterIP
+    port: 6379
+
+  # Metrics configuration
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
 
 # -- Secret env variables injected via a created secret
 secretEnv: {}
@@ -23,49 +235,6 @@ httpPort: 3000
 
 # -- Command arguments
 args: []
-
-
-# -- Config file
-# @default -- See `values.yaml`
-# https://github.com/Blobscan/blobscan/blob/next/.env.example
-config:
-  # -- Database connection URL for PostgreSQL
-  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
-  # -- Direct database connection URL (no pgbouncer) for PostgreSQL
-  DIRECT_URL: ""
-  # -- Ethereum network name (e.g., mainnet, sepolia, holesky, gnosis)
-  NETWORK_NAME: "mainnet"
-  # -- Base URL for the Blobscan API service
-  BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
-  # -- Port number for the Blobscan API service
-  BLOBSCAN_API_PORT: 3001
-  # -- Secret key for session encryption and security
-  SECRET_KEY: "supersecret"
-  # -- Enable PostgreSQL storage for blobs
-  POSTGRES_STORAGE_ENABLED: "true"
-  # -- Enable Swarm storage for blobs
-  SWARM_STORAGE_ENABLED: "false"
-  # -- Enable Google Cloud Storage for blobs
-  GOOGLE_STORAGE_ENABLED: "false"
-  # -- Name of the Google Cloud Storage bucket for blob storage
-  GOOGLE_STORAGE_BUCKET_NAME: ""
-  # -- Google Cloud project ID for GCS
-  GOOGLE_STORAGE_PROJECT_ID: ""
-  # -- Google Cloud service account key for authentication
-  GOOGLE_SERVICE_KEY: ""
-  # -- Username for OpenTelemetry authentication
-  OTLP_AUTH_USERNAME: ""
-  # -- Password for OpenTelemetry authentication
-  OTLP_AUTH_PASSWORD: ""
-  # -- Protocol for OpenTelemetry exporter
-  OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
-  # -- Endpoint URL for OpenTelemetry exporter
-  OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
-
-  # -- Enable metrics collection
-  METRICS_ENABLED: "true"
-  # -- Enable distributed tracing
-  TRACES_ENABLED: "false"
 
 # -- Additional env variables
 extraEnv: []
@@ -86,9 +255,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-# -- Custom args for the blobscan container
-customArgs: ["web"]
 
 # -- Command replacement for the blobscan container
 customCommand: [] # Only change this if you need to change the default command
@@ -136,15 +302,6 @@ extraPodPorts: []
 
 # -- Pod priority class
 priorityClassName: null
-
-# -- Resource requests and limits
-resources: {}
-# limits:
-#   cpu: 500m
-#   memory: 2Gi
-# requests:
-#   cpu: 300m
-#   memory: 1Gi
 
 # -- The security context for pods
 # @default -- See `values.yaml`
@@ -230,29 +387,3 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
-
-# Check out https://artifacthub.io/packages/helm/bitnami/postgresql for all possible configs
-blobscandb:
-  # -- If enabled a postgres chart will be deployed as a dependency
-  enabled: true
-  auth:
-    postgresPassword: postgres
-    username: postgres
-    password: postgres
-    database: blobscan
-  image:
-    registry: docker.io
-    repository: bitnami/postgresql
-    tag: 16-debian-12
-    pullPolicy: IfNotPresent
-  primary:
-    persistence:
-      enabled: true
-      size: 100Gi
-
-redis:
-  # -- If enabled a redis chart will be deployed as a dependency
-  enabled: true
-  architecture: standalone
-  auth:
-    enabled: false

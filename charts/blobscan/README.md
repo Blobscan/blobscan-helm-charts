@@ -28,38 +28,84 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| blobscandb.auth.database | string | `"blobscan"` |  |
-| blobscandb.auth.password | string | `"postgres"` |  |
-| blobscandb.auth.postgresPassword | string | `"postgres"` |  |
-| blobscandb.auth.username | string | `"postgres"` |  |
-| blobscandb.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
-| blobscandb.image.pullPolicy | string | `"IfNotPresent"` |  |
-| blobscandb.image.registry | string | `"docker.io"` |  |
-| blobscandb.image.repository | string | `"bitnami/postgresql"` |  |
-| blobscandb.image.tag | string | `"16-debian-12"` |  |
-| blobscandb.primary.persistence.enabled | bool | `true` |  |
-| blobscandb.primary.persistence.size | string | `"100Gi"` |  |
-| config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
-| config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
-| config.BLOBSCAN_API_PORT | int | `3001` | Port number for the Blobscan API service |
-| config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | Database connection URL for PostgreSQL |
-| config.DIRECT_URL | string | `""` | Direct database connection URL (no pgbouncer) for PostgreSQL |
-| config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication |
-| config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Name of the Google Cloud Storage bucket for blob storage |
-| config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blobs |
-| config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for GCS |
-| config.METRICS_ENABLED | string | `"true"` | Enable metrics collection |
-| config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (e.g., mainnet, sepolia, holesky, gnosis) |
-| config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry exporter |
-| config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol for OpenTelemetry exporter |
-| config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
-| config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
-| config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blobs |
-| config.SECRET_KEY | string | `"supersecret"` | Secret key for session encryption and security |
-| config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm storage for blobs |
-| config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| blobscan-api | object | `{"config":{"BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false","GOOGLE_STORAGE_ENABLED":"false","METRICS_ENABLED":"true","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"enabled":true,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-api","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"1Gi"},"requests":{"cpu":1,"memory":"512Mi"}}}` | Values for the blobscan-api subchart |
+| blobscan-api.config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
+| blobscan-api.config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
+| blobscan-api.config.CHAIN_ID | string | `"1"` | Ethereum network chain ID (1 for mainnet) |
+| blobscan-api.config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | PostgreSQL connection string for blobscan-api with read-write access |
+| blobscan-api.config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
+| blobscan-api.config.METRICS_ENABLED | string | `"true"` | Enable metrics collection and reporting |
+| blobscan-api.config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
+| blobscan-api.config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
+| blobscan-api.config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol used for OpenTelemetry data export |
+| blobscan-api.config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
+| blobscan-api.config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
+| blobscan-api.config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
+| blobscan-api.config.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
+| blobscan-api.config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
+| blobscan-api.config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
+| blobscan-api.config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| blobscan-api.enabled | bool | `true` | Enable or disable the blobscan-api component |
+| blobscan-api.image.pullPolicy | string | `"IfNotPresent"` | Docker image pull policy for blobscan-api |
+| blobscan-api.image.repository | string | `"blossomlabs/blobscan-api"` | Docker image repository for blobscan-api |
+| blobscan-api.image.tag | string | `"latest"` | Docker image tag for blobscan-api |
+| blobscan-api.replicas | int | `1` | Number of blobscan-api replicas |
+| blobscan-api.resources.limits | object | `{"cpu":3,"memory":"1Gi"}` | Resource limits for blobscan-api pods |
+| blobscan-api.resources.limits.cpu | int | `3` | CPU limit for blobscan-api |
+| blobscan-api.resources.limits.memory | string | `"1Gi"` | Memory limit for blobscan-api |
+| blobscan-api.resources.requests | object | `{"cpu":1,"memory":"512Mi"}` | Resource requests for blobscan-api pods |
+| blobscan-api.resources.requests.cpu | int | `1` | CPU request for blobscan-api |
+| blobscan-api.resources.requests.memory | string | `"512Mi"` | Memory request for blobscan-api |
+| blobscan-indexer | object | `{"enabled":false,"replicas":1,"resources":{"limits":{"cpu":"1000m","memory":"100Mi"},"requests":{"cpu":"500m","memory":"200Mi"}}}` | Values for the blobscan-indexer subchart |
+| blobscan-indexer.enabled | bool | `false` | Enable or disable the blobscan-indexer component |
+| blobscan-indexer.replicas | int | `1` | Number of blobscan-indexer replicas |
+| blobscan-indexer.resources.limits | object | `{"cpu":"1000m","memory":"100Mi"}` | Resource limits for blobscan-indexer pods |
+| blobscan-indexer.resources.limits.cpu | string | `"1000m"` | CPU limit for blobscan-indexer |
+| blobscan-indexer.resources.limits.memory | string | `"100Mi"` | Memory limit for blobscan-indexer |
+| blobscan-indexer.resources.requests | object | `{"cpu":"500m","memory":"200Mi"}` | Resource requests for blobscan-indexer pods |
+| blobscan-indexer.resources.requests.cpu | string | `"500m"` | CPU request for blobscan-indexer |
+| blobscan-indexer.resources.requests.memory | string | `"200Mi"` | Memory request for blobscan-indexer |
+| blobscan-web | object | `{"config":{"BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true","GOOGLE_SERVICE_KEY":"","GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","METRICS_ENABLED":"true","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","SECRET_KEY":"supersecret","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"enabled":true,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-web","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"512Mi"},"requests":{"cpu":1,"memory":"128Mi"}}}` | Values for the blobscan-web subchart |
+| blobscan-web.config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
+| blobscan-web.config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
+| blobscan-web.config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true"` | PostgreSQL connection string for blobscan-web |
+| blobscan-web.config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false&readOnly=true"` | Direct PostgreSQL connection string for Prisma (no pgbouncer) |
+| blobscan-web.config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
+| blobscan-web.config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
+| blobscan-web.config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
+| blobscan-web.config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
+| blobscan-web.config.METRICS_ENABLED | string | `"true"` | Enable metrics collection and reporting |
+| blobscan-web.config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
+| blobscan-web.config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
+| blobscan-web.config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol used for OpenTelemetry data export |
+| blobscan-web.config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
+| blobscan-web.config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
+| blobscan-web.config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
+| blobscan-web.config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
+| blobscan-web.config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
+| blobscan-web.config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| blobscan-web.enabled | bool | `true` | Enable or disable the blobscan-web component |
+| blobscan-web.image.pullPolicy | string | `"IfNotPresent"` | Docker image pull policy for blobscan-web |
+| blobscan-web.image.repository | string | `"blossomlabs/blobscan-web"` | Docker image repository for blobscan-web |
+| blobscan-web.image.tag | string | `"latest"` | Docker image tag for blobscan-web |
+| blobscan-web.replicas | int | `1` | Number of blobscan-web replicas |
+| blobscan-web.resources.limits.cpu | int | `3` | CPU limit for blobscan-web |
+| blobscan-web.resources.limits.memory | string | `"512Mi"` | Memory limit for blobscan-web |
+| blobscan-web.resources.requests | object | `{"cpu":1,"memory":"128Mi"}` | Resource requests for blobscan-web pods |
+| blobscan-web.resources.requests.cpu | int | `1` | CPU request for blobscan-web |
+| blobscan-web.resources.requests.memory | string | `"128Mi"` | Memory request for blobscan-web |
+| blobscandb | object | `{"auth":{"database":"blobscan","password":"postgres","username":"postgres"},"enabled":true,"image":{"pullPolicy":"IfNotPresent","registry":"docker.io","repository":"bitnami/postgresql","tag":"16-debian-12"},"primary":{"enabled":true,"persistence":{"size":"8Gi"}}}` | Values for the PostgreSQL subchart |
+| blobscandb.auth.database | string | `"blobscan"` | PostgreSQL database name |
+| blobscandb.auth.password | string | `"postgres"` | PostgreSQL password |
+| blobscandb.auth.username | string | `"postgres"` | PostgreSQL username |
+| blobscandb.enabled | bool | `true` | Enable or disable the PostgreSQL database component |
+| blobscandb.image.pullPolicy | string | `"IfNotPresent"` | PostgreSQL image pull policy |
+| blobscandb.image.registry | string | `"docker.io"` | PostgreSQL image registry |
+| blobscandb.image.repository | string | `"bitnami/postgresql"` | PostgreSQL image repository |
+| blobscandb.image.tag | string | `"16-debian-12"` | PostgreSQL image tag |
+| blobscandb.primary.enabled | bool | `true` | Enable PostgreSQL primary instance |
+| blobscandb.primary.persistence.size | string | `"8Gi"` | Size of the PostgreSQL persistent volume |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["web"]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -69,9 +115,6 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3000` | Ports |
-| image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
-| image.repository | string | `"blossomlabs/blobscan-web"` | blobscan container image repository |
-| image.tag | string | `"latest"` | blobscan container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -89,9 +132,25 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | redis.architecture | string | `"standalone"` |  |
 | redis.auth.enabled | bool | `false` |  |
+| redis.auth.password | string | `""` |  |
 | redis.enabled | bool | `true` | If enabled a redis chart will be deployed as a dependency |
-| replicas | int | `1` | Number of replicas |
-| resources | object | `{}` | Resource requests and limits |
+| redis.master.persistence.enabled | bool | `true` |  |
+| redis.master.persistence.size | string | `"8Gi"` |  |
+| redis.master.resources.limits.cpu | string | `"500m"` |  |
+| redis.master.resources.limits.memory | string | `"512Mi"` |  |
+| redis.master.resources.requests.cpu | string | `"250m"` |  |
+| redis.master.resources.requests.memory | string | `"256Mi"` |  |
+| redis.metrics.enabled | bool | `false` |  |
+| redis.metrics.serviceMonitor.enabled | bool | `false` |  |
+| redis.replica.persistence.enabled | bool | `true` |  |
+| redis.replica.persistence.size | string | `"8Gi"` |  |
+| redis.replica.replicaCount | int | `1` |  |
+| redis.replica.resources.limits.cpu | string | `"250m"` |  |
+| redis.replica.resources.limits.memory | string | `"256Mi"` |  |
+| redis.replica.resources.requests.cpu | string | `"100m"` |  |
+| redis.replica.resources.requests.memory | string | `"128Mi"` |  |
+| redis.service.port | int | `6379` |  |
+| redis.service.type | string | `"ClusterIP"` |  |
 | secretEnv | object | `{}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |

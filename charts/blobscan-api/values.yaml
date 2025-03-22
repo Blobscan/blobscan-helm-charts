@@ -70,6 +70,7 @@ config:
   METRICS_ENABLED: "true"
   # -- Enable distributed tracing
   TRACES_ENABLED: "false"
+  # SENTRY_DSN_API: ""
 
 # -- Additional env variables
 extraEnv: []
@@ -90,9 +91,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-# -- Custom args for the blobscan-api container
-customArgs: ["api"]
 
 # -- Command replacement for the blobscan-api container
 customCommand: [] # Only change this if you need to change the default command

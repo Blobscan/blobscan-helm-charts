@@ -6,7 +6,7 @@ icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/lo
 sources:
   - https://github.com/blobscan/blobscan/
 type: application
-version: 0.3.1
+version: 0.3.2
 maintainers:
   - name: PabloCastellano
     email: pablo@anche.no

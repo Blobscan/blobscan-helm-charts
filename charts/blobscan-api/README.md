@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -41,6 +41,7 @@ Blobscan API
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
+| customArgs | list | `[]` | Custom args for the blobscan-api container |
 | customCommand | list | `[]` | Command replacement for the blobscan-api container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |

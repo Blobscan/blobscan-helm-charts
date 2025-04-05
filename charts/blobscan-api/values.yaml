@@ -75,6 +75,9 @@ config:
 # -- Additional env variables
 extraEnv: []
 
+# -- Custom args for the blobscan-api container
+customArgs: []
+
 ingress:
   # -- Ingress resource for the HTTP API
   enabled: false

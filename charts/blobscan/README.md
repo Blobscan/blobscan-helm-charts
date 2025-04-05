@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.5.4](https://img.shields.io/badge/Version-0.5.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
@@ -57,15 +57,15 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-api.resources.requests | object | `{"cpu":1,"memory":"512Mi"}` | Resource requests for blobscan-api pods |
 | blobscan-api.resources.requests.cpu | int | `1` | CPU request for blobscan-api |
 | blobscan-api.resources.requests.memory | string | `"512Mi"` | Memory request for blobscan-api |
-| blobscan-indexer | object | `{"enabled":false,"replicas":1,"resources":{"limits":{"cpu":"1000m","memory":"100Mi"},"requests":{"cpu":"500m","memory":"200Mi"}}}` | Values for the blobscan-indexer subchart |
+| blobscan-indexer | object | `{"enabled":false,"replicas":1,"resources":{"limits":{"cpu":"1000m","memory":"200Mi"},"requests":{"cpu":"500m","memory":"100Mi"}}}` | Values for the blobscan-indexer subchart |
 | blobscan-indexer.enabled | bool | `false` | Enable or disable the blobscan-indexer component |
 | blobscan-indexer.replicas | int | `1` | Number of blobscan-indexer replicas |
-| blobscan-indexer.resources.limits | object | `{"cpu":"1000m","memory":"100Mi"}` | Resource limits for blobscan-indexer pods |
+| blobscan-indexer.resources.limits | object | `{"cpu":"1000m","memory":"200Mi"}` | Resource limits for blobscan-indexer pods |
 | blobscan-indexer.resources.limits.cpu | string | `"1000m"` | CPU limit for blobscan-indexer |
-| blobscan-indexer.resources.limits.memory | string | `"100Mi"` | Memory limit for blobscan-indexer |
-| blobscan-indexer.resources.requests | object | `{"cpu":"500m","memory":"200Mi"}` | Resource requests for blobscan-indexer pods |
+| blobscan-indexer.resources.limits.memory | string | `"200Mi"` | Memory limit for blobscan-indexer |
+| blobscan-indexer.resources.requests | object | `{"cpu":"500m","memory":"100Mi"}` | Resource requests for blobscan-indexer pods |
 | blobscan-indexer.resources.requests.cpu | string | `"500m"` | CPU request for blobscan-indexer |
-| blobscan-indexer.resources.requests.memory | string | `"200Mi"` | Memory request for blobscan-indexer |
+| blobscan-indexer.resources.requests.memory | string | `"100Mi"` | Memory request for blobscan-indexer |
 | blobscan-web | object | `{"config":{"BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","GOOGLE_SERVICE_KEY":"","GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","METRICS_ENABLED":"true","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","SECRET_KEY":"supersecret","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"enabled":true,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-web","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"512Mi"},"requests":{"cpu":1,"memory":"128Mi"}}}` | Values for the blobscan-web subchart |
 | blobscan-web.config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
 | blobscan-web.config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |

@@ -143,13 +143,13 @@ blobscan-indexer:
       # -- CPU limit for blobscan-indexer
       cpu: 1000m
       # -- Memory limit for blobscan-indexer
-      memory: 100Mi
+      memory: 200Mi
     # -- Resource requests for blobscan-indexer pods
     requests:
       # -- CPU request for blobscan-indexer
       cpu: 500m
       # -- Memory request for blobscan-indexer
-      memory: 200Mi
+      memory: 100Mi
 
 # -- Values for the PostgreSQL subchart
 blobscandb:

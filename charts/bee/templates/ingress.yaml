@@ -1,0 +1,133 @@
+{{- if .Values.ingress.enabled -}}
+
+{{- $root := . -}}
+{{- $fullName := include "bee.fullname" $root -}}
+{{- $svcPort := $root.Values.service.port -}}
+
+# MAIN INGRESS
+---
+{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if $root.Values.ingress.tls }}
+  tls:
+  {{- range $root.Values.ingress.hosts }}
+    - hosts:
+      {{- if .domain }}
+        - {{ $fullName }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}
+      {{- end }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
+  ingressClassName: {{ $root.Values.ingress.ingressClassName }}
+{{- end }}
+  rules:
+  {{- range $root.Values.ingress.hosts }}
+    {{- if .domain }}
+    - host: {{ $fullName }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}
+    {{- end }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
+            pathType: {{ $root.Values.ingress.pathType }}
+          {{- end }}
+            backend:
+            {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPort }}
+            {{- else }}
+              serviceName: {{ $fullName }}
+              servicePort: {{ $svcPort }}
+            {{- end }}
+        {{- end }}
+  {{- end }}
+
+# PER POD INGRESS
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+---
+{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-{{ $i }}
+  namespace: {{ $root.Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if $root.Values.ingress.tls }}
+  tls:
+  {{- range $root.Values.ingress.hosts }}
+    - hosts:
+      {{- if .domain }}
+        - {{ $fullName }}-{{ $i }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}-{{ $i }}
+      {{- end }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
+  ingressClassName: {{ $root.Values.ingress.ingressClassName }}
+{{- end }}
+  rules:
+  {{- range $root.Values.ingress.hosts }}
+    {{- if .domain }}
+    - host: {{ $fullName }}-{{ $i }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}-{{ $i }}
+    {{- end }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
+            pathType: {{ $root.Values.ingress.pathType }}
+          {{- end }}
+            backend:
+            {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
+              service:
+                name: {{ $fullName }}-{{ $i }}
+                port:
+                  name: api
+            {{- else }}
+              serviceName: {{ $fullName }}-{{ $i }}
+              servicePort: api
+            {{- end }}
+        {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- end }}

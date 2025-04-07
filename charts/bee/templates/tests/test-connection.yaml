@@ -1,0 +1,17 @@
+{{- $root := . -}}
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "bee.fullname" . }}-test-connection"
+  labels:
+{{ include "bee.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['echo']
+      args:  ['{{ include "bee.fullname" . }}:{{ int (include "bee.config.api_port" $root) }}/addresses']
+  restartPolicy: Never

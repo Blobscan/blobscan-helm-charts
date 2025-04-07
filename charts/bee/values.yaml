@@ -1,0 +1,299 @@
+## Default values for bee.
+## This is a YAML-formatted file.
+## Declare variables to be passed into your templates.
+
+image:
+  repository: ethersphere/bee
+  tag: 2.2.0
+  # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  ## Specifies whether a service account should be created
+  create: false
+  ## Name of the service account to use
+  ## if not set and create is true, a name is generated using the fullname template
+  name:
+
+## StatefulSet's ordering guarantees: OrderedReady or Parallel
+## OrderedReady - launches or terminates all pods in ordered way
+## Parallel - launches or terminates all pods in parallel
+podManagementPolicy: OrderedReady
+
+## Bee process inside container is run with gid/uid 999
+## fsGroup=999 enables mounting external volumes with appropriate permissions
+podSecurityContext:
+  fsGroup: 999
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+## Choose profile for testing bee with real life network scenarios (delays and packet drops)
+## More info here https://github.com/ethersphere/bee-netem/blob/master/README.md
+# netemCmd: "wifi"
+
+service:
+  type: ClusterIP
+  port: 80
+
+singlePodSts:
+  enabled: false
+  labelFilter: queen-bee
+
+## By default and for convenience, for NodePort (p2p service)
+## the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+## You can enable and specify start value and NodePort will be $nodePortStart + $ordinal
+## If wanted port if used by some other service deploy will fail
+## By default AWS internal endpoint will be used to discover public IP
+## You can specify public services as icanhazip.com etc.
+p2pFixedPort:
+  enabled: false
+  nodePortStart: 31000
+  publicIpUrl: http://169.254.169.254/latest/meta-data/public-ipv4
+
+## If enabled, creates ingress for HTTP api
+## Creates one ingress per pod and additionally one common ingress for all pods
+## Total number of created ingress objects is: replicaCount + 1
+## Hostname for 'per pod ingresses' is: <chart fullname>-<i>, or <chart fullname>-<i>.<domain> if domain is specified
+## Hostname for 'common ingress' is: <chart fullname>, or <chart fullname>.<domain> if domain is specified
+## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
+ingress:
+  enabled: false
+  ## Used if cluster version is >= 1.19-0
+  pathType: ImplementationSpecific
+  # ingressClassName: ingress-nginx
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - domain: ""
+      paths: []
+      tlsSecret: ""
+  tls: false
+
+replicaCount: 1
+
+updateStrategy:
+  type: RollingUpdate
+  ## in case libp2pSettings installation is enabled, if needed (persistance is not enabled)
+  ## uncomment bellow to skip updating first N pods
+  ## recommendation is that bootnodes are first N pods in the cluster
+  # rollingUpdate:
+  #   partition: 1
+
+resources: {}
+  ## If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 1
+  #   ephemeral-storage: 1Gi
+  #   memory: 1Gi
+  # requests:
+  #   cpu: 100m
+  #   ephemeral-storage: 128Mi
+  #   memory: 128Mi
+
+persistence:
+  ## This enables PVC templates that will create one per pod
+  enabled: false
+  annotations: {}
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  ## Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is set;
+  ## i.e. choosing the default provisioner: gp2 on AWS, standard on GKE, AWS & OpenStack, etc.
+  # storageClass: "-"
+  ## A manually managed Persistent Volume and Claim
+  ## If defined, PVC must be created manually before volume will be bound
+  ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
+  # existingClaim:
+  ## If needed you can separate statestore and localstore to a different volumes
+  separateStatestore:
+    enabled: false
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    # storageClass: "-"
+    ## In case you are using existingClaim for main volume
+    ## You have to provide existingClaim for separateStatestore is enabled
+    # existingClaim:
+  separateLocalstore:
+    enabled: false
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    # storageClass: "-"
+    ## In case you are using existingClaim for main volume
+    ## You have to provide existingClaim for separateLocalstore is enabled
+    # existingClaim:
+
+## Enable this if you're using https://github.com/coreos/prometheus-operator
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  ## Specify a namespace if needed
+  # namespace: monitoring
+  ## Fallback to the prometheus default unless specified
+  # scrapeInterval: 10s
+  # honorLabels: true
+  ## Set this relabels if using https://github.com/grafana/loki/tree/master/production/helm/loki-stack
+  ## for better ingregration between prometheus-operator and loki-stack
+  # relabelings:
+  # - sourceLabels:
+  #   - __meta_kubernetes_pod_name
+  #   targetLabel: instance
+  # - sourceLabels:
+  #   - __meta_kubernetes_namespace
+  #   - __meta_kubernetes_pod_label_app_kubernetes_io_name
+  #   targetLabel: job
+  #   separator: /
+  #   replacement: $1
+
+extraInitContainers: []
+## Extra init containers to be added to the bee pod.
+# - name: extra-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+## If you need to disable liveness and readiness probes set to false
+probesEnable: true
+
+podLabels: {}
+podAnnotations: {}
+## Add this annotations if you're using https://github.com/prometheus/prometheus
+  # prometheus.io/scrape: "true"
+  # prometheus.io/port: "1635"
+
+nodeSelector: {}
+
+beeSelector:
+  role: "bee"
+
+affinity: {}
+
+tolerations: []
+
+## Auto obtain neighborhood to target in binary format for mining the initial overlay
+autoNeighborhood:
+  enabled: false
+
+beeCommand: ["bee", "start", "--config=.bee.yaml"]
+
+beeConfig:
+  ## HTTP API listen address
+  api-addr: :1633
+  ## P2P listen address
+  p2p-addr: :1634
+  ## Set the run mode - light by default
+  full-node: true
+  ## ID of the Swarm network - 10 by default
+  network-id: 1
+
+## Password for decrypting bee keys (please set it for production deployments)
+## If not set, it will be automatically generated
+password:
+## Use existing secret (ignores previous password)
+# existingSecret:
+# existingSecretPasswordKey:
+
+## If you prefer setting config options using ENV variables you can set beeEnv
+## Use same option names as in beeConfig it will be translated to ENV variable format: api_addr -> BEE_API_ADDR
+## You can specify all options except for usePasswordFile, existingSecret and existingSecretPasswordKey
+beeEnv: []
+#   api_addr: :1633
+#   p2p_addr: :1634
+
+
+# Extra environment variables to append to this bee node
+# This will be appended to the current 'env:' key. You can use any of the kubernetes env
+# syntax here
+extraEnvs: []
+#  - name: MY_ENVIRONMENT_VAR
+#    value: the_value_goes_here
+
+# Allows you to load environment variables from kubernetes secret or config map
+envFrom: []
+# - secretRef:
+#     name: env-secret
+# - configMapRef:
+#     name: config-map
+
+## If enabled, configures pods with defined libp2p keys
+## Libp2p keys are pregenerated examples and can be replaced with other values
+## pods without specified key will autogenerate it during start
+libp2pSettings:
+  enabled: false
+  libp2pKeys:
+    bee-0: '{"address":"6828fe67d8aed6065412dc374b601dce8aac40fe","crypto":{"cipher":"aes-128-ctr","ciphertext":"80fc86951b7c3ef77c1f44ffedade4312937e14673618bc87940bea2d8fe6b1d","cipherparams":{"iv":"58bf5af2fd6b7c796fbfdf853b5e22c1"},"kdf":"scrypt","kdfparams":{"n":32768,"r":8,"p":1,"dklen":32,"salt":"2bc758a178b3a43cb334436bc055cdad4898e1dacc9b9422b602254f29da08ed"},"mac":"c5616ee1343240181f4255a9072923dfc63be7f47ff8fb73519d53c31eb749ae"},"version":3}'
+  ## Use existing secret (ignores previous libp2pKeys)
+  # existingSecret:
+
+## If enabled, configures pods with defined swarm keys
+## Swarm keys are pregenerated examples and can be replaced with other values
+## Pods without specified key will autogenerate it during start
+swarmSettings:
+  enabled: false
+  swarmKeys:
+    bee-0: '{"address":"f176839c150e52fe30e5c2b5c648465c6fdfa532","crypto":{"cipher":"aes-128-ctr","ciphertext":"352af096f0fca9dfbd20a6861bde43d988efe7f179e0a9ffd812a285fdcd63b9","cipherparams":{"iv":"613003f1f1bf93430c92629da33f8828"},"kdf":"scrypt","kdfparams":{"n":32768,"r":8,"p":1,"dklen":32,"salt":"ad1d99a4c64c95c26131e079e8c8a82221d58bf66a7ceb767c33a4c376c564b8"},"mac":"cafda1bc8ca0ffc2b22eb69afd1cf5072fd09412243443be1b0c6832f57924b6"},"version":3}'
+  ## Use existing secret (ignores previous swarmKeys)
+  # existingSecret:
+
+## If enabled it will start gateway-proxy sidecar container that will be publicly exposed
+## It is used by gateway app
+gatewayProxy:
+  enabled: false
+  image:
+    repository: ethersphere/gateway-proxy
+    tag: 0.16.0
+    # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
+    pullPolicy: IfNotPresent
+  ## If enabled, creates ingress for HTTP
+  ## Creates one ingress per pod
+  ## Total number of created ingress objects is: replicaCount
+  ## Hostname for 'per pod ingresses' is: <chart fullname>-<i>, or <chart fullname>-<i>.<domain> if domain is specified
+  ## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
+  ingress:
+    enabled: false
+    ## Used if cluster version is >= 1.19-0
+    pathType: ImplementationSpecific
+    # ingressClassName: ingress-nginx
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - domain: ""
+        paths: []
+        tlsSecret: ""
+    tls: false
+  ## If enabled set POSTAGE_DEPTH and POSTAGE_AMOUNT
+  autobuy:
+    enabled: false
+  ## Environment variables for this gateway-proxy container
+  ## You can use any of the kubernetes env syntax here
+  envs: []
+  # - name: POSTAGE_DEPTH
+  #   value: 20
+  # - name: POSTAGE_AMOUNT
+  #   value: 50000000
+  # - name: POSTAGE_USAGE_THRESHOLD
+  #   value: 0.874
+  # - name: POSTAGE_USAGE_MAX
+  #   value: 0.9374
+  # - name: LOG_LEVEL
+  #   value: info
+  resources: {}
+    # limits:
+    #   cpu: 1
+    #   memory: 1Gi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi

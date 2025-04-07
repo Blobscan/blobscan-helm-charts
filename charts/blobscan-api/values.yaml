@@ -74,6 +74,8 @@ config:
   TRACES_ENABLED: "false"
   # -- API key for WeaveVM integration
   WEAVEVM_API_KEY: ""
+  # -- Log level (info, warning, error, debug)
+  LOG_LEVEL: "info"
   # SENTRY_DSN_API: ""
 
 

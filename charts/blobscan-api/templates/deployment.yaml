@@ -118,6 +118,8 @@ spec:
               value: {{ .Values.config.TRACES_ENABLED | quote }}
             - name: BEE_ENDPOINT
               value: {{ .Values.config.BEE_ENDPOINT | quote }}
+            - name: LOG_LEVEL
+              value: {{ .Values.config.LOG_LEVEL | quote }}
             - name: WEAVEVM_API_KEY
               value: {{ .Values.config.WEAVEVM_API_KEY | quote }}
           {{- range $key, $value := .Values.secretEnv }}

@@ -603,6 +603,22 @@ entries:
     version: 0.2.2
   blobscan-api:
   - apiVersion: v2
+    created: "2025-04-07T13:43:26.938868149Z"
+    description: Blobscan API
+    digest: c8f5164bef118ac151a25b810097c1d10c1e36b3d5a61ce8eff13bb9e9b53861
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan-api
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-api-0.3.7/blobscan-api-0.3.7.tgz
+    version: 0.3.7
+  - apiVersion: v2
     created: "2025-04-07T13:28:37.967934971Z"
     description: Blobscan API
     digest: 448b9425cc154cd93306e2445da3b3522848dd94f5dc5a3d55d60f3e76f59866
@@ -1078,4 +1094,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.3.1/blobscan-web-0.3.1.tgz
     version: 0.3.1
-generated: "2025-04-07T13:31:55.035890158Z"
+generated: "2025-04-07T13:43:26.939049428Z"

@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.6](https://img.shields.io/badge/Version-0.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -38,8 +38,10 @@ Blobscan API
 | config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
 | config.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
 | config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
+| config.SWARM_BATCH_ID | string | `""` | Swarm batch ID for blob data storage in Swarm network |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| config.WEAVEVM_API_KEY | string | `""` | API key for WeaveVM integration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-api container |
 | customCommand | list | `[]` | Command replacement for the blobscan-api container |

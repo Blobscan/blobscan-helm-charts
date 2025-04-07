@@ -94,6 +94,8 @@ spec:
               value: {{ .Values.config.POSTGRES_STORAGE_ENABLED | quote }}
             - name: SWARM_STORAGE_ENABLED
               value: {{ .Values.config.SWARM_STORAGE_ENABLED | quote }}
+            - name: SWARM_BATCH_ID
+              value: {{ .Values.config.SWARM_BATCH_ID | quote }}
             - name: GOOGLE_STORAGE_ENABLED
               value: {{ .Values.config.GOOGLE_STORAGE_ENABLED | quote }}
             - name: GOOGLE_STORAGE_BUCKET_NAME
@@ -116,6 +118,8 @@ spec:
               value: {{ .Values.config.TRACES_ENABLED | quote }}
             - name: BEE_ENDPOINT
               value: {{ .Values.config.BEE_ENDPOINT | quote }}
+            - name: WEAVEVM_API_KEY
+              value: {{ .Values.config.WEAVEVM_API_KEY | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

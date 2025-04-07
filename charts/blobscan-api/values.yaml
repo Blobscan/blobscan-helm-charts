@@ -48,6 +48,8 @@ config:
   POSTGRES_STORAGE_ENABLED: "true"
   # -- Enable Swarm decentralized storage for blob data
   SWARM_STORAGE_ENABLED: "false"
+  # -- Swarm batch ID for blob data storage in Swarm network
+  SWARM_BATCH_ID: ""
   # -- Enable Google Cloud Storage for blob data
   GOOGLE_STORAGE_ENABLED: "false"
   # -- Google Cloud Storage bucket name for blob data storage
@@ -70,7 +72,10 @@ config:
   METRICS_ENABLED: "true"
   # -- Enable distributed tracing
   TRACES_ENABLED: "false"
+  # -- API key for WeaveVM integration
+  WEAVEVM_API_KEY: ""
   # SENTRY_DSN_API: ""
+
 
 # -- Additional env variables
 extraEnv: []

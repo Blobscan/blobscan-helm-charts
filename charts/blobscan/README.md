@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.5.6](https://img.shields.io/badge/Version-0.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.5.7](https://img.shields.io/badge/Version-0.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
@@ -17,7 +17,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 |------------|------|---------|
 | https://blobscan.github.io/blobscan-helm-charts | blobscan-api | 0.3.7 |
 | https://blobscan.github.io/blobscan-helm-charts | blobscan-indexer | 0.2.11 |
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-web | 0.3.3 |
+| https://blobscan.github.io/blobscan-helm-charts | blobscan-web | 0.3.5 |
 | https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.20 |
 | https://charts.bitnami.com/bitnami | redis(redis) | 19.6.4 |
 

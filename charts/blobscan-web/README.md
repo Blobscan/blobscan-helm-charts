@@ -1,7 +1,7 @@
 
 # blobscan-web
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan Web UI
 
@@ -24,6 +24,7 @@ Blobscan Web UI
 | config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
 | config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | PostgreSQL connection string for the main database connection |
 | config.DIRECT_URL | string | `""` | Direct PostgreSQL connection string, used for Prisma direct database access |
+| config.FEEDBACK_WEBHOOK_URL | string | `""` | Discord webhook for feedback form |
 | config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
 | config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |

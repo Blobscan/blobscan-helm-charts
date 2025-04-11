@@ -76,8 +76,10 @@ spec:
           env:
             - name: DATABASE_URL
               value: {{ .Values.config.DATABASE_URL | quote }}
+            {{- if .Values.config.DIRECT_URL }}
             - name: DIRECT_URL
               value: {{ .Values.config.DIRECT_URL | quote }}
+            {{- end }}
             - name: REDIS_URI
               value: {{ .Values.config.REDIS_URI | quote }}
             - name: NETWORK_NAME
@@ -129,6 +131,10 @@ spec:
             {{- if .Values.config.LOG_LEVEL }}
             - name: LOG_LEVEL
               value: {{ .Values.config.LOG_LEVEL | quote }}
+            {{- end }}
+            {{- if .Values.config.FEEDBACK_WEBHOOK_URL }}
+            - name: FEEDBACK_WEBHOOK_URL
+              value: {{ .Values.config.FEEDBACK_WEBHOOK_URL | quote }}
             {{- end }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}

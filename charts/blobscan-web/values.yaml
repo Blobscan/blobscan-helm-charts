@@ -71,6 +71,8 @@ config:
   METRICS_ENABLED: true
   # -- Enable distributed tracing
   TRACES_ENABLED: false
+  # -- Discord webhook for feedback form
+  FEEDBACK_WEBHOOK_URL: ""
 
 # -- Additional env variables
 extraEnv: []

@@ -1,7 +1,7 @@
 
 # blobscan-web
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan Web UI
 
@@ -19,6 +19,7 @@ Blobscan Web UI
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/main/.env.example |
+| config.BEE_ENDPOINT | string | `"http://bee-0:1633"` | Swarm Bee node endpoint URL for decentralized storage interaction |
 | config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
 | config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
 | config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | PostgreSQL connection string for the main database connection |
@@ -27,6 +28,7 @@ Blobscan Web UI
 | config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
 | config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
+| config.LOG_LEVEL | string | `"info"` | Application logging level (debug, info, warn, error) |
 | config.METRICS_ENABLED | string | `"true"` | Enable metrics collection and reporting |
 | config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
@@ -34,6 +36,7 @@ Blobscan Web UI
 | config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
 | config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
 | config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
+| config.REDIS_URI | string | `"redis://redis-master:6379/0"` | Redis connection URI for caching and queue management |
 | config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |

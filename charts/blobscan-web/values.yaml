@@ -29,16 +29,18 @@ args: []
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/main/.env.example
 config:
+  # -- Swarm Bee node endpoint URL for decentralized storage interaction
+  BEE_ENDPOINT: "http://bee-0:1633"
+  # -- Base URL for the Blobscan API service
+  BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
+  # -- Port on which the Blobscan API service listens
+  BLOBSCAN_API_PORT: 3001
   # -- PostgreSQL connection string for the main database connection
   DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
   # -- Direct PostgreSQL connection string, used for Prisma direct database access
   DIRECT_URL: ""
   # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
   NETWORK_NAME: "mainnet"
-  # -- Base URL for the Blobscan API service
-  BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
-  # -- Port on which the Blobscan API service listens
-  BLOBSCAN_API_PORT: 3001
   # -- Secret key used for session management and encryption
   SECRET_KEY: "supersecret"
   # -- Enable PostgreSQL storage for blob data
@@ -53,6 +55,10 @@ config:
   GOOGLE_STORAGE_PROJECT_ID: ""
   # -- Google Cloud service account key for authentication (JSON format)
   GOOGLE_SERVICE_KEY: ""
+  # -- Redis connection URI for caching and queue management
+  REDIS_URI: "redis://redis-master:6379/0"
+  # -- Application logging level (debug, info, warn, error)
+  LOG_LEVEL: "info"
   # -- Username for OpenTelemetry authentication
   OTLP_AUTH_USERNAME: ""
   # -- Password for OpenTelemetry authentication

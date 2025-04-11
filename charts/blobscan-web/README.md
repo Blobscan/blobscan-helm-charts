@@ -1,7 +1,7 @@
 
 # blobscan-web
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan Web UI
 
@@ -30,7 +30,7 @@ Blobscan Web UI
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
 | config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
 | config.LOG_LEVEL | string | `"info"` | Application logging level (debug, info, warn, error) |
-| config.METRICS_ENABLED | bool | `true` | Enable metrics collection and reporting |
+| config.METRICS_ENABLED | string | `"true"` | Enable metrics collection and reporting |
 | config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
 | config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol used for OpenTelemetry data export |
@@ -40,7 +40,7 @@ Blobscan Web UI
 | config.REDIS_URI | string | `"redis://redis-master:6379/0"` | Redis connection URI for caching and queue management |
 | config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
-| config.TRACES_ENABLED | bool | `false` | Enable distributed tracing |
+| config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan-web container |
 | customCommand | list | `[]` | Command replacement for the blobscan-web container |

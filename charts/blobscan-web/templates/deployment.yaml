@@ -125,9 +125,9 @@ spec:
               value: {{ .Values.config.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
             {{- end }}
             - name: METRICS_ENABLED
-              value: {{ .Values.config.METRICS_ENABLED }}
+              value: {{ .Values.config.METRICS_ENABLED | quote }}
             - name: TRACES_ENABLED
-              value: {{ .Values.config.TRACES_ENABLED }}
+              value: {{ .Values.config.TRACES_ENABLED | quote }}
             {{- if .Values.config.LOG_LEVEL }}
             - name: LOG_LEVEL
               value: {{ .Values.config.LOG_LEVEL | quote }}

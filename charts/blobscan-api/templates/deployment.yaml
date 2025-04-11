@@ -139,6 +139,8 @@ spec:
             - name: ETH_PRICE_SYNCER_ENABLED
               value: {{ .Values.config.ETH_PRICE_SYNCER_ENABLED | quote }}
             {{- if .Values.config.ETH_PRICE_SYNCER_ENABLED }}
+            - name: ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL
+              value: {{ .Values.config.ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL | quote }}
             - name: ETH_PRICE_SYNCER_CRON_PATTERN
               value: {{ .Values.config.ETH_PRICE_SYNCER_CRON_PATTERN | quote }}
             - name: ETH_PRICE_SYNCER_CHAIN_ID

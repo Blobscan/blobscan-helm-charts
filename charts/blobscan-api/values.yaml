@@ -69,9 +69,9 @@ config:
   # -- Endpoint URL for OpenTelemetry data export
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://localhost:4318"
   # -- Enable metrics collection and reporting
-  METRICS_ENABLED: "true"
+  METRICS_ENABLED: true
   # -- Enable distributed tracing
-  TRACES_ENABLED: "false"
+  TRACES_ENABLED: false
   # -- API key for WeaveVM integration
   WEAVEVM_API_KEY: ""
   # -- Log level (info, warning, error, debug)

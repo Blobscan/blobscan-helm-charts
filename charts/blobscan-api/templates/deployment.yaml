@@ -94,34 +94,58 @@ spec:
               value: {{ .Values.config.POSTGRES_STORAGE_ENABLED | quote }}
             - name: SWARM_STORAGE_ENABLED
               value: {{ .Values.config.SWARM_STORAGE_ENABLED | quote }}
+            {{- if .Values.config.SWARM_STORAGE_ENABLED }}
             - name: SWARM_BATCH_ID
               value: {{ .Values.config.SWARM_BATCH_ID | quote }}
+            - name: BEE_ENDPOINT
+              value: {{ .Values.config.BEE_ENDPOINT | quote }}
+            {{- end }}
             - name: GOOGLE_STORAGE_ENABLED
               value: {{ .Values.config.GOOGLE_STORAGE_ENABLED | quote }}
+            {{- if .Values.config.GOOGLE_STORAGE_ENABLED }}
             - name: GOOGLE_STORAGE_BUCKET_NAME
               value: {{ .Values.config.GOOGLE_STORAGE_BUCKET_NAME | quote }}
             - name: GOOGLE_STORAGE_PROJECT_ID
               value: {{ .Values.config.GOOGLE_STORAGE_PROJECT_ID | quote }}
             - name: GOOGLE_SERVICE_KEY
               value: {{ .Values.config.GOOGLE_SERVICE_KEY | quote }}
+            {{- end }}
+            {{- if .Values.config.OTLP_AUTH_USERNAME }}
             - name: OTLP_AUTH_USERNAME
               value: {{ .Values.config.OTLP_AUTH_USERNAME | quote }}
+            {{- end }}
+            {{- if .Values.config.OTLP_AUTH_PASSWORD }}
             - name: OTLP_AUTH_PASSWORD
               value: {{ .Values.config.OTLP_AUTH_PASSWORD | quote }}
+            {{- end }}
+            {{- if .Values.config.OTEL_EXPORTER_OTLP_PROTOCOL }}
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
               value: {{ .Values.config.OTEL_EXPORTER_OTLP_PROTOCOL | quote }}
+            {{- end }}
+            {{- if .Values.config.OTEL_EXPORTER_OTLP_ENDPOINT }}
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: {{ .Values.config.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
+            {{- end }}
             - name: METRICS_ENABLED
               value: {{ .Values.config.METRICS_ENABLED | quote }}
             - name: TRACES_ENABLED
-              value: {{ .Values.config.TRACES_ENABLED | quote }}
-            - name: BEE_ENDPOINT
-              value: {{ .Values.config.BEE_ENDPOINT | quote }}
+              value: {{ .Values.config.TRACES_ENABLED }}
             - name: LOG_LEVEL
               value: {{ .Values.config.LOG_LEVEL | quote }}
+            {{- if .Values.config.WEAVEVM_API_KEY }}
             - name: WEAVEVM_API_KEY
               value: {{ .Values.config.WEAVEVM_API_KEY | quote }}
+            {{- end }}
+            - name: ETH_PRICE_SYNCER_ENABLED
+              value: {{ .Values.config.ETH_PRICE_SYNCER_ENABLED }}
+            {{- if .Values.config.ETH_PRICE_SYNCER_ENABLED }}
+            - name: ETH_PRICE_SYNCER_CRON_PATTERN
+              value: {{ .Values.config.ETH_PRICE_SYNCER_CRON_PATTERN | quote }}
+            - name: ETH_PRICE_SYNCER_CHAIN_ID
+              value: {{ .Values.config.ETH_PRICE_SYNCER_CHAIN_ID }}
+            - name: ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS
+              value: {{ .Values.config.ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS }}
+            {{- end }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

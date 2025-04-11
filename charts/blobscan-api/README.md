@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.3.7](https://img.shields.io/badge/Version-0.3.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -30,7 +30,7 @@ Blobscan API
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
 | config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
 | config.LOG_LEVEL | string | `"info"` | Log level (info, warning, error, debug) |
-| config.METRICS_ENABLED | string | `"true"` | Enable metrics collection and reporting |
+| config.METRICS_ENABLED | bool | `true` | Enable metrics collection and reporting |
 | config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
 | config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol used for OpenTelemetry data export |
@@ -41,7 +41,7 @@ Blobscan API
 | config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
 | config.SWARM_BATCH_ID | string | `""` | Swarm batch ID for blob data storage in Swarm network |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
-| config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| config.TRACES_ENABLED | bool | `false` | Enable distributed tracing |
 | config.WEAVEVM_API_KEY | string | `""` | API key for WeaveVM integration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-api container |

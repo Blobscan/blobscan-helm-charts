@@ -137,7 +137,7 @@ spec:
               value: {{ .Values.config.WEAVEVM_API_KEY | quote }}
             {{- end }}
             - name: ETH_PRICE_SYNCER_ENABLED
-              value: {{ .Values.config.ETH_PRICE_SYNCER_ENABLED }}
+              value: {{ .Values.config.ETH_PRICE_SYNCER_ENABLED | quote }}
             {{- if .Values.config.ETH_PRICE_SYNCER_ENABLED }}
             - name: ETH_PRICE_SYNCER_CRON_PATTERN
               value: {{ .Values.config.ETH_PRICE_SYNCER_CRON_PATTERN | quote }}
@@ -145,7 +145,14 @@ spec:
               value: {{ .Values.config.ETH_PRICE_SYNCER_CHAIN_ID }}
             - name: ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS
               value: {{ .Values.config.ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS }}
+            - name: ETH_PRICE_SYNCER_TIME_TOLERANCE
+              value: {{ .Values.config.ETH_PRICE_SYNCER_TIME_TOLERANCE }}
             {{- end }}
+            {{- if .Values.config.SENTRY_DSN_API }}
+            - name: SENTRY_DSN_API
+              value: {{ .Values.config.SENTRY_DSN_API | quote }}
+            {{- end }}
+
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

@@ -76,8 +76,21 @@ config:
   WEAVEVM_API_KEY: ""
   # -- Log level (info, warning, error, debug)
   LOG_LEVEL: "info"
-  # SENTRY_DSN_API: ""
+  # -- Enable the ETH price syncer job
+  ETH_PRICE_SYNCER_ENABLED: "false"
+  # -- Cron pattern for the job that periodically stores ETH price in database
+  ETH_PRICE_SYNCER_CRON_PATTERN: "* * * * *"
+  # -- ID of the chain where price feed contract is deployed on
+  ETH_PRICE_SYNCER_CHAIN_ID: "137"
+  # -- Contract address for the Chainlink ETH/USD price feed on the specified chain
+  ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS: "0xF9680D99D6C9589e2a93a78A04A279e509205945"
+  # -- RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID
+  ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL: "http://polygon-rpc:8545"
+  # -- Maximum allowed age (in seconds) of the fetched price before it's considered stale
+  ETH_PRICE_SYNCER_TIME_TOLERANCE: 3600
 
+  # -- Sentry DSN for API
+  SENTRY_DSN_API: ""
 
 # -- Additional env variables
 extraEnv: []

@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -25,6 +25,12 @@ Blobscan API
 | config.CHAIN_ID | string | `"1"` | Ethereum network chain ID (1 for mainnet) |
 | config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"` | PostgreSQL connection string for the main database connection |
 | config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"` | Direct PostgreSQL connection string, used for Prisma direct database access |
+| config.ETH_PRICE_SYNCER_CHAIN_ID | string | `"137"` | ID of the chain where price feed contract is deployed on |
+| config.ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL | string | `"http://polygon-rpc:8545"` | RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID |
+| config.ETH_PRICE_SYNCER_CRON_PATTERN | string | `"* * * * *"` | Cron pattern for the job that periodically stores ETH price in database |
+| config.ETH_PRICE_SYNCER_ENABLED | string | `"false"` | Enable the ETH price syncer job |
+| config.ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS | string | `"0xF9680D99D6C9589e2a93a78A04A279e509205945"` | Contract address for the Chainlink ETH/USD price feed on the specified chain |
+| config.ETH_PRICE_SYNCER_TIME_TOLERANCE | int | `3600` | Maximum allowed age (in seconds) of the fetched price before it's considered stale |
 | config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
 | config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
@@ -39,6 +45,7 @@ Blobscan API
 | config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
 | config.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
 | config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
+| config.SENTRY_DSN_API | string | `""` | Sentry DSN for API |
 | config.SWARM_BATCH_ID | string | `""` | Swarm batch ID for blob data storage in Swarm network |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |

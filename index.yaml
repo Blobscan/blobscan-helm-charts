@@ -31,6 +31,46 @@ entries:
     version: 0.16.7
   blobscan:
   - apiVersion: v2
+    created: "2025-04-11T20:55:26.650696508Z"
+    dependencies:
+    - name: blobscan-web
+      repository: https://blobscan.github.io/blobscan-helm-charts
+      version: 0.4.1
+    - name: blobscan-api
+      repository: https://blobscan.github.io/blobscan-helm-charts
+      version: 0.4.0
+    - name: blobscan-indexer
+      repository: https://blobscan.github.io/blobscan-helm-charts
+      version: 0.2.11
+    - alias: blobscandb
+      condition: blobscandb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.20
+    - alias: redis
+      condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.6.4
+    description: Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
+    digest: 480dd1a7412fc896d7c5d55b0921eaeb061ba8d38fa78f03d1eb755ef94cd565
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    keywords:
+    - ethereum
+    - eip4844
+    - blobs
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-0.6.1/blobscan-0.6.1.tgz
+    version: 0.6.1
+  - apiVersion: v2
     created: "2025-04-11T20:36:31.758437826Z"
     dependencies:
     - name: blobscan-web
@@ -1310,4 +1350,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.3.1/blobscan-web-0.3.1.tgz
     version: 0.3.1
-generated: "2025-04-11T20:51:41.896315454Z"
+generated: "2025-04-11T20:55:26.650946574Z"

@@ -763,6 +763,22 @@ entries:
     version: 0.2.2
   blobscan-api:
   - apiVersion: v2
+    created: "2025-04-11T21:05:56.717620767Z"
+    description: Blobscan API
+    digest: 9fbae12096e60c48d300454ecfb557e25a8e5e947fed40ed85d776c4c1a3d4d1
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan-api
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-api-0.4.1/blobscan-api-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
     created: "2025-04-11T20:22:29.721288262Z"
     description: Blobscan API
     digest: 7c06e79e45cb3026d90fdb0f040678c7483d2fc6db7883bd12bfaf00d40088e1
@@ -1211,6 +1227,26 @@ entries:
     version: 0.2.1
   blobscan-web:
   - apiVersion: v2
+    created: "2025-04-11T21:05:56.82461258Z"
+    description: Blobscan Web UI
+    digest: 7807ef9c5908939a5b89dd6c17b22fb5ca4f7c1c4f75aa92df15cf97dd751bef
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    keywords:
+    - ethereum
+    - eip4844
+    - blobs
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan-web
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.4.2/blobscan-web-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v2
     created: "2025-04-11T20:51:41.89619007Z"
     description: Blobscan Web UI
     digest: 2ebb4880770f02e8066be576e1e7cbf3c6b8ab18d888443d9a86baa360d60c08
@@ -1350,4 +1386,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.3.1/blobscan-web-0.3.1.tgz
     version: 0.3.1
-generated: "2025-04-11T20:55:26.650946574Z"
+generated: "2025-04-11T21:05:56.824777698Z"

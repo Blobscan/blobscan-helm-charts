@@ -11,7 +11,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    {{- if .Values.bullmq_exporter.enabled }}
+    {{- if .Values.bullmqExporter.enabled }}
     - port: 3000
       targetPort: metrics
       protocol: TCP

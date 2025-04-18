@@ -253,11 +253,11 @@ serviceMonitor:
   relabelings: []
 
 # -- BullMQ Prometheus exporter configuration
-bullmq_exporter:
+bullmqExporter:
   # -- Enable or disable the BullMQ Prometheus exporter sidecar container
   enabled: false
   # -- Redis database and namespace to monitor, in the format "<db>:<namespace>"
-  redis_db: "0:ethereum-prod"
+  databaseMapping: "0:ethereum-prod"
   image:
     # -- BullMQ Prometheus exporter image repository
     repository: "blossomlabs/bullmq-prometheus"
@@ -268,7 +268,7 @@ bullmq_exporter:
   # -- ServiceMonitor configuration for BullMQ exporter
   serviceMonitor:
     # -- Enable or disable the ServiceMonitor for BullMQ exporter
-    enabled: true
+    enabled: false
     # -- Additional ServiceMonitor labels
     labels: {}
     # -- Additional ServiceMonitor annotations

@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -18,6 +18,22 @@ Blobscan API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| bullmq_exporter | object | `{"enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"redis_db":"0:ethereum-prod","serviceMonitor":{"annotations":{},"enabled":true,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
+| bullmq_exporter.enabled | bool | `false` | Enable or disable the BullMQ Prometheus exporter sidecar container |
+| bullmq_exporter.image.pullPolicy | string | `"IfNotPresent"` | BullMQ Prometheus exporter image pull policy |
+| bullmq_exporter.image.repository | string | `"blossomlabs/bullmq-prometheus"` | BullMQ Prometheus exporter image repository |
+| bullmq_exporter.image.tag | string | `"latest"` | BullMQ Prometheus exporter image tag |
+| bullmq_exporter.redis_db | string | `"0:ethereum-prod"` | Redis database and namespace to monitor, in the format "<db>:<namespace>" |
+| bullmq_exporter.serviceMonitor | object | `{"annotations":{},"enabled":true,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}` | ServiceMonitor configuration for BullMQ exporter |
+| bullmq_exporter.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
+| bullmq_exporter.serviceMonitor.enabled | bool | `true` | Enable or disable the ServiceMonitor for BullMQ exporter |
+| bullmq_exporter.serviceMonitor.interval | string | `""` | ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set |
+| bullmq_exporter.serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
+| bullmq_exporter.serviceMonitor.path | string | `"/metrics"` | ServiceMonitor path, defaults to /metrics |
+| bullmq_exporter.serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
+| bullmq_exporter.serviceMonitor.scheme | string | `""` | ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set |
+| bullmq_exporter.serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout |
+| bullmq_exporter.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/main/.env.example |
 | config.BEE_ENDPOINT | string | `"http://localhost:1633"` | Swarm Bee node endpoint for decentralized storage |
 | config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |

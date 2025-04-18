@@ -251,3 +251,37 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
+
+# -- BullMQ Prometheus exporter configuration
+bullmq_exporter:
+  # -- Enable or disable the BullMQ Prometheus exporter sidecar container
+  enabled: false
+  # -- Redis database and namespace to monitor, in the format "<db>:<namespace>"
+  redis_db: "0:ethereum-prod"
+  image:
+    # -- BullMQ Prometheus exporter image repository
+    repository: "blossomlabs/bullmq-prometheus"
+    # -- BullMQ Prometheus exporter image tag
+    tag: "latest"
+    # -- BullMQ Prometheus exporter image pull policy
+    pullPolicy: "IfNotPresent"
+  # -- ServiceMonitor configuration for BullMQ exporter
+  serviceMonitor:
+    # -- Enable or disable the ServiceMonitor for BullMQ exporter
+    enabled: true
+    # -- Additional ServiceMonitor labels
+    labels: {}
+    # -- Additional ServiceMonitor annotations
+    annotations: {}
+    # -- ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set
+    interval: ""
+    # -- ServiceMonitor path, defaults to /metrics
+    path: "/metrics"
+    # -- ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set
+    scheme: ""
+    # -- ServiceMonitor TLS configuration
+    tlsConfig: {}
+    # -- ServiceMonitor scrape timeout
+    scrapeTimeout: ""
+    # -- ServiceMonitor relabelings
+    relabelings: []

@@ -1,0 +1,43 @@
+{{- if and .Values.bullmq_exporter.enabled .Values.bullmq_exporter.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "blobscan.fullname" . }}-bullmq
+  {{- if .Values.bullmq_exporter.serviceMonitor.namespace }}
+  namespace: {{ .Values.bullmq_exporter.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+    {{- include "blobscan.labels" . | nindent 4 }}
+    {{- if .Values.bullmq_exporter.serviceMonitor.labels }}
+    {{- toYaml .Values.bullmq_exporter.serviceMonitor.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.bullmq_exporter.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml .Values.bullmq_exporter.serviceMonitor.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+  - interval: {{ .Values.bullmq_exporter.serviceMonitor.interval | default .Values.bullmq_exporter.serviceMonitor.interval }}
+    {{- if .Values.bullmq_exporter.serviceMonitor.scrapeTimeout }}
+    scrapeTimeout: {{ .Values.bullmq_exporter.serviceMonitor.scrapeTimeout }}
+    {{- end }}
+    honorLabels: true
+    port: metrics
+    path: {{ .Values.bullmq_exporter.serviceMonitor.path | default "/metrics" }}
+    scheme: {{ .Values.bullmq_exporter.serviceMonitor.scheme | default .Values.bullmq_exporter.serviceMonitor.scheme }}
+    {{- if .Values.bullmq_exporter.serviceMonitor.tlsConfig }}
+    tlsConfig:
+      {{- toYaml .Values.bullmq_exporter.serviceMonitor.tlsConfig | nindent 6 }}
+    {{- end }}
+    {{- if .Values.bullmq_exporter.serviceMonitor.relabelings }}
+    relabelings:
+      {{- toYaml .Values.bullmq_exporter.serviceMonitor.relabelings | nindent 6 }}
+    {{- end }}
+  jobLabel: "{{ .Release.Name }}-bullmq"
+  selector:
+    matchLabels:
+      {{- include "blobscan.selectorLabels" . | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+{{- end }}

@@ -1,37 +1,37 @@
-{{- if and .Values.bullmq_exporter.enabled .Values.bullmq_exporter.serviceMonitor.enabled }}
+{{- if and .Values.bullmqExporter.enabled .Values.bullmqExporter.serviceMonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "blobscan.fullname" . }}-bullmq
-  {{- if .Values.bullmq_exporter.serviceMonitor.namespace }}
-  namespace: {{ .Values.bullmq_exporter.serviceMonitor.namespace }}
+  {{- if .Values.bullmqExporter.serviceMonitor.namespace }}
+  namespace: {{ .Values.bullmqExporter.serviceMonitor.namespace }}
   {{- end }}
   labels:
     {{- include "blobscan.labels" . | nindent 4 }}
-    {{- if .Values.bullmq_exporter.serviceMonitor.labels }}
-    {{- toYaml .Values.bullmq_exporter.serviceMonitor.labels | nindent 4 }}
+    {{- if .Values.bullmqExporter.serviceMonitor.labels }}
+    {{- toYaml .Values.bullmqExporter.serviceMonitor.labels | nindent 4 }}
     {{- end }}
-  {{- if .Values.bullmq_exporter.serviceMonitor.annotations }}
+  {{- if .Values.bullmqExporter.serviceMonitor.annotations }}
   annotations:
-    {{- toYaml .Values.bullmq_exporter.serviceMonitor.annotations | nindent 4 }}
+    {{- toYaml .Values.bullmqExporter.serviceMonitor.annotations | nindent 4 }}
   {{- end }}
 spec:
   endpoints:
-  - interval: {{ .Values.bullmq_exporter.serviceMonitor.interval | default .Values.bullmq_exporter.serviceMonitor.interval }}
-    {{- if .Values.bullmq_exporter.serviceMonitor.scrapeTimeout }}
-    scrapeTimeout: {{ .Values.bullmq_exporter.serviceMonitor.scrapeTimeout }}
+  - interval: {{ .Values.bullmqExporter.serviceMonitor.interval | default .Values.bullmqExporter.serviceMonitor.interval }}
+    {{- if .Values.bullmqExporter.serviceMonitor.scrapeTimeout }}
+    scrapeTimeout: {{ .Values.bullmqExporter.serviceMonitor.scrapeTimeout }}
     {{- end }}
     honorLabels: true
     port: metrics
-    path: {{ .Values.bullmq_exporter.serviceMonitor.path | default "/metrics" }}
-    scheme: {{ .Values.bullmq_exporter.serviceMonitor.scheme | default .Values.bullmq_exporter.serviceMonitor.scheme }}
-    {{- if .Values.bullmq_exporter.serviceMonitor.tlsConfig }}
+    path: {{ .Values.bullmqExporter.serviceMonitor.path | default "/metrics" }}
+    scheme: {{ .Values.bullmqExporter.serviceMonitor.scheme | default .Values.bullmqExporter.serviceMonitor.scheme }}
+    {{- if .Values.bullmqExporter.serviceMonitor.tlsConfig }}
     tlsConfig:
-      {{- toYaml .Values.bullmq_exporter.serviceMonitor.tlsConfig | nindent 6 }}
+      {{- toYaml .Values.bullmqExporter.serviceMonitor.tlsConfig | nindent 6 }}
     {{- end }}
-    {{- if .Values.bullmq_exporter.serviceMonitor.relabelings }}
+    {{- if .Values.bullmqExporter.serviceMonitor.relabelings }}
     relabelings:
-      {{- toYaml .Values.bullmq_exporter.serviceMonitor.relabelings | nindent 6 }}
+      {{- toYaml .Values.bullmqExporter.serviceMonitor.relabelings | nindent 6 }}
     {{- end }}
   jobLabel: "{{ .Release.Name }}-bullmq"
   selector:

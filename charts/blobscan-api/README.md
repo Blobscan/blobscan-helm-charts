@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.4.7](https://img.shields.io/badge/Version-0.4.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.8](https://img.shields.io/badge/Version-0.4.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -18,12 +18,14 @@ Blobscan API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
+| bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"podAnnotations":{},"resources":{},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
 | bullmqExporter.databaseMapping | string | `"0:ethereum-prod"` | Redis database and namespace to monitor, in the format "<db>:<namespace>" |
-| bullmqExporter.enabled | bool | `false` | Enable or disable the BullMQ Prometheus exporter sidecar container |
+| bullmqExporter.enabled | bool | `false` | Enable or disable the BullMQ Prometheus exporter |
 | bullmqExporter.image.pullPolicy | string | `"IfNotPresent"` | BullMQ Prometheus exporter image pull policy |
 | bullmqExporter.image.repository | string | `"blossomlabs/bullmq-prometheus"` | BullMQ Prometheus exporter image repository |
 | bullmqExporter.image.tag | string | `"latest"` | BullMQ Prometheus exporter image tag |
+| bullmqExporter.podAnnotations | object | `{}` | Pod annotations for the BullMQ exporter |
+| bullmqExporter.resources | object | `{}` | Resource requests and limits for the BullMQ exporter |
 | bullmqExporter.serviceMonitor | object | `{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}` | ServiceMonitor configuration for BullMQ exporter |
 | bullmqExporter.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
 | bullmqExporter.serviceMonitor.enabled | bool | `false` | Enable or disable the ServiceMonitor for BullMQ exporter |

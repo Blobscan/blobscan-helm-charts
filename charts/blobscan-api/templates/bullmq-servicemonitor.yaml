@@ -17,14 +17,14 @@ metadata:
   {{- end }}
 spec:
   endpoints:
-  - interval: {{ .Values.bullmqExporter.serviceMonitor.interval | default .Values.bullmqExporter.serviceMonitor.interval }}
+  - interval: {{ .Values.bullmqExporter.serviceMonitor.interval }}
     {{- if .Values.bullmqExporter.serviceMonitor.scrapeTimeout }}
     scrapeTimeout: {{ .Values.bullmqExporter.serviceMonitor.scrapeTimeout }}
     {{- end }}
     honorLabels: true
     port: metrics
-    path: {{ .Values.bullmqExporter.serviceMonitor.path | default "/metrics" }}
-    scheme: {{ .Values.bullmqExporter.serviceMonitor.scheme | default .Values.bullmqExporter.serviceMonitor.scheme }}
+    path: {{ .Values.bullmqExporter.serviceMonitor.path }}
+    scheme: {{ .Values.bullmqExporter.serviceMonitor.scheme }}
     {{- if .Values.bullmqExporter.serviceMonitor.tlsConfig }}
     tlsConfig:
       {{- toYaml .Values.bullmqExporter.serviceMonitor.tlsConfig | nindent 6 }}
@@ -37,6 +37,7 @@ spec:
   selector:
     matchLabels:
       {{- include "blobscan.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: bullmq-exporter
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}

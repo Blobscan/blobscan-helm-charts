@@ -165,20 +165,7 @@ spec:
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
-      {{- if .Values.bullmqExporter.enabled }}
-        - name: bullmq-exporter
-          image: {{ .Values.bullmqExporter.image.repository }}:{{ .Values.bullmqExporter.image.tag }}
-          imagePullPolicy: {{ .Values.bullmqExporter.image.pullPolicy }}
-          ports:
-            - name: metrics
-              containerPort: 3000
-              protocol: TCP
-          env:
-            - name: REDIS_URI
-              value: {{ .Values.config.REDIS_URI | quote }}
-            - name: REDIS_DB
-              value: "{{ .Values.bullmqExporter.databaseMapping | quote }}"
-      {{- end }}
+
       {{- if .Values.extraContainers }}
         {{ toYaml .Values.extraContainers | nindent 8}}
       {{- end }}

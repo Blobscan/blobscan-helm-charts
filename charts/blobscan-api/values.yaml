@@ -254,10 +254,20 @@ serviceMonitor:
 
 # -- BullMQ Prometheus exporter configuration
 bullmqExporter:
-  # -- Enable or disable the BullMQ Prometheus exporter sidecar container
+  # -- Enable or disable the BullMQ Prometheus exporter
   enabled: false
   # -- Redis database and namespace to monitor, in the format "<db>:<namespace>"
   databaseMapping: "0:ethereum-prod"
+  # -- Pod annotations for the BullMQ exporter
+  podAnnotations: {}
+  # -- Resource requests and limits for the BullMQ exporter
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 50m
+    #   memory: 64Mi
   image:
     # -- BullMQ Prometheus exporter image repository
     repository: "blossomlabs/bullmq-prometheus"

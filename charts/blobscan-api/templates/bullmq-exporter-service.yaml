@@ -1,0 +1,19 @@
+{{- if .Values.bullmqExporter.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "blobscan.fullname" . }}-bullmq-exporter
+  labels:
+    {{- include "blobscan.labels" . | nindent 4 }}
+    app.kubernetes.io/component: bullmq-exporter
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "blobscan.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: bullmq-exporter
+{{- end }}

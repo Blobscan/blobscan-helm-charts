@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.6.7](https://img.shields.io/badge/Version-0.6.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.8](https://img.shields.io/badge/Version-0.6.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
@@ -15,7 +15,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-api | 0.4.5 |
+| https://blobscan.github.io/blobscan-helm-charts | blobscan-api | 0.4.6 |
 | https://blobscan.github.io/blobscan-helm-charts | blobscan-indexer | 0.2.11 |
 | https://blobscan.github.io/blobscan-helm-charts | blobscan-web | 0.4.2 |
 | https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.20 |
@@ -28,13 +28,43 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| blobscan-api | object | `{"config":{"BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","GOOGLE_STORAGE_ENABLED":"false","METRICS_ENABLED":"true","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"enabled":true,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-api","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"1Gi"},"requests":{"cpu":1,"memory":"512Mi"}}}` | Values for the blobscan-api subchart |
+| blobscan-api | object | `{"affinity":{},"annotations":{},"args":[],"bullmqExporter":{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}},"config":{"BEE_ENDPOINT":"http://localhost:1633","BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"CHAIN_ID":"1","DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_ID":"137","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","ETH_PRICE_SYNCER_CRON_PATTERN":"* * * * *","ETH_PRICE_SYNCER_ENABLED":"false","ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS":"0xF9680D99D6C9589e2a93a78A04A279e509205945","ETH_PRICE_SYNCER_TIME_TOLERANCE":3600,"GOOGLE_SERVICE_KEY":"","GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","LOG_LEVEL":"info","METRICS_ENABLED":"true","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","POSTGRES_STORAGE_ENABLED":"true","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN_API":"","SWARM_BATCH_ID":"","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false","WEAVEVM_API_KEY":""},"containerSecurityContext":{},"customArgs":[],"customCommand":[],"enabled":true,"extraContainers":[],"extraEnv":[],"extraPodPorts":[],"extraPorts":[],"extraVolumeMounts":[],"extraVolumes":[],"httpPort":3001,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-api","tag":"latest"},"imagePullSecrets":[],"ingress":{"annotations":{},"enabled":false,"hosts":[{"host":"chart-example.local","paths":[]}],"tls":[]},"initContainers":[],"livenessProbe":{"initialDelaySeconds":60,"periodSeconds":120,"tcpSocket":{"port":"http"}},"nodeSelector":{},"podAnnotations":{},"podDisruptionBudget":{},"podLabels":{},"priorityClassName":null,"readinessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"1Gi"},"requests":{"cpu":1,"memory":"512Mi"}},"secretEnv":{},"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"service":{"type":"ClusterIP"},"serviceAccount":{"annotations":{},"create":false,"name":""},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"namespace":null,"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}},"terminationGracePeriodSeconds":30,"tolerations":[]}` | Values for the blobscan-api subchart |
+| blobscan-api.affinity | object | `{}` | Affinity configuration for pods |
+| blobscan-api.annotations | object | `{}` | Annotations for the Deployment |
+| blobscan-api.args | list | `[]` | Command arguments |
+| blobscan-api.bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
+| blobscan-api.bullmqExporter.databaseMapping | string | `"0:ethereum-prod"` | Redis database and namespace to monitor, in the format "<db>:<namespace>" |
+| blobscan-api.bullmqExporter.enabled | bool | `false` | Enable or disable the BullMQ Prometheus exporter sidecar container |
+| blobscan-api.bullmqExporter.image.pullPolicy | string | `"IfNotPresent"` | BullMQ Prometheus exporter image pull policy |
+| blobscan-api.bullmqExporter.image.repository | string | `"blossomlabs/bullmq-prometheus"` | BullMQ Prometheus exporter image repository |
+| blobscan-api.bullmqExporter.image.tag | string | `"latest"` | BullMQ Prometheus exporter image tag |
+| blobscan-api.bullmqExporter.serviceMonitor | object | `{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}` | ServiceMonitor configuration for BullMQ exporter |
+| blobscan-api.bullmqExporter.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
+| blobscan-api.bullmqExporter.serviceMonitor.enabled | bool | `false` | Enable or disable the ServiceMonitor for BullMQ exporter |
+| blobscan-api.bullmqExporter.serviceMonitor.interval | string | `""` | ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set |
+| blobscan-api.bullmqExporter.serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
+| blobscan-api.bullmqExporter.serviceMonitor.path | string | `"/metrics"` | ServiceMonitor path, defaults to /metrics |
+| blobscan-api.bullmqExporter.serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
+| blobscan-api.bullmqExporter.serviceMonitor.scheme | string | `""` | ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set |
+| blobscan-api.bullmqExporter.serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout |
+| blobscan-api.bullmqExporter.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
+| blobscan-api.config.BEE_ENDPOINT | string | `"http://localhost:1633"` | Swarm Bee node endpoint for decentralized storage |
 | blobscan-api.config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
 | blobscan-api.config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
 | blobscan-api.config.CHAIN_ID | string | `"1"` | Ethereum network chain ID (1 for mainnet) |
 | blobscan-api.config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"` | PostgreSQL connection string for blobscan-api with read-write access |
 | blobscan-api.config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"` | Direct PostgreSQL connection string for Prisma (no pgbouncer) |
+| blobscan-api.config.ETH_PRICE_SYNCER_CHAIN_ID | string | `"137"` | ID of the chain where price feed contract is deployed on |
+| blobscan-api.config.ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL | string | `"http://polygon-rpc:8545"` | RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID |
+| blobscan-api.config.ETH_PRICE_SYNCER_CRON_PATTERN | string | `"* * * * *"` | Cron pattern for the job that periodically stores ETH price in database |
+| blobscan-api.config.ETH_PRICE_SYNCER_ENABLED | string | `"false"` | Enable the ETH price syncer job |
+| blobscan-api.config.ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS | string | `"0xF9680D99D6C9589e2a93a78A04A279e509205945"` | Contract address for the Chainlink ETH/USD price feed on the specified chain |
+| blobscan-api.config.ETH_PRICE_SYNCER_TIME_TOLERANCE | int | `3600` | Maximum allowed age (in seconds) of the fetched price before it's considered stale |
+| blobscan-api.config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
+| blobscan-api.config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
 | blobscan-api.config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
+| blobscan-api.config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
+| blobscan-api.config.LOG_LEVEL | string | `"info"` | Log level (info, warning, error, debug) |
 | blobscan-api.config.METRICS_ENABLED | string | `"true"` | Enable metrics collection and reporting |
 | blobscan-api.config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | blobscan-api.config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
@@ -44,12 +74,37 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-api.config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
 | blobscan-api.config.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
 | blobscan-api.config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
+| blobscan-api.config.SENTRY_DSN_API | string | `""` | Sentry DSN for API |
+| blobscan-api.config.SWARM_BATCH_ID | string | `""` | Swarm batch ID for blob data storage in Swarm network |
 | blobscan-api.config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | blobscan-api.config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| blobscan-api.config.WEAVEVM_API_KEY | string | `""` | API key for WeaveVM integration |
+| blobscan-api.containerSecurityContext | object | `{}` | The security context for containers |
+| blobscan-api.customArgs | list | `[]` | Custom args for the blobscan-api container |
+| blobscan-api.customCommand | list | `[]` | Command replacement for the blobscan-api container |
 | blobscan-api.enabled | bool | `true` | Enable or disable the blobscan-api component |
+| blobscan-api.extraContainers | list | `[]` | Additional containers |
+| blobscan-api.extraEnv | list | `[]` | Additional env variables |
+| blobscan-api.extraPodPorts | list | `[]` | Extra Pod ports |
+| blobscan-api.extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
+| blobscan-api.extraVolumeMounts | list | `[]` | Additional volume mounts |
+| blobscan-api.extraVolumes | list | `[]` | Additional volumes |
+| blobscan-api.httpPort | int | `3001` | Ports |
 | blobscan-api.image.pullPolicy | string | `"IfNotPresent"` | Docker image pull policy for blobscan-api |
 | blobscan-api.image.repository | string | `"blossomlabs/blobscan-api"` | Docker image repository for blobscan-api |
 | blobscan-api.image.tag | string | `"latest"` | Docker image tag for blobscan-api |
+| blobscan-api.imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
+| blobscan-api.ingress.annotations | object | `{}` | Annotations for Ingress |
+| blobscan-api.ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
+| blobscan-api.ingress.tls | list | `[]` | Ingress TLS |
+| blobscan-api.initContainers | list | `[]` | Additional init containers |
+| blobscan-api.livenessProbe | object | `{"initialDelaySeconds":60,"periodSeconds":120,"tcpSocket":{"port":"http"}}` | Liveness probe |
+| blobscan-api.nodeSelector | object | `{}` | Node selector for pods |
+| blobscan-api.podAnnotations | object | `{}` | Pod annotations |
+| blobscan-api.podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec |
+| blobscan-api.podLabels | object | `{}` | Pod labels |
+| blobscan-api.priorityClassName | string | `nil` | Pod priority class |
+| blobscan-api.readinessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}}` | Readiness probe |
 | blobscan-api.replicas | int | `1` | Number of blobscan-api replicas |
 | blobscan-api.resources.limits | object | `{"cpu":3,"memory":"1Gi"}` | Resource limits for blobscan-api pods |
 | blobscan-api.resources.limits.cpu | int | `3` | CPU limit for blobscan-api |
@@ -57,6 +112,24 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-api.resources.requests | object | `{"cpu":1,"memory":"512Mi"}` | Resource requests for blobscan-api pods |
 | blobscan-api.resources.requests.cpu | int | `1` | CPU request for blobscan-api |
 | blobscan-api.resources.requests.memory | string | `"512Mi"` | Memory request for blobscan-api |
+| blobscan-api.secretEnv | object | `{}` | Secret env variables injected via a created secret |
+| blobscan-api.securityContext | object | `{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}` | The security context for pods |
+| blobscan-api.service.type | string | `"ClusterIP"` | Service type |
+| blobscan-api.serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
+| blobscan-api.serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
+| blobscan-api.serviceAccount.name | string | `""` | The name of the service account to use |
+| blobscan-api.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
+| blobscan-api.serviceMonitor.enabled | bool | `false` | If true, a ServiceMonitor CRD is created for a prometheus operator |
+| blobscan-api.serviceMonitor.interval | string | `"15s"` | ServiceMonitor scrape interval |
+| blobscan-api.serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
+| blobscan-api.serviceMonitor.namespace | string | `nil` | Alternative namespace for ServiceMonitor |
+| blobscan-api.serviceMonitor.path | string | `"/metrics"` | Path to scrape |
+| blobscan-api.serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
+| blobscan-api.serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
+| blobscan-api.serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
+| blobscan-api.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
+| blobscan-api.terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| blobscan-api.tolerations | list | `[]` | Tolerations for pods |
 | blobscan-indexer | object | `{"enabled":false,"replicas":1,"resources":{"limits":{"cpu":"1000m","memory":"200Mi"},"requests":{"cpu":"500m","memory":"100Mi"}}}` | Values for the blobscan-indexer subchart |
 | blobscan-indexer.enabled | bool | `false` | Enable or disable the blobscan-indexer component |
 | blobscan-indexer.replicas | int | `1` | Number of blobscan-indexer replicas |

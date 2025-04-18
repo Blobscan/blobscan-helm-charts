@@ -95,6 +95,16 @@ blobscan-api:
       cpu: 1
       # -- Memory request for blobscan-api
       memory: 512Mi
+  # -- Secret env variables injected via a created secret
+  secretEnv: {}
+  # -- Ports
+  httpPort: 3001
+  # -- Command arguments
+  args: []
+  # -- Custom args for the blobscan-api container
+  customArgs: []
+  # -- Command replacement for the blobscan-api container
+  customCommand: []
   config:
     # -- Ethereum network chain ID (1 for mainnet)
     CHAIN_ID: "1"
@@ -116,8 +126,18 @@ blobscan-api:
     POSTGRES_STORAGE_ENABLED: "true"
     # -- Enable Swarm decentralized storage for blob data
     SWARM_STORAGE_ENABLED: "false"
+    # -- Swarm batch ID for blob data storage in Swarm network
+    SWARM_BATCH_ID: ""
     # -- Enable Google Cloud Storage for blob data
     GOOGLE_STORAGE_ENABLED: "false"
+    # -- Google Cloud Storage bucket name for blob data storage
+    GOOGLE_STORAGE_BUCKET_NAME: ""
+    # -- Google Cloud project ID for blob data storage
+    GOOGLE_STORAGE_PROJECT_ID: ""
+    # -- Google Cloud service account key for authentication (JSON format)
+    GOOGLE_SERVICE_KEY: ""
+    # -- Swarm Bee node endpoint for decentralized storage
+    BEE_ENDPOINT: "http://localhost:1633"
     # -- Username for OpenTelemetry authentication
     OTLP_AUTH_USERNAME: ""
     # -- Password for OpenTelemetry authentication
@@ -130,6 +150,158 @@ blobscan-api:
     METRICS_ENABLED: "true"
     # -- Enable distributed tracing
     TRACES_ENABLED: "false"
+    # -- API key for WeaveVM integration
+    WEAVEVM_API_KEY: ""
+    # -- Log level (info, warning, error, debug)
+    LOG_LEVEL: "info"
+    # -- Enable the ETH price syncer job
+    ETH_PRICE_SYNCER_ENABLED: "false"
+    # -- Cron pattern for the job that periodically stores ETH price in database
+    ETH_PRICE_SYNCER_CRON_PATTERN: "* * * * *"
+    # -- ID of the chain where price feed contract is deployed on
+    ETH_PRICE_SYNCER_CHAIN_ID: "137"
+    # -- Contract address for the Chainlink ETH/USD price feed on the specified chain
+    ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS: "0xF9680D99D6C9589e2a93a78A04A279e509205945"
+    # -- RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID
+    ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL: "http://polygon-rpc:8545"
+    # -- Maximum allowed age (in seconds) of the fetched price before it's considered stale
+    ETH_PRICE_SYNCER_TIME_TOLERANCE: 3600
+    # -- Sentry DSN for API
+    SENTRY_DSN_API: ""
+  # -- Additional env variables
+  extraEnv: []
+  ingress:
+    # -- Ingress resource for the HTTP API
+    enabled: false
+    # -- Annotations for Ingress
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    # -- Ingress host
+    hosts:
+      - host: chart-example.local
+        paths: []
+    # -- Ingress TLS
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  service:
+    # -- Service type
+    type: ClusterIP
+  # -- Affinity configuration for pods
+  affinity: {}
+  # -- Image pull secrets for Docker images
+  imagePullSecrets: []
+  # -- Annotations for the Deployment
+  annotations: {}
+  # -- Liveness probe
+  livenessProbe:
+    tcpSocket:
+      port: http
+    initialDelaySeconds: 60
+    periodSeconds: 120
+  # -- Readiness probe
+  readinessProbe:
+    tcpSocket:
+      port: http
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  # -- Node selector for pods
+  nodeSelector: {}
+  # -- Pod labels
+  podLabels: {}
+  # -- Pod annotations
+  podAnnotations: {}
+  # -- Extra Pod ports
+  extraPodPorts: []
+  # -- Pod priority class
+  priorityClassName: null
+  # -- The security context for pods
+  securityContext:
+    fsGroup: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+  # -- The security context for containers
+  containerSecurityContext: {}
+  serviceAccount:
+    # -- Specifies whether a service account should be created
+    create: false
+    # -- Annotations to add to the service account
+    annotations: {}
+    # -- The name of the service account to use
+    name: ""
+  # -- How long to wait until the pod is forcefully terminated
+  terminationGracePeriodSeconds: 30
+  # -- Tolerations for pods
+  tolerations: []
+  # -- Define the PodDisruptionBudget spec
+  podDisruptionBudget: {}
+  # -- Additional init containers
+  initContainers: []
+  # -- Additional containers
+  extraContainers: []
+  # -- Additional volumes
+  extraVolumes: []
+  # -- Additional volume mounts
+  extraVolumeMounts: []
+  # -- Additional ports. Useful when using extraContainers
+  extraPorts: []
+  serviceMonitor:
+    # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+    enabled: false
+    # -- Path to scrape
+    path: /metrics
+    # -- Alternative namespace for ServiceMonitor
+    namespace: null
+    # -- Additional ServiceMonitor labels
+    labels: {}
+    # -- Additional ServiceMonitor annotations
+    annotations: {}
+    # -- ServiceMonitor scrape interval
+    interval: 15s
+    # -- ServiceMonitor scheme
+    scheme: http
+    # -- ServiceMonitor TLS configuration
+    tlsConfig: {}
+    # -- ServiceMonitor scrape timeout
+    scrapeTimeout: 30s
+    # -- ServiceMonitor relabelings
+    relabelings: []
+  # -- BullMQ Prometheus exporter configuration
+  bullmqExporter:
+    # -- Enable or disable the BullMQ Prometheus exporter sidecar container
+    enabled: false
+    # -- Redis database and namespace to monitor, in the format "<db>:<namespace>"
+    databaseMapping: "0:ethereum-prod"
+    image:
+      # -- BullMQ Prometheus exporter image repository
+      repository: "blossomlabs/bullmq-prometheus"
+      # -- BullMQ Prometheus exporter image tag
+      tag: "latest"
+      # -- BullMQ Prometheus exporter image pull policy
+      pullPolicy: "IfNotPresent"
+    # -- ServiceMonitor configuration for BullMQ exporter
+    serviceMonitor:
+      # -- Enable or disable the ServiceMonitor for BullMQ exporter
+      enabled: false
+      # -- Additional ServiceMonitor labels
+      labels: {}
+      # -- Additional ServiceMonitor annotations
+      annotations: {}
+      # -- ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set
+      interval: ""
+      # -- ServiceMonitor path, defaults to /metrics
+      path: "/metrics"
+      # -- ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set
+      scheme: ""
+      # -- ServiceMonitor TLS configuration
+      tlsConfig: {}
+      # -- ServiceMonitor scrape timeout
+      scrapeTimeout: ""
+      # -- ServiceMonitor relabelings
+      relabelings: []
 
 # -- Values for the blobscan-indexer subchart
 blobscan-indexer:

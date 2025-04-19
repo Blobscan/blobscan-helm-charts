@@ -18,7 +18,6 @@ blobscan-web:
     # -- Docker image pull policy for blobscan-web
     pullPolicy: IfNotPresent
   resources:
-    # TODO: Adjust
     # -- Resource limits for blobscan-web pods
     limits:
       # -- CPU limit for blobscan-web

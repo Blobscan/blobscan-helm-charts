@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.6.10](https://img.shields.io/badge/Version-0.6.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
@@ -15,9 +15,9 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-api | 0.4.8 |
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-indexer | 0.2.11 |
-| https://blobscan.github.io/blobscan-helm-charts | blobscan-web | 0.4.2 |
+| file://../blobscan-api | blobscan-api | 0.5.0 |
+| file://../blobscan-indexer | blobscan-indexer | 0.3.0 |
+| file://../blobscan-web | blobscan-web | 0.5.0 |
 | https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.20 |
 | https://charts.bitnami.com/bitnami | redis(redis) | 19.6.4 |
 
@@ -172,6 +172,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-web.image.repository | string | `"blossomlabs/blobscan-web"` | Docker image repository for blobscan-web |
 | blobscan-web.image.tag | string | `"latest"` | Docker image tag for blobscan-web |
 | blobscan-web.replicas | int | `1` | Number of blobscan-web replicas |
+| blobscan-web.resources.limits | object | `{"cpu":3,"memory":"512Mi"}` | Resource limits for blobscan-web pods |
 | blobscan-web.resources.limits.cpu | int | `3` | CPU limit for blobscan-web |
 | blobscan-web.resources.limits.memory | string | `"512Mi"` | Memory limit for blobscan-web |
 | blobscan-web.resources.requests | object | `{"cpu":1,"memory":"128Mi"}` | Resource requests for blobscan-web pods |

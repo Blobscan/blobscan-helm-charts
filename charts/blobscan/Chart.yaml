@@ -1,6 +1,6 @@
 apiVersion: v2
 name: blobscan
-version: 0.6.10
+version: 0.7.0
 description: Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 type: application
 keywords:
@@ -12,14 +12,14 @@ sources:
   - https://github.com/blobscan/blobscan/
 dependencies:
 - name: blobscan-web
-  repository: "https://blobscan.github.io/blobscan-helm-charts"
-  version: 0.4.2
+  repository: "file://../blobscan-web"
+  version: 0.5.0
 - name: blobscan-api
-  repository: "https://blobscan.github.io/blobscan-helm-charts"
-  version: 0.4.8
+  repository: "file://../blobscan-api"
+  version: 0.5.0
 - name: blobscan-indexer
-  repository: "https://blobscan.github.io/blobscan-helm-charts"
-  version: 0.2.11
+  repository: "file://../blobscan-indexer"
+  version: 0.3.0
 - name: postgresql
   repository: "https://charts.bitnami.com/bitnami"
   version: 15.5.20
@@ -28,6 +28,7 @@ dependencies:
 - name: redis
   repository: "https://charts.bitnami.com/bitnami"
   version: 19.6.4
+  # version: 20.11.3
   alias: redis
   condition: redis.enabled
 maintainers:

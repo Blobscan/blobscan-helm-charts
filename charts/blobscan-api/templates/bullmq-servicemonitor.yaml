@@ -2,12 +2,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "blobscan.fullname" . }}-bullmq
+  name: bullmq-exporter
   {{- if .Values.bullmqExporter.serviceMonitor.namespace }}
   namespace: {{ .Values.bullmqExporter.serviceMonitor.namespace }}
   {{- end }}
   labels:
-    {{- include "blobscan.labels" . | nindent 4 }}
+    {{- include "bullmq.labels" . | nindent 4 }}
     {{- if .Values.bullmqExporter.serviceMonitor.labels }}
     {{- toYaml .Values.bullmqExporter.serviceMonitor.labels | nindent 4 }}
     {{- end }}
@@ -36,8 +36,7 @@ spec:
   jobLabel: "{{ .Release.Name }}-bullmq"
   selector:
     matchLabels:
-      {{- include "blobscan.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: bullmq-exporter
+      {{- include "bullmq.selectorLabels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}

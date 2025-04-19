@@ -16,7 +16,27 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
-secretEnv: {}
+secretEnv:
+  # -- Redis connection URI for caching and queue management
+  REDIS_URI: "redis://blobscan-redis-master:6379/1"
+  # -- PostgreSQL connection string for the main database connection
+  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"
+  # -- Direct PostgreSQL connection string, used for Prisma direct database access
+  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"
+  # -- Secret key used for session management and encryption
+  SECRET_KEY: "supersecret"
+  # -- Google Cloud service account key for authentication (JSON format)
+  GOOGLE_SERVICE_KEY: ""
+  # -- Username for OpenTelemetry authentication
+  OTLP_AUTH_USERNAME: ""
+  # -- Password for OpenTelemetry authentication
+  OTLP_AUTH_PASSWORD: ""
+  # -- API key for WeaveVM integration
+  WEAVEVM_API_KEY: ""
+  # -- RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID
+  ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL: "http://polygon-rpc:8545"
+  # -- Sentry DSN for API
+  SENTRY_DSN_API: ""
 
 # -- Ports
 httpPort: 3001
@@ -30,14 +50,6 @@ args: []
 config:
   # -- Ethereum network chain ID (1 for mainnet)
   CHAIN_ID: "1"
-  # -- PostgreSQL connection string for the main database connection
-  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"
-  # -- Direct PostgreSQL connection string, used for Prisma direct database access
-  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"
-  # -- Redis connection URI for caching and queue management
-  REDIS_URI: "redis://blobscan-redis-master:6379/1"
-  # -- Secret key used for session management and encryption
-  SECRET_KEY: "supersecret"
   # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
   NETWORK_NAME: "mainnet"
   # -- Base URL for the Blobscan API service
@@ -56,14 +68,8 @@ config:
   GOOGLE_STORAGE_BUCKET_NAME: ""
   # -- Google Cloud project ID for blob data storage
   GOOGLE_STORAGE_PROJECT_ID: ""
-  # -- Google Cloud service account key for authentication (JSON format)
-  GOOGLE_SERVICE_KEY: ""
   # -- Swarm Bee node endpoint for decentralized storage
   BEE_ENDPOINT: "http://localhost:1633"
-  # -- Username for OpenTelemetry authentication
-  OTLP_AUTH_USERNAME: ""
-  # -- Password for OpenTelemetry authentication
-  OTLP_AUTH_PASSWORD: ""
   # -- Protocol used for OpenTelemetry data export
   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
   # -- Endpoint URL for OpenTelemetry data export
@@ -72,25 +78,18 @@ config:
   METRICS_ENABLED: "true"
   # -- Enable distributed tracing
   TRACES_ENABLED: "false"
-  # -- API key for WeaveVM integration
-  WEAVEVM_API_KEY: ""
   # -- Log level (info, warning, error, debug)
   LOG_LEVEL: "info"
   # -- Enable the ETH price syncer job
-  ETH_PRICE_SYNCER_ENABLED: "false"
+  ETH_PRICE_SYNCER_ENABLED: false
   # -- Cron pattern for the job that periodically stores ETH price in database
   ETH_PRICE_SYNCER_CRON_PATTERN: "* * * * *"
   # -- ID of the chain where price feed contract is deployed on
   ETH_PRICE_SYNCER_CHAIN_ID: "137"
   # -- Contract address for the Chainlink ETH/USD price feed on the specified chain
   ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS: "0xF9680D99D6C9589e2a93a78A04A279e509205945"
-  # -- RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID
-  ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL: "http://polygon-rpc:8545"
   # -- Maximum allowed age (in seconds) of the fetched price before it's considered stale
-  ETH_PRICE_SYNCER_TIME_TOLERANCE: 3600
-
-  # -- Sentry DSN for API
-  SENTRY_DSN_API: ""
+  ETH_PRICE_SYNCER_TIME_TOLERANCE: 60
 
 # -- Additional env variables
 extraEnv: []

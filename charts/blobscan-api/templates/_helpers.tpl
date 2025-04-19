@@ -42,11 +42,27 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
+
+{{- define "bullmq.labels" -}}
+helm.sh/chart: {{ include "blobscan.chart" . }}
+{{ include "bullmq.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+
 {{/*
 Selector labels
 */}}
 {{- define "blobscan.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "blobscan.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{- define "bullmq.selectorLabels" -}}
+app.kubernetes.io/name: bullmq-exporter
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 

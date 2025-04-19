@@ -1,7 +1,7 @@
 
 # blobscan-indexer
 
-![Version: 0.2.11](https://img.shields.io/badge/Version-0.2.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan-indexer indexes blobs using Blobscan API.
 
@@ -19,13 +19,10 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
-| config.BEACON_NODE_ENDPOINT | string | `"http://beacon-node:5052"` | Ethereum consensus layer (beacon chain) node endpoint URL |
 | config.BLOBSCAN_API_ENDPOINT | string | `"http://blobscan-api:3001"` | Blobscan API service endpoint URL |
-| config.EXECUTION_NODE_ENDPOINT | string | `"http://execution-node:8545"` | Ethereum execution layer node endpoint URL |
+| config.DENCUN_FORK_SLOT | string | `""` | Slot number when Dencun fork activated (uncomment and set for testnets) |
 | config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
-| config.RUST_LOG | string | `"blob_indexer=INFO"` | Slot number when Dencun fork activated (uncomment and set for testnets) DENCUN_FORK_SLOT: "" -- Rust logging configuration for the blob indexer |
-| config.SECRET_KEY | string | `"supersecret"` | Secret key used for authentication and encryption |
-| config.SENTRY_DSN | string | `""` | Sentry DSN for error tracking and monitoring |
+| config.RUST_LOG | string | `"blob_indexer=INFO"` | Rust logging configuration for the blob indexer |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
@@ -48,7 +45,11 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{}` | Secret env variables injected via a created secret |
+| secretEnv | object | `{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","SECRET_KEY":"supersecret","SENTRY_DSN":""}` | Secret env variables injected via a created secret |
+| secretEnv.BEACON_NODE_ENDPOINT | string | `"http://beacon-node:5052"` | Ethereum consensus layer (beacon chain) node endpoint URL |
+| secretEnv.EXECUTION_NODE_ENDPOINT | string | `"http://execution-node:8545"` | Ethereum execution layer node endpoint URL |
+| secretEnv.SECRET_KEY | string | `"supersecret"` | Secret key used for authentication and encryption |
+| secretEnv.SENTRY_DSN | string | `""` | Sentry DSN for error tracking and monitoring |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

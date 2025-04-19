@@ -16,7 +16,23 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
-secretEnv: {}
+secretEnv:
+  # -- PostgreSQL connection string for the main database connection
+  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"
+  # -- Direct PostgreSQL connection string, used for Prisma direct database access
+  DIRECT_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"
+  # -- Secret key used for session management and encryption
+  SECRET_KEY: "supersecret"
+  # -- Google Cloud service account key for authentication (JSON format)
+  GOOGLE_SERVICE_KEY: ""
+  # -- Redis connection URI for caching and queue management
+  REDIS_URI: "redis://redis-master:6379/0"
+  # -- Username for OpenTelemetry authentication
+  OTLP_AUTH_USERNAME: ""
+  # -- Password for OpenTelemetry authentication
+  OTLP_AUTH_PASSWORD: ""
+  # -- Discord webhook for feedback form
+  FEEDBACK_WEBHOOK_URL: ""
 
 # -- Ports
 httpPort: 3000
@@ -35,14 +51,8 @@ config:
   BLOBSCAN_API_BASE_URL: "http://blobscan-api:3001"
   # -- Port on which the Blobscan API service listens
   BLOBSCAN_API_PORT: 3001
-  # -- PostgreSQL connection string for the main database connection
-  DATABASE_URL: "postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"
-  # -- Direct PostgreSQL connection string, used for Prisma direct database access
-  DIRECT_URL: ""
   # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
   NETWORK_NAME: "mainnet"
-  # -- Secret key used for session management and encryption
-  SECRET_KEY: "supersecret"
   # -- Enable PostgreSQL storage for blob data
   POSTGRES_STORAGE_ENABLED: "true"
   # -- Enable Swarm decentralized storage for blob data
@@ -53,16 +63,8 @@ config:
   GOOGLE_STORAGE_BUCKET_NAME: ""
   # -- Google Cloud project ID for blob data storage
   GOOGLE_STORAGE_PROJECT_ID: ""
-  # -- Google Cloud service account key for authentication (JSON format)
-  GOOGLE_SERVICE_KEY: ""
-  # -- Redis connection URI for caching and queue management
-  REDIS_URI: "redis://redis-master:6379/0"
   # -- Application logging level (debug, info, warn, error)
   LOG_LEVEL: "info"
-  # -- Username for OpenTelemetry authentication
-  OTLP_AUTH_USERNAME: ""
-  # -- Password for OpenTelemetry authentication
-  OTLP_AUTH_PASSWORD: ""
   # -- Protocol used for OpenTelemetry data export
   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
   # -- Endpoint URL for OpenTelemetry data export
@@ -71,8 +73,6 @@ config:
   METRICS_ENABLED: "true"
   # -- Enable distributed tracing
   TRACES_ENABLED: "false"
-  # -- Discord webhook for feedback form
-  FEEDBACK_WEBHOOK_URL: ""
 
 # -- Additional env variables
 extraEnv: []

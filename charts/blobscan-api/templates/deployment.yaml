@@ -76,14 +76,6 @@ spec:
           env:
             - name: CHAIN_ID
               value: {{ .Values.config.CHAIN_ID | quote }}
-            - name: DATABASE_URL
-              value: {{ .Values.config.DATABASE_URL | quote }}
-            - name: DIRECT_URL
-              value: {{ .Values.config.DIRECT_URL | quote }}
-            - name: REDIS_URI
-              value: {{ .Values.config.REDIS_URI | quote }}
-            - name: SECRET_KEY
-              value: {{ .Values.config.SECRET_KEY | quote }}
             - name: NETWORK_NAME
               value: {{ .Values.config.NETWORK_NAME | quote }}
             - name: BLOBSCAN_API_BASE_URL
@@ -107,16 +99,6 @@ spec:
               value: {{ .Values.config.GOOGLE_STORAGE_BUCKET_NAME | quote }}
             - name: GOOGLE_STORAGE_PROJECT_ID
               value: {{ .Values.config.GOOGLE_STORAGE_PROJECT_ID | quote }}
-            - name: GOOGLE_SERVICE_KEY
-              value: {{ .Values.config.GOOGLE_SERVICE_KEY | quote }}
-            {{- end }}
-            {{- if .Values.config.OTLP_AUTH_USERNAME }}
-            - name: OTLP_AUTH_USERNAME
-              value: {{ .Values.config.OTLP_AUTH_USERNAME | quote }}
-            {{- end }}
-            {{- if .Values.config.OTLP_AUTH_PASSWORD }}
-            - name: OTLP_AUTH_PASSWORD
-              value: {{ .Values.config.OTLP_AUTH_PASSWORD | quote }}
             {{- end }}
             {{- if .Values.config.OTEL_EXPORTER_OTLP_PROTOCOL }}
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
@@ -128,19 +110,15 @@ spec:
             {{- end }}
             - name: METRICS_ENABLED
               value: {{ .Values.config.METRICS_ENABLED | quote }}
+            {{- if .Values.config.TRACES_ENABLED }}
             - name: TRACES_ENABLED
               value: {{ .Values.config.TRACES_ENABLED | quote }}
+            {{- end }}
             - name: LOG_LEVEL
               value: {{ .Values.config.LOG_LEVEL | quote }}
-            {{- if .Values.config.WEAVEVM_API_KEY }}
-            - name: WEAVEVM_API_KEY
-              value: {{ .Values.config.WEAVEVM_API_KEY | quote }}
-            {{- end }}
+            {{- if .Values.config.ETH_PRICE_SYNCER_ENABLED }}
             - name: ETH_PRICE_SYNCER_ENABLED
               value: {{ .Values.config.ETH_PRICE_SYNCER_ENABLED | quote }}
-            {{- if .Values.config.ETH_PRICE_SYNCER_ENABLED }}
-            - name: ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL
-              value: {{ .Values.config.ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL | quote }}
             - name: ETH_PRICE_SYNCER_CRON_PATTERN
               value: {{ .Values.config.ETH_PRICE_SYNCER_CRON_PATTERN | quote }}
             - name: ETH_PRICE_SYNCER_CHAIN_ID
@@ -150,17 +128,15 @@ spec:
             - name: ETH_PRICE_SYNCER_TIME_TOLERANCE
               value: {{ .Values.config.ETH_PRICE_SYNCER_TIME_TOLERANCE | quote }}
             {{- end }}
-            {{- if .Values.config.SENTRY_DSN_API }}
-            - name: SENTRY_DSN_API
-              value: {{ .Values.config.SENTRY_DSN_API | quote }}
-            {{- end }}
 
           {{- range $key, $value := .Values.secretEnv }}
+            {{- if ne $value "" }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
                   name: {{ include "blobscan.fullname" $ }}-env
                   key: {{ $key }}
+            {{- end }}
           {{- end }}
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}

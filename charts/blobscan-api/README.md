@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.4.8](https://img.shields.io/badge/Version-0.4.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -41,15 +41,11 @@ Blobscan API
 | config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
 | config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
 | config.CHAIN_ID | string | `"1"` | Ethereum network chain ID (1 for mainnet) |
-| config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"` | PostgreSQL connection string for the main database connection |
-| config.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"` | Direct PostgreSQL connection string, used for Prisma direct database access |
 | config.ETH_PRICE_SYNCER_CHAIN_ID | string | `"137"` | ID of the chain where price feed contract is deployed on |
-| config.ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL | string | `"http://polygon-rpc:8545"` | RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID |
 | config.ETH_PRICE_SYNCER_CRON_PATTERN | string | `"* * * * *"` | Cron pattern for the job that periodically stores ETH price in database |
-| config.ETH_PRICE_SYNCER_ENABLED | string | `"false"` | Enable the ETH price syncer job |
+| config.ETH_PRICE_SYNCER_ENABLED | bool | `false` | Enable the ETH price syncer job |
 | config.ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS | string | `"0xF9680D99D6C9589e2a93a78A04A279e509205945"` | Contract address for the Chainlink ETH/USD price feed on the specified chain |
-| config.ETH_PRICE_SYNCER_TIME_TOLERANCE | int | `3600` | Maximum allowed age (in seconds) of the fetched price before it's considered stale |
-| config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
+| config.ETH_PRICE_SYNCER_TIME_TOLERANCE | int | `60` | Maximum allowed age (in seconds) of the fetched price before it's considered stale |
 | config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
 | config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
@@ -58,16 +54,10 @@ Blobscan API
 | config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
 | config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol used for OpenTelemetry data export |
-| config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
-| config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
 | config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
-| config.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
-| config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
-| config.SENTRY_DSN_API | string | `""` | Sentry DSN for API |
 | config.SWARM_BATCH_ID | string | `""` | Swarm batch ID for blob data storage in Swarm network |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
-| config.WEAVEVM_API_KEY | string | `""` | API key for WeaveVM integration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-api container |
 | customCommand | list | `[]` | Command replacement for the blobscan-api container |
@@ -99,7 +89,17 @@ Blobscan API
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{}` | Secret env variables injected via a created secret |
+| secretEnv | object | `{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN_API":"","WEAVEVM_API_KEY":""}` | Secret env variables injected via a created secret |
+| secretEnv.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"` | PostgreSQL connection string for the main database connection |
+| secretEnv.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"` | Direct PostgreSQL connection string, used for Prisma direct database access |
+| secretEnv.ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL | string | `"http://polygon-rpc:8545"` | RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID |
+| secretEnv.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
+| secretEnv.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
+| secretEnv.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
+| secretEnv.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
+| secretEnv.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
+| secretEnv.SENTRY_DSN_API | string | `""` | Sentry DSN for API |
+| secretEnv.WEAVEVM_API_KEY | string | `""` | API key for WeaveVM integration |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

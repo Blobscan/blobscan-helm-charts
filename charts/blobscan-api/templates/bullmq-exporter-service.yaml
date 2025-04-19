@@ -2,10 +2,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "blobscan.fullname" . }}-bullmq-exporter
+  name: bullmq-exporter
   labels:
-    {{- include "blobscan.labels" . | nindent 4 }}
-    app.kubernetes.io/component: bullmq-exporter
+    {{- include "bullmq.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
@@ -14,6 +13,5 @@ spec:
       protocol: TCP
       name: metrics
   selector:
-    {{- include "blobscan.selectorLabels" . | nindent 4 }}
-    app.kubernetes.io/component: bullmq-exporter
+    {{- include "bullmq.selectorLabels" . | nindent 4 }}
 {{- end }}

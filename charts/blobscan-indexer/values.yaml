@@ -13,7 +13,15 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
-secretEnv: {}
+secretEnv:
+  # -- Ethereum consensus layer (beacon chain) node endpoint URL
+  BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
+  # -- Ethereum execution layer node endpoint URL
+  EXECUTION_NODE_ENDPOINT: "http://execution-node:8545"
+  # -- Secret key used for authentication and encryption
+  SECRET_KEY: "supersecret"
+  # -- Sentry DSN for error tracking and monitoring
+  SENTRY_DSN: ""
 
 # -- Command arguments
 args: []
@@ -22,22 +30,14 @@ args: []
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:
-  # -- Ethereum consensus layer (beacon chain) node endpoint URL
-  BEACON_NODE_ENDPOINT: "http://beacon-node:5052"
   # -- Blobscan API service endpoint URL
   BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"
-  # -- Ethereum execution layer node endpoint URL
-  EXECUTION_NODE_ENDPOINT: "http://execution-node:8545"
-  # -- Secret key used for authentication and encryption
-  SECRET_KEY: "supersecret"
   # -- Ethereum network name (mainnet, holesky, sepolia, gnosis)
   NETWORK_NAME: "mainnet"
   # -- Slot number when Dencun fork activated (uncomment and set for testnets)
-  # DENCUN_FORK_SLOT: ""
+  DENCUN_FORK_SLOT: ""
   # -- Rust logging configuration for the blob indexer
   RUST_LOG: "blob_indexer=INFO"
-  # -- Sentry DSN for error tracking and monitoring
-  SENTRY_DSN: ""
 
 # -- Additional env variables
 extraEnv: []

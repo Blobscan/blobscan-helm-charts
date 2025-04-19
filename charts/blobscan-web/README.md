@@ -1,7 +1,7 @@
 
 # blobscan-web
 
-![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan Web UI
 
@@ -22,10 +22,6 @@ Blobscan Web UI
 | config.BEE_ENDPOINT | string | `"http://bee-0:1633"` | Swarm Bee node endpoint URL for decentralized storage interaction |
 | config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |
 | config.BLOBSCAN_API_PORT | int | `3001` | Port on which the Blobscan API service listens |
-| config.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false"` | PostgreSQL connection string for the main database connection |
-| config.DIRECT_URL | string | `""` | Direct PostgreSQL connection string, used for Prisma direct database access |
-| config.FEEDBACK_WEBHOOK_URL | string | `""` | Discord webhook for feedback form |
-| config.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
 | config.GOOGLE_STORAGE_BUCKET_NAME | string | `""` | Google Cloud Storage bucket name for blob data storage |
 | config.GOOGLE_STORAGE_ENABLED | string | `"false"` | Enable Google Cloud Storage for blob data |
 | config.GOOGLE_STORAGE_PROJECT_ID | string | `""` | Google Cloud project ID for blob data storage |
@@ -34,11 +30,7 @@ Blobscan Web UI
 | config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | config.OTEL_EXPORTER_OTLP_ENDPOINT | string | `"http://localhost:4318"` | Endpoint URL for OpenTelemetry data export |
 | config.OTEL_EXPORTER_OTLP_PROTOCOL | string | `"http/protobuf"` | Protocol used for OpenTelemetry data export |
-| config.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
-| config.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
 | config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
-| config.REDIS_URI | string | `"redis://redis-master:6379/0"` | Redis connection URI for caching and queue management |
-| config.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
@@ -72,7 +64,15 @@ Blobscan Web UI
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{}` | Secret env variables injected via a created secret |
+| secretEnv | object | `{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","FEEDBACK_WEBHOOK_URL":"","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://redis-master:6379/0","SECRET_KEY":"supersecret"}` | Secret env variables injected via a created secret |
+| secretEnv.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"` | PostgreSQL connection string for the main database connection |
+| secretEnv.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"` | Direct PostgreSQL connection string, used for Prisma direct database access |
+| secretEnv.FEEDBACK_WEBHOOK_URL | string | `""` | Discord webhook for feedback form |
+| secretEnv.GOOGLE_SERVICE_KEY | string | `""` | Google Cloud service account key for authentication (JSON format) |
+| secretEnv.OTLP_AUTH_PASSWORD | string | `""` | Password for OpenTelemetry authentication |
+| secretEnv.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
+| secretEnv.REDIS_URI | string | `"redis://redis-master:6379/0"` | Redis connection URI for caching and queue management |
+| secretEnv.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

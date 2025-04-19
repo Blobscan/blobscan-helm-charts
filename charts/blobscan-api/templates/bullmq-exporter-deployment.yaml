@@ -2,21 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "blobscan.fullname" . }}-bullmq-exporter
+  name: bullmq-exporter
   labels:
-    {{- include "blobscan.labels" . | nindent 4 }}
-    app.kubernetes.io/component: bullmq-exporter
+    {{- include "bullmq.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "blobscan.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: bullmq-exporter
+      {{- include "bullmq.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "blobscan.selectorLabels" . | nindent 8 }}
-        app.kubernetes.io/component: bullmq-exporter
+        {{- include "bullmq.selectorLabels" . | nindent 8 }}
       annotations:
         {{- with .Values.bullmqExporter.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -39,7 +36,10 @@ spec:
               protocol: TCP
           env:
             - name: REDIS_URI
-              value: {{ .Values.config.REDIS_URI | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "blobscan.fullname" . }}-env
+                  key: REDIS_URI
             - name: REDIS_DB
               value: {{ .Values.bullmqExporter.databaseMapping | quote }}
           {{- with .Values.bullmqExporter.resources }}

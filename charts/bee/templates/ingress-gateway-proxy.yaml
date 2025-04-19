@@ -41,8 +41,8 @@ spec:
       http:
         paths:
         {{- range .paths }}
-          - path: {{ . }}
-            pathType: {{ $root.Values.gatewayProxy.ingress.pathType }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
             backend:
               service:
                 name: gateway-proxy-{{ $fullName }}

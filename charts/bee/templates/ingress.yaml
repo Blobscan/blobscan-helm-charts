@@ -36,7 +36,7 @@ spec:
     {{- end }}
   {{- end }}
 {{- end }}
-{{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
+{{- if and .Values.ingress.ingressClassName (semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version) }}
   ingressClassName: {{ $root.Values.ingress.ingressClassName }}
 {{- end }}
   rules:
@@ -49,9 +49,9 @@ spec:
       http:
         paths:
         {{- range .paths }}
-          - path: {{ . }}
-          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
-            pathType: {{ $root.Values.ingress.pathType }}
+          - path: {{ .path }}
+          {{- if and .pathType (semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version) }}
+            pathType: {{ .pathType }}
           {{- end }}
             backend:
             {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
@@ -112,9 +112,9 @@ spec:
       http:
         paths:
         {{- range .paths }}
-          - path: {{ . }}
-          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
-            pathType: {{ $root.Values.ingress.pathType }}
+          - path: {{ .path }}
+          {{- if and .pathType (semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version) }}
+            pathType: {{ .pathType }}
           {{- end }}
             backend:
             {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}

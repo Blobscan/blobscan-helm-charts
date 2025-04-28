@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
@@ -130,13 +130,13 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-api.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | blobscan-api.terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | blobscan-api.tolerations | list | `[]` | Tolerations for pods |
-| blobscan-indexer | object | `{"config":{"BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","DENCUN_FORK_SLOT":"","NETWORK_NAME":"mainnet","RUST_LOG":"blob_indexer=INFO"},"enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-indexer","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":"1000m","memory":"200Mi"},"requests":{"cpu":"500m","memory":"100Mi"}},"secretEnv":{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","SECRET_KEY":"supersecret","SENTRY_DSN":""}}` | Values for the blobscan-indexer subchart |
+| blobscan-indexer | object | `{"config":{"BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","DENCUN_FORK_SLOT":"","NETWORK_NAME":"mainnet","RUST_LOG":"blob_indexer=INFO"},"enabled":true,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-indexer","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":"1000m","memory":"200Mi"},"requests":{"cpu":"500m","memory":"100Mi"}},"secretEnv":{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","SECRET_KEY":"supersecret","SENTRY_DSN":""}}` | Values for the blobscan-indexer subchart |
 | blobscan-indexer.config | object | `{"BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","DENCUN_FORK_SLOT":"","NETWORK_NAME":"mainnet","RUST_LOG":"blob_indexer=INFO"}` | Config file |
 | blobscan-indexer.config.BLOBSCAN_API_ENDPOINT | string | `"http://blobscan-api:3001"` | Blobscan API service endpoint URL |
 | blobscan-indexer.config.DENCUN_FORK_SLOT | string | `""` | Slot number when Dencun fork activated (uncomment and set for testnets) |
 | blobscan-indexer.config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | blobscan-indexer.config.RUST_LOG | string | `"blob_indexer=INFO"` | Rust logging configuration for the blob indexer |
-| blobscan-indexer.enabled | bool | `false` | Enable or disable the blobscan-indexer component |
+| blobscan-indexer.enabled | bool | `true` | Enable or disable the blobscan-indexer component |
 | blobscan-indexer.image.pullPolicy | string | `"IfNotPresent"` | blobscan-indexer container pull policy |
 | blobscan-indexer.image.repository | string | `"blossomlabs/blobscan-indexer"` | blobscan-indexer container image repository |
 | blobscan-indexer.image.tag | string | `"latest"` | blobscan-indexer container image tag |

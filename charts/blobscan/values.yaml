@@ -316,7 +316,7 @@ blobscan-api:
 # -- Values for the blobscan-indexer subchart
 blobscan-indexer:
   # -- Enable or disable the blobscan-indexer component
-  enabled: false
+  enabled: true
   # -- Number of blobscan-indexer replicas
   replicas: 1
   image:

@@ -301,15 +301,15 @@ blobscan-api:
       # -- Additional ServiceMonitor annotations
       annotations: {}
       # -- ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set
-      interval: ""
+      interval: 15s
       # -- ServiceMonitor path, defaults to /metrics
       path: "/metrics"
       # -- ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set
-      scheme: ""
+      scheme: http
       # -- ServiceMonitor TLS configuration
       tlsConfig: {}
       # -- ServiceMonitor scrape timeout
-      scrapeTimeout: ""
+      scrapeTimeout: 30s
       # -- ServiceMonitor relabelings
       relabelings: []
 
@@ -575,26 +575,3 @@ extraVolumeMounts: []
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []
-
-serviceMonitor:
-  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
-  # https://github.com/coreos/prometheus-operator
-  enabled: false
-  # -- Path to scrape
-  path: /metrics
-  # -- Alternative namespace for ServiceMonitor
-  namespace: null
-  # -- Additional ServiceMonitor labels
-  labels: {}
-  # -- Additional ServiceMonitor annotations
-  annotations: {}
-  # -- ServiceMonitor scrape interval
-  interval: 15s
-  # -- ServiceMonitor scheme
-  scheme: http
-  # -- ServiceMonitor TLS configuration
-  tlsConfig: {}
-  # -- ServiceMonitor scrape timeout
-  scrapeTimeout: 30s
-  # -- ServiceMonitor relabelings
-  relabelings: []

@@ -1,0 +1,165 @@
+blobscan-api:
+  fullnameOverride: "blobscan-api"
+  config:
+    CHAIN_ID: "1"
+    NETWORK_NAME: "mainnet"
+    BLOBSCAN_API_BASE_URL: "https://api.staging.blobscan.com"
+    # BLOBSCAN_API_BASE: "api.staging.blobscan.com"
+    # BLOBSCAN_API_PORT  # unused
+    POSTGRES_STORAGE_ENABLED: "false"
+    SWARM_STORAGE_ENABLED: "true"
+    SWARM_BATCH_ID: "7add92aaff105db17f09f8c0a2fcc7312209ace92aba87e61f8ea40e34f1da52"
+    GOOGLE_STORAGE_ENABLED: "true"
+    GOOGLE_STORAGE_BUCKET_NAME: blobscan-staging
+    GOOGLE_STORAGE_PROJECT_ID: blobscan-379218
+    BEE_ENDPOINT: "http://bee-0.swarm.svc.cluster.local:1633"
+    METRICS_ENABLED: "true"
+    LOG_LEVEL: "info"
+    # NODE_ENV: "production"
+    ETH_PRICE_SYNCER_ENABLED: "true"
+    # https://github.com/Blobscan/blobscan/pull/751
+    # TODO: Once merged sane defaults remove these lines:
+    ETH_PRICE_SYNCER_CRON_PATTERN: "* * * * *"
+    ETH_PRICE_SYNCER_CHAIN_ID: 137
+    ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS: "0xF9680D99D6C9589e2a93a78A04A279e509205945"
+    ETH_PRICE_SYNCER_TIME_TOLERANCE: 60  # TODO: use default 3600?
+
+  bullmqExporter:
+    enabled: true
+    databaseMapping: "0:ethereum-staging"
+    image:
+      pullPolicy: "Always"
+    serviceMonitor:
+      enabled: true
+
+  image:
+    # repository: "ghcr.io/blobscan/blobscan-api"
+    tag: development
+    pullPolicy: Always
+
+  ingress:
+    enabled: true
+    className: nginx-pp
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      # service.beta.kubernetes.io/do-loadbalancer-name: api.staging.blobscan.com
+
+    hosts:
+      - host: "api.staging.blobscan.com"
+        paths:
+        - path: "/"
+          pathType: Prefix
+    tls:
+      - secretName: api-staging-blobscan-tls
+        hosts:
+          - "api.staging.blobscan.com"
+
+  resources:
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+    requests:
+      cpu: 100m
+      memory: 512Mi
+
+blobscan-indexer:
+  enabled: true
+  fullnameOverride: "blobscan-indexer"
+  config:
+    BLOBSCAN_API_ENDPOINT: "http://blobscan-api:3001"
+    RUST_LOG: "blob_indexer=INFO"
+
+  image:
+    # repository: "ghcr.io/blobscan/blobscan-indexer"
+    tag: latest
+    pullPolicy: Always
+
+blobscan-web:
+  fullnameOverride: "blobscan-web"
+  config:
+    NETWORK_NAME: "mainnet"
+    BLOBSCAN_API_BASE_URL: "https://api.staging.blobscan.com"
+    BLOBSCAN_API_PORT: 443
+    # PUBLIC_NETWORK_NAME: ""
+    # NEXT_PUBLIC_GOOGLE_STORAGE_BUCKET_NAME
+    # NEXT_PUBLIC_NETWORK_NAME
+    # PUBLIC_POSTHOG_HOST: "https://us.i.posthog.com"
+    # SENTRY_IGNORE_API_RESOLUTION_ERROR: 1
+    POSTGRES_STORAGE_ENABLED: "false"
+    SWARM_STORAGE_ENABLED: "true"
+    GOOGLE_STORAGE_ENABLED: "true"
+    GOOGLE_STORAGE_BUCKET_NAME: blobscan-staging
+    GOOGLE_STORAGE_PROJECT_ID: blobscan-379218
+    METRICS_ENABLED: "true"
+    LOG_LEVEL: info
+    BEE_ENDPOINT: "http://bee-0.swarm.svc.cluster.local:1633"
+
+  image:
+    # repository: "ghcr.io/blobscan/blobscan-web"
+    tag: development
+    pullPolicy: Always
+
+  ingress:
+    enabled: true
+    className: nginx-pp
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      # service.beta.kubernetes.io/do-loadbalancer-name: staging.blobscan.com
+    hosts:
+      - host: "staging.blobscan.com"
+        paths:
+        - path: "/"
+          pathType: Prefix
+    tls:
+      - secretName: staging-blobscan-tls
+        hosts:
+          - "staging.blobscan.com"
+
+  resources:
+    limits:
+      cpu: 2
+      memory: 512Mi
+
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+
+blobscandb:
+  enabled: false
+
+redis:
+  enabled: false
+  global:
+    defaultStorageClass: "do-block-storage-retain"
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      # TODO: enable
+      enabled: false
+
+  master:
+    persistence:
+      enabled: true
+      storageClass: "do-block-storage-retain"
+      accessModes:
+        - ReadWriteOnce
+      size: 20Gi
+    resources:
+      limits:
+        cpu: 150m
+        memory: 2Gi
+        ephemeral-storage: 2Gi
+
+      requests:
+        cpu: 100m
+        memory: 128Mi
+        ephemeral-storage: 50Mi

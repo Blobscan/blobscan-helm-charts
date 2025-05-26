@@ -81,6 +81,22 @@ spec:
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
+
+          {{- if .Values.externalConfigMaps }}
+            {{- range .Values.externalConfigMaps }}
+          envFrom:
+            - configMapRef:
+                name: {{ . }}
+            {{- end }}
+          {{- end }}
+
+          {{- if .Values.externalSecrets }}
+            {{- range .Values.externalSecrets }}
+          envFrom:
+            - secretRef:
+                name: {{ . }}
+            {{- end }}
+          {{- end }}
       {{- if .Values.extraContainers }}
         {{ toYaml .Values.extraContainers | nindent 8}}
       {{- end }}

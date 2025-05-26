@@ -1,7 +1,7 @@
 
 # blobscan-indexer
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan-indexer indexes blobs using Blobscan API.
 
@@ -26,6 +26,8 @@ Blobscan-indexer indexes blobs using Blobscan API.
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
+| externalConfigMaps | list | `[]` | External ConfigMaps to mount as environment variables Example: ["blobscan-indexer-config"] |
+| externalSecrets | list | `[]` | External Secrets to mount as environment variables Example: ["blobscan-indexer-secrets"] |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |

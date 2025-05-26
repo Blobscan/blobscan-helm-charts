@@ -77,6 +77,14 @@ config:
 # -- Additional env variables
 extraEnv: []
 
+# -- External ConfigMaps to mount as environment variables
+# Example: ["blobscan-web-config"]
+externalConfigMaps: []
+
+# -- External Secrets to mount as environment variables
+# Example: ["blobscan-web-secrets"]
+externalSecrets: []
+
 ingress:
   # -- Ingress resource for the HTTP API
   enabled: false

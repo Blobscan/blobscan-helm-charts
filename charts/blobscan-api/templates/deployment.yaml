@@ -129,6 +129,7 @@ spec:
               value: {{ .Values.config.ETH_PRICE_SYNCER_TIME_TOLERANCE | quote }}
             {{- end }}
 
+
           {{- range $key, $value := .Values.secretEnv }}
             {{- if ne $value "" }}
             - name: {{ $key }}
@@ -140,6 +141,22 @@ spec:
           {{- end }}
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
+          {{- end }}
+
+          {{- if .Values.externalConfigMaps }}
+          {{- range .Values.externalConfigMaps }}
+          envFrom:
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
+          {{- end }}
+
+          {{- if .Values.externalSecrets }}
+          {{- range .Values.externalSecrets }}
+          envFrom:
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           {{- end }}
 
       {{- if .Values.extraContainers }}

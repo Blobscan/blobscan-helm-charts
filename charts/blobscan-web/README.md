@@ -1,7 +1,7 @@
 
 # blobscan-web
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan Web UI
 
@@ -36,6 +36,8 @@ Blobscan Web UI
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan-web container |
 | customCommand | list | `[]` | Command replacement for the blobscan-web container |
+| externalConfigMaps | list | `[]` | External ConfigMaps to mount as environment variables Example: ["blobscan-web-config"] |
+| externalSecrets | list | `[]` | External Secrets to mount as environment variables Example: ["blobscan-web-secrets"] |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |

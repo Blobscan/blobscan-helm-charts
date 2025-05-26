@@ -177,7 +177,7 @@ blobscan-api:
     # -- Contract address for the Chainlink ETH/USD price feed on the specified chain
     ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS: "0xF9680D99D6C9589e2a93a78A04A279e509205945"
     # -- Maximum allowed age (in seconds) of the fetched price before it's considered stale
-    ETH_PRICE_SYNCER_TIME_TOLERANCE: 3600
+    ETH_PRICE_SYNCER_TIME_TOLERANCE: 60
   # -- Additional env variables
   extraEnv: []
   ingress:

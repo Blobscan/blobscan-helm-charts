@@ -8,6 +8,12 @@ fullnameOverride: ""
 blobscan-web:
   # -- Enable or disable the blobscan-web component
   enabled: true
+  # -- External ConfigMaps to mount as environment variables
+  # Example: ["blobscan-web-config"]
+  externalConfigMaps: []
+  # -- External Secrets to mount as environment variables
+  # Example: ["blobscan-web-secrets"]
+  externalSecrets: []
   # -- Number of blobscan-web replicas
   replicas: 1
   image:
@@ -180,6 +186,14 @@ blobscan-api:
     ETH_PRICE_SYNCER_TIME_TOLERANCE: 60
   # -- Additional env variables
   extraEnv: []
+
+  # -- External ConfigMaps to mount as environment variables
+  # Example: ["blobscan-api-config"]
+  externalConfigMaps: []
+
+  # -- External Secrets to mount as environment variables
+  # Example: ["blobscan-api-secrets"]
+  externalSecrets: []
   ingress:
     # -- Ingress resource for the HTTP API
     enabled: false
@@ -317,6 +331,14 @@ blobscan-api:
 blobscan-indexer:
   # -- Enable or disable the blobscan-indexer component
   enabled: true
+
+  # -- External ConfigMaps to mount as environment variables
+  # Example: ["blobscan-indexer-config"]
+  externalConfigMaps: []
+
+  # -- External Secrets to mount as environment variables
+  # Example: ["blobscan-indexer-secrets"]
+  externalSecrets: []
   # -- Number of blobscan-indexer replicas
   replicas: 1
   image:

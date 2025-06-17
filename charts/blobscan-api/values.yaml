@@ -70,6 +70,10 @@ config:
   GOOGLE_STORAGE_PROJECT_ID: ""
   # -- Swarm Bee node endpoint for decentralized storage
   BEE_ENDPOINT: "http://localhost:1633"
+  # -- Enable Swarm chunkstorm for batch uploads
+  SWARM_CHUNKSTORM_ENABLED: "false"
+  # -- Swarm chunkstorm endpoint URL
+  SWARM_CHUNKSTORM_URL: ""
   # -- Protocol used for OpenTelemetry data export
   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
   # -- Endpoint URL for OpenTelemetry data export
@@ -232,6 +236,38 @@ extraVolumes: []
 
 # -- Additional volume mounts
 extraVolumeMounts: []
+
+# -- Chunkstorm configuration for Swarm batch uploads
+chunkstorm:
+  # -- Chunkstorm container image repository
+  repository: blossomlabs/chunkstorm
+  # -- Chunkstorm container image tag
+  tag: 0.2.0
+  # -- Chunkstorm container pull policy
+  pullPolicy: IfNotPresent
+  # -- Batch ID for uploading chunks
+  batchId: ""
+  # -- Path to the keystore file inside the container
+  keystorePath: "/app/keystore.json"
+  # -- Password for the keystore
+  keystorePassword: ""
+  # -- Path to the stamperstore directory (persistent volume)
+  stamperstorePath: "/app/stamperstore"
+  # -- Resource requests and limits for the chunkstorm container
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  # -- Persistent volume size for the stamperstore
+  stamperstorePersistentVolume:
+    enabled: true
+    size: 1Gi
+    storageClassName: ""
+    accessModes:
+      - ReadWriteOnce
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []

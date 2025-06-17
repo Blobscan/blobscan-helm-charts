@@ -1,0 +1,19 @@
+{{- if and (eq .Values.config.SWARM_CHUNKSTORM_ENABLED "true") .Values.chunkstorm.stamperstorePersistentVolume.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "blobscan.fullname" . }}-stamperstore
+  labels:
+    {{- include "blobscan.labels" . | nindent 4 }}
+spec:
+  accessModes:
+  {{- range .Values.chunkstorm.stamperstorePersistentVolume.accessModes }}
+    - {{ . }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.chunkstorm.stamperstorePersistentVolume.size }}
+  {{- if .Values.chunkstorm.stamperstorePersistentVolume.storageClassName }}
+  storageClassName: {{ .Values.chunkstorm.stamperstorePersistentVolume.storageClassName }}
+  {{- end }}
+{{- end }}

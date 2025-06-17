@@ -1,0 +1,64 @@
+{{- if eq .Values.config.SWARM_CHUNKSTORM_ENABLED "true" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "blobscan.fullname" . }}-chunkstorm
+  labels:
+    {{- include "blobscan.labels" . | nindent 4 }}
+    app.kubernetes.io/component: chunkstorm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "blobscan.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: chunkstorm
+  template:
+    metadata:
+      labels:
+        {{- include "blobscan.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: chunkstorm
+    spec:
+      serviceAccountName: {{ include "blobscan.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      containers:
+        - name: chunkstorm
+          image: "{{ .Values.chunkstorm.repository }}:{{ .Values.chunkstorm.tag }}"
+          imagePullPolicy: {{ .Values.chunkstorm.pullPolicy }}
+          resources:
+            {{- toYaml .Values.chunkstorm.resources | nindent 12 }}
+          env:
+            - name: BATCH_ID
+              value: {{ .Values.chunkstorm.batchId | default .Values.config.SWARM_BATCH_ID | quote }}
+            - name: KEYSTORE_PATH
+              value: {{ .Values.chunkstorm.keystorePath | quote }}
+            - name: KEYSTORE_PASSWORD
+              value: {{ .Values.chunkstorm.keystorePassword | quote }}
+            - name: BEE_ENDPOINT
+              value: {{ .Values.config.BEE_ENDPOINT | quote }}
+            - name: STAMPERSTORE_PATH
+              value: {{ .Values.chunkstorm.stamperstorePath | quote }}
+          volumeMounts:
+            - name: stamperstore
+              mountPath: {{ .Values.chunkstorm.stamperstorePath }}
+      volumes:
+        - name: stamperstore
+        {{- if .Values.chunkstorm.stamperstorePersistentVolume.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "blobscan.fullname" . }}-stamperstore
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

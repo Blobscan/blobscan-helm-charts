@@ -92,6 +92,12 @@ spec:
             - name: BEE_ENDPOINT
               value: {{ .Values.config.BEE_ENDPOINT | quote }}
             {{- end }}
+            {{- if .Values.config.SWARM_CHUNKSTORM_ENABLED }}
+            - name: SWARM_CHUNKSTORM_ENABLED
+              value: {{ .Values.config.SWARM_CHUNKSTORM_ENABLED | quote }}
+            - name: SWARM_CHUNKSTORM_URL
+              value: {{ .Values.config.SWARM_CHUNKSTORM_URL | quote }}
+            {{- end }}
             - name: GOOGLE_STORAGE_ENABLED
               value: {{ .Values.config.GOOGLE_STORAGE_ENABLED | quote }}
             {{- if .Values.config.GOOGLE_STORAGE_ENABLED }}
@@ -169,7 +175,9 @@ spec:
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
-      volumes:
+      {{- with .Values.volumes }}
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}

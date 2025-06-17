@@ -10,7 +10,7 @@ spec:
   type: {{ .Values.chunkstorm.service.type | default "ClusterIP" }}
   ports:
     - name: http
-      port: {{ .Values.chunkstorm.service.port | default 80 }}
+      port: {{ .Values.chunkstorm.service.port | default 3050 }}
       protocol: TCP
       targetPort: 3050
   selector:

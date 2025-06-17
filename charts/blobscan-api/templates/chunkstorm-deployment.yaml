@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "blobscan.fullname" . }}-chunkstorm
+  name: chunkstorm
   labels:
     {{- include "blobscan.labels" . | nindent 4 }}
     app.kubernetes.io/component: chunkstorm

@@ -271,7 +271,7 @@ chunkstorm:
     # -- Service type
     type: ClusterIP
     # -- Service port
-    port: 80
+    port: 3050
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []

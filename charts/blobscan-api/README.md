@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -36,8 +36,7 @@ Blobscan API
 | bullmqExporter.serviceMonitor.scheme | string | `""` | ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set |
 | bullmqExporter.serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout |
 | bullmqExporter.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| chunkstorm | object | `{"batchId":"","keystorePassword":"","keystorePath":"/app/keystore.json","pullPolicy":"IfNotPresent","repository":"blossomlabs/chunkstorm","resources":{},"stamperstorePath":"/app/stamperstore","stamperstorePersistentVolume":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"1Gi","storageClassName":""},"tag":"0.2.0"}` | Chunkstorm configuration for Swarm batch uploads |
-| chunkstorm.batchId | string | `""` | Batch ID for uploading chunks |
+| chunkstorm | object | `{"keystorePassword":"","keystorePath":"/app/keystore.json","pullPolicy":"IfNotPresent","repository":"blossomlabs/chunkstorm","resources":{},"stamperstorePath":"/app/stamperstore","stamperstorePersistentVolume":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"1Gi","storageClassName":""},"tag":"0.2.0"}` | Chunkstorm configuration for Swarm batch uploads |
 | chunkstorm.keystorePassword | string | `""` | Password for the keystore |
 | chunkstorm.keystorePath | string | `"/app/keystore.json"` | Path to the keystore file inside the container |
 | chunkstorm.pullPolicy | string | `"IfNotPresent"` | Chunkstorm container pull policy |

@@ -29,7 +29,7 @@ spec:
             {{- toYaml .Values.chunkstorm.resources | nindent 12 }}
           env:
             - name: BATCH_ID
-              value: {{ .Values.chunkstorm.batchId | default .Values.config.SWARM_BATCH_ID | quote }}
+              value: {{ .Values.config.SWARM_BATCH_ID | quote }}
             - name: KEYSTORE_PATH
               value: {{ .Values.chunkstorm.keystorePath | quote }}
             - name: KEYSTORE_PASSWORD
@@ -41,6 +41,9 @@ spec:
           volumeMounts:
             - name: stamperstore
               mountPath: {{ .Values.chunkstorm.stamperstorePath }}
+            - name: keystore
+              mountPath: {{ .Values.chunkstorm.keystorePath }}
+              subPath: keystore.json
       volumes:
         - name: stamperstore
         {{- if .Values.chunkstorm.stamperstorePersistentVolume.enabled }}
@@ -49,6 +52,9 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        - name: keystore
+          secret:
+            secretName: chunkstorm-keystore
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

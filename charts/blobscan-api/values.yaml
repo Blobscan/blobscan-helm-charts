@@ -245,8 +245,6 @@ chunkstorm:
   tag: 0.2.0
   # -- Chunkstorm container pull policy
   pullPolicy: IfNotPresent
-  # -- Batch ID for uploading chunks
-  batchId: ""
   # -- Path to the keystore file inside the container
   keystorePath: "/app/keystore.json"
   # -- Password for the keystore

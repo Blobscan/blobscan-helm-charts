@@ -266,6 +266,12 @@ chunkstorm:
     storageClassName: ""
     accessModes:
       - ReadWriteOnce
+  # -- Service configuration for chunkstorm
+  service:
+    # -- Service type
+    type: ClusterIP
+    # -- Service port
+    port: 80
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []

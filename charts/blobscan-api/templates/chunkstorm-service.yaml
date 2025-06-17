@@ -1,0 +1,19 @@
+{{- if eq .Values.config.SWARM_CHUNKSTORM_ENABLED "true" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: chunkstorm
+  labels:
+    {{- include "blobscan.labels" . | nindent 4 }}
+    app.kubernetes.io/component: chunkstorm
+spec:
+  type: {{ .Values.chunkstorm.service.type | default "ClusterIP" }}
+  ports:
+    - name: http
+      port: {{ .Values.chunkstorm.service.port | default 80 }}
+      protocol: TCP
+      targetPort: 3050
+  selector:
+    {{- include "blobscan.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: chunkstorm
+{{- end }}

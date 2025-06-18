@@ -48,7 +48,7 @@ spec:
         - name: stamperstore
         {{- if .Values.chunkstorm.stamperstorePersistentVolume.enabled }}
           persistentVolumeClaim:
-            claimName: {{ include "blobscan.fullname" . }}-stamperstore
+            claimName: stamperstore
         {{- else }}
           emptyDir: {}
         {{- end }}

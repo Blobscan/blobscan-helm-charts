@@ -92,7 +92,7 @@ spec:
             - name: BEE_ENDPOINT
               value: {{ .Values.config.BEE_ENDPOINT | quote }}
             {{- end }}
-            {{- if .Values.config.SWARM_CHUNKSTORM_ENABLED }}
+            {{- if eq .Values.config.SWARM_CHUNKSTORM_ENABLED "true" }}
             - name: SWARM_CHUNKSTORM_ENABLED
               value: {{ .Values.config.SWARM_CHUNKSTORM_ENABLED | quote }}
             - name: SWARM_CHUNKSTORM_URL

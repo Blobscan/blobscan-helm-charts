@@ -2136,6 +2136,27 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-api-0.2.2/blobscan-api-0.2.2.tgz
     version: 0.2.2
+  blobscan-docs:
+  - apiVersion: v2
+    created: "2025-06-23T16:23:32.026138332Z"
+    description: Helm chart for deploying Blobscan documentation website
+    digest: f45fd3e6c460b7240e2cb8396bfb81aeb787302dddabc96e19157862f9f4bb0d
+    home: https://blobscan.com
+    keywords:
+    - ethereum
+    - eip4844
+    - blobs
+    - documentation
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan-docs
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-docs-0.1.0/blobscan-docs-0.1.0.tgz
+    version: 0.1.0
   blobscan-indexer:
   - apiVersion: v2
     created: "2025-05-26T12:01:35.836655461Z"
@@ -2556,4 +2577,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.3.1/blobscan-web-0.3.1.tgz
     version: 0.3.1
-generated: "2025-06-18T09:14:30.963588579Z"
+generated: "2025-06-23T16:23:32.026312379Z"

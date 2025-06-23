@@ -1,0 +1,16 @@
+apiVersion: v2
+name: blobscan-docs
+version: 0.1.0
+description: Helm chart for deploying Blobscan documentation website
+type: application
+keywords:
+  - ethereum
+  - eip4844
+  - blobs
+  - documentation
+home: https://blobscan.com
+sources:
+  - https://github.com/blobscan/blobscan/
+maintainers:
+  - name: PabloCastellano
+    email: pablo@anche.no

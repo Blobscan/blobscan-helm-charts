@@ -1,0 +1,115 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- Docker image repository for blobscan-docs
+  repository: blossomlabs/blobscan-docs
+  # -- Docker image tag for blobscan-docs
+  tag: latest
+  # -- Docker image pull policy for blobscan-docs
+  pullPolicy: IfNotPresent
+
+# -- Environment variables to set in the container
+env: {}
+
+# -- Environment variables from secrets or configmaps
+envFrom: []
+
+# -- External ConfigMaps to mount as environment variables
+externalConfigMaps: []
+
+# -- External Secrets to mount as environment variables
+externalSecrets: []
+
+resources:
+  # -- Resource limits for pods
+  limits:
+    # -- CPU limit
+    cpu: 500m
+    # -- Memory limit
+    memory: 256Mi
+  # -- Resource requests for pods
+  requests:
+    # -- CPU request
+    cpu: 100m
+    # -- Memory request
+    memory: 128Mi
+
+# -- Node selector for pod assignment
+nodeSelector: {}
+
+# -- Tolerations for pod assignment
+tolerations: []
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the Deployment
+deploymentAnnotations: {}
+
+# -- Annotations for the Pod
+podAnnotations: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Service account for the pod
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use
+  name: ""
+
+# -- Configuration for the service
+service:
+  # -- Type of service
+  type: ClusterIP
+  # -- Port configuration for the service
+  ports:
+    # -- HTTP port
+    http:
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+
+# -- Ingress configuration
+ingress:
+  # -- Enable ingress resource
+  enabled: false
+  # -- Ingress annotations
+  annotations: {}
+  # -- Ingress hosts and paths configuration
+  hosts:
+    - host: docs.blobscan.local
+      paths:
+        - path: /
+          pathType: Prefix
+  # -- Ingress TLS configuration
+  tls: []
+
+# -- Liveness probe configuration
+livenessProbe:
+  httpGet:
+    path: /
+    port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+# -- Readiness probe configuration
+readinessProbe:
+  httpGet:
+    path: /
+    port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10

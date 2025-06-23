@@ -1,6 +1,6 @@
 # blobscan-docs
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Helm chart for deploying Blobscan documentation website
 
@@ -36,12 +36,12 @@ Helm chart for deploying Blobscan documentation website
 | ingress.enabled | bool | `false` | Enable ingress resource |
 | ingress.hosts | list | `[{"host":"docs.blobscan.local","paths":[{"path":"/","pathType":"Prefix"}]}]` | Ingress hosts and paths configuration |
 | ingress.tls | list | `[]` | Ingress TLS configuration |
-| livenessProbe | object | `{"httpGet":{"path":"/","port":3000},"initialDelaySeconds":30,"periodSeconds":10}` | Liveness probe configuration |
+| livenessProbe | object | `{"httpGet":{"path":"/","port":3002},"initialDelaySeconds":30,"periodSeconds":10}` | Liveness probe configuration |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pod assignment |
 | podAnnotations | object | `{}` | Annotations for the Pod |
 | podLabels | object | `{}` | Pod labels |
-| readinessProbe | object | `{"httpGet":{"path":"/","port":3000},"initialDelaySeconds":10,"periodSeconds":10}` | Readiness probe configuration |
+| readinessProbe | object | `{"httpGet":{"path":"/","port":3002},"initialDelaySeconds":10,"periodSeconds":10}` | Readiness probe configuration |
 | replicas | int | `1` | Number of replicas |
 | resources.limits | object | `{"cpu":"500m","memory":"256Mi"}` | Resource limits for pods |
 | resources.limits.cpu | string | `"500m"` | CPU limit |
@@ -49,9 +49,9 @@ Helm chart for deploying Blobscan documentation website
 | resources.requests | object | `{"cpu":"100m","memory":"128Mi"}` | Resource requests for pods |
 | resources.requests.cpu | string | `"100m"` | CPU request |
 | resources.requests.memory | string | `"128Mi"` | Memory request |
-| service | object | `{"ports":{"http":{"port":80,"protocol":"TCP","targetPort":3000}},"type":"ClusterIP"}` | Configuration for the service |
-| service.ports | object | `{"http":{"port":80,"protocol":"TCP","targetPort":3000}}` | Port configuration for the service |
-| service.ports.http | object | `{"port":80,"protocol":"TCP","targetPort":3000}` | HTTP port |
+| service | object | `{"ports":{"http":{"port":80,"protocol":"TCP","targetPort":3002}},"type":"ClusterIP"}` | Configuration for the service |
+| service.ports | object | `{"http":{"port":80,"protocol":"TCP","targetPort":3002}}` | Port configuration for the service |
+| service.ports.http | object | `{"port":80,"protocol":"TCP","targetPort":3002}` | HTTP port |
 | service.type | string | `"ClusterIP"` | Type of service |
 | serviceAccount | object | `{"annotations":{},"create":false,"name":""}` | Service account for the pod |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

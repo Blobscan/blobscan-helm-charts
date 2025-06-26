@@ -23,8 +23,8 @@ spec:
     {{- end }}
     honorLabels: true
     port: metrics
-    path: {{ .Values.bullmqExporter.serviceMonitor.path }}
-    scheme: {{ .Values.bullmqExporter.serviceMonitor.scheme }}
+    path: /metrics
+    scheme: http
     {{- if .Values.bullmqExporter.serviceMonitor.tlsConfig }}
     tlsConfig:
       {{- toYaml .Values.bullmqExporter.serviceMonitor.tlsConfig | nindent 6 }}

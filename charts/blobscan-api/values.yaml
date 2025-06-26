@@ -282,8 +282,6 @@ serviceMonitor:
   enabled: false
   # -- Path to scrape
   path: /metrics
-  # -- Alternative namespace for ServiceMonitor
-  namespace: null
   # -- Additional ServiceMonitor labels
   labels: {}
   # -- Additional ServiceMonitor annotations
@@ -331,14 +329,10 @@ bullmqExporter:
     # -- Additional ServiceMonitor annotations
     annotations: {}
     # -- ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set
-    interval: ""
-    # -- ServiceMonitor path, defaults to /metrics
-    path: "/metrics"
-    # -- ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set
-    scheme: ""
+    interval: 60s
     # -- ServiceMonitor TLS configuration
     tlsConfig: {}
     # -- ServiceMonitor scrape timeout
-    scrapeTimeout: ""
+    scrapeTimeout: 30s
     # -- ServiceMonitor relabelings
     relabelings: []

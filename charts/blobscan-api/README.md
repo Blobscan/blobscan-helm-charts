@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.6.6](https://img.shields.io/badge/Version-0.6.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.7](https://img.shields.io/badge/Version-0.6.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -18,7 +18,7 @@ Blobscan API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"podAnnotations":{},"resources":{},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
+| bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"podAnnotations":{},"resources":{},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
 | bullmqExporter.databaseMapping | string | `"0:ethereum-prod"` | Redis database and namespace to monitor, in the format "<db>:<namespace>" |
 | bullmqExporter.enabled | bool | `false` | Enable or disable the BullMQ Prometheus exporter |
 | bullmqExporter.image.pullPolicy | string | `"IfNotPresent"` | BullMQ Prometheus exporter image pull policy |
@@ -26,15 +26,13 @@ Blobscan API
 | bullmqExporter.image.tag | string | `"latest"` | BullMQ Prometheus exporter image tag |
 | bullmqExporter.podAnnotations | object | `{}` | Pod annotations for the BullMQ exporter |
 | bullmqExporter.resources | object | `{}` | Resource requests and limits for the BullMQ exporter |
-| bullmqExporter.serviceMonitor | object | `{"annotations":{},"enabled":false,"interval":"","labels":{},"path":"/metrics","relabelings":[],"scheme":"","scrapeTimeout":"","tlsConfig":{}}` | ServiceMonitor configuration for BullMQ exporter |
+| bullmqExporter.serviceMonitor | object | `{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}` | ServiceMonitor configuration for BullMQ exporter |
 | bullmqExporter.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
 | bullmqExporter.serviceMonitor.enabled | bool | `false` | Enable or disable the ServiceMonitor for BullMQ exporter |
-| bullmqExporter.serviceMonitor.interval | string | `""` | ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set |
+| bullmqExporter.serviceMonitor.interval | string | `"60s"` | ServiceMonitor scrape interval, defaults to main ServiceMonitor interval if not set |
 | bullmqExporter.serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
-| bullmqExporter.serviceMonitor.path | string | `"/metrics"` | ServiceMonitor path, defaults to /metrics |
 | bullmqExporter.serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
-| bullmqExporter.serviceMonitor.scheme | string | `""` | ServiceMonitor scheme, defaults to main ServiceMonitor scheme if not set |
-| bullmqExporter.serviceMonitor.scrapeTimeout | string | `""` | ServiceMonitor scrape timeout |
+| bullmqExporter.serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | bullmqExporter.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | chunkstorm | object | `{"keystorePassword":"","keystorePath":"/app/keystore.json","pullPolicy":"IfNotPresent","repository":"blossomlabs/chunkstorm","resources":{},"service":{"port":3050,"type":"ClusterIP"},"stamperstorePath":"/app/stamperstore","stamperstorePersistentVolume":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"1Gi","storageClassName":""},"tag":"0.2.0"}` | Chunkstorm configuration for Swarm batch uploads |
 | chunkstorm.keystorePassword | string | `""` | Password for the keystore |
@@ -124,7 +122,6 @@ Blobscan API
 | serviceMonitor.enabled | bool | `false` | If true, a ServiceMonitor CRD is created for a prometheus operator https://github.com/coreos/prometheus-operator |
 | serviceMonitor.interval | string | `"15s"` | ServiceMonitor scrape interval |
 | serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
-| serviceMonitor.namespace | string | `nil` | Alternative namespace for ServiceMonitor |
 | serviceMonitor.path | string | `"/metrics"` | Path to scrape |
 | serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |

@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.6.10](https://img.shields.io/badge/Version-0.6.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.11](https://img.shields.io/badge/Version-0.6.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -18,7 +18,7 @@ Blobscan API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"podAnnotations":{},"resources":{},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
+| bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"podAnnotations":{},"resources":{},"service":{"annotations":{}},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
 | bullmqExporter.databaseMapping | string | `"0:ethereum-prod"` | Redis database and namespace to monitor, in the format "<db>:<namespace>" |
 | bullmqExporter.enabled | bool | `false` | Enable or disable the BullMQ Prometheus exporter |
 | bullmqExporter.image.pullPolicy | string | `"IfNotPresent"` | BullMQ Prometheus exporter image pull policy |
@@ -26,6 +26,8 @@ Blobscan API
 | bullmqExporter.image.tag | string | `"latest"` | BullMQ Prometheus exporter image tag |
 | bullmqExporter.podAnnotations | object | `{}` | Pod annotations for the BullMQ exporter |
 | bullmqExporter.resources | object | `{}` | Resource requests and limits for the BullMQ exporter |
+| bullmqExporter.service | object | `{"annotations":{}}` | Service configuration for BullMQ exporter |
+| bullmqExporter.service.annotations | object | `{}` | Service annotations |
 | bullmqExporter.serviceMonitor | object | `{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}` | ServiceMonitor configuration for BullMQ exporter |
 | bullmqExporter.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
 | bullmqExporter.serviceMonitor.enabled | bool | `false` | Enable or disable the ServiceMonitor for BullMQ exporter |
@@ -34,13 +36,14 @@ Blobscan API
 | bullmqExporter.serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
 | bullmqExporter.serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | bullmqExporter.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| chunkstorm | object | `{"keystorePassword":"","keystorePath":"/app/keystore.json","pullPolicy":"IfNotPresent","repository":"blossomlabs/chunkstorm","resources":{},"service":{"port":3050,"type":"ClusterIP"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}},"stamperstorePath":"/app/stamperstore","stamperstorePersistentVolume":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"1Gi","storageClassName":""},"tag":"0.2.0"}` | Chunkstorm configuration for Swarm batch uploads |
+| chunkstorm | object | `{"keystorePassword":"","keystorePath":"/app/keystore.json","pullPolicy":"IfNotPresent","repository":"blossomlabs/chunkstorm","resources":{},"service":{"annotations":{},"port":3050,"type":"ClusterIP"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}},"stamperstorePath":"/app/stamperstore","stamperstorePersistentVolume":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"1Gi","storageClassName":""},"tag":"0.2.0"}` | Chunkstorm configuration for Swarm batch uploads |
 | chunkstorm.keystorePassword | string | `""` | Password for the keystore |
 | chunkstorm.keystorePath | string | `"/app/keystore.json"` | Path to the keystore file inside the container |
 | chunkstorm.pullPolicy | string | `"IfNotPresent"` | Chunkstorm container pull policy |
 | chunkstorm.repository | string | `"blossomlabs/chunkstorm"` | Chunkstorm container image repository |
 | chunkstorm.resources | object | `{}` | Resource requests and limits for the chunkstorm container |
-| chunkstorm.service | object | `{"port":3050,"type":"ClusterIP"}` | Service configuration for chunkstorm |
+| chunkstorm.service | object | `{"annotations":{},"port":3050,"type":"ClusterIP"}` | Service configuration for chunkstorm |
+| chunkstorm.service.annotations | object | `{}` | Service annotations |
 | chunkstorm.service.port | int | `3050` | Service port |
 | chunkstorm.service.type | string | `"ClusterIP"` | Service type |
 | chunkstorm.serviceMonitor | object | `{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}` | ServiceMonitor configuration for chunkstorm |
@@ -122,6 +125,7 @@ Blobscan API
 | secretEnv.SENTRY_DSN_API | string | `""` | Sentry DSN for API |
 | secretEnv.WEAVEVM_API_KEY | string | `""` | API key for WeaveVM integration |
 | securityContext | object | See `values.yaml` | The security context for pods |
+| service.annotations | object | `{}` | Service annotations |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `false` | Specifies whether a service account should be created |

@@ -241,6 +241,14 @@ extraVolumeMounts: []
 
 # -- Chunkstorm configuration for Swarm batch uploads
 chunkstorm:
+  # -- Number of chunkstorm replicas
+  replicaCount: 1
+  # -- Deployment strategy configuration for chunkstorm
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   # -- Chunkstorm container image repository
   repository: blossomlabs/chunkstorm
   # -- Chunkstorm container image tag

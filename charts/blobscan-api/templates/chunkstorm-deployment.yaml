@@ -6,7 +6,11 @@ metadata:
   labels:
     {{- include "chunkstorm.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.chunkstorm.replicaCount | default 1 }}
+  {{- if .Values.chunkstorm.strategy }}
+  strategy:
+    {{- toYaml .Values.chunkstorm.strategy | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "chunkstorm.selectorLabels" . | nindent 6 }}

@@ -22,6 +22,10 @@ spec:
         - name: chunkstorm
           image: "{{ .Values.chunkstorm.repository }}:{{ .Values.chunkstorm.tag }}"
           imagePullPolicy: {{ .Values.chunkstorm.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3050
+              protocol: TCP
           resources:
             {{- toYaml .Values.chunkstorm.resources | nindent 12 }}
           env:

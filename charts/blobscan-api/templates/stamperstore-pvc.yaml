@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: stamperstore
   labels:
-    {{- include "blobscan.labels" . | nindent 4 }}
+    {{- include "chunkstorm.labels" . | nindent 4 }}
 spec:
   accessModes:
   {{- range .Values.chunkstorm.stamperstorePersistentVolume.accessModes }}

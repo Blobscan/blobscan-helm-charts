@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.6.8](https://img.shields.io/badge/Version-0.6.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.9](https://img.shields.io/badge/Version-0.6.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -34,7 +34,7 @@ Blobscan API
 | bullmqExporter.serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
 | bullmqExporter.serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | bullmqExporter.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| chunkstorm | object | `{"keystorePassword":"","keystorePath":"/app/keystore.json","pullPolicy":"IfNotPresent","repository":"blossomlabs/chunkstorm","resources":{},"service":{"port":3050,"type":"ClusterIP"},"stamperstorePath":"/app/stamperstore","stamperstorePersistentVolume":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"1Gi","storageClassName":""},"tag":"0.2.0"}` | Chunkstorm configuration for Swarm batch uploads |
+| chunkstorm | object | `{"keystorePassword":"","keystorePath":"/app/keystore.json","pullPolicy":"IfNotPresent","repository":"blossomlabs/chunkstorm","resources":{},"service":{"port":3050,"type":"ClusterIP"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}},"stamperstorePath":"/app/stamperstore","stamperstorePersistentVolume":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"1Gi","storageClassName":""},"tag":"0.2.0"}` | Chunkstorm configuration for Swarm batch uploads |
 | chunkstorm.keystorePassword | string | `""` | Password for the keystore |
 | chunkstorm.keystorePath | string | `"/app/keystore.json"` | Path to the keystore file inside the container |
 | chunkstorm.pullPolicy | string | `"IfNotPresent"` | Chunkstorm container pull policy |
@@ -43,6 +43,14 @@ Blobscan API
 | chunkstorm.service | object | `{"port":3050,"type":"ClusterIP"}` | Service configuration for chunkstorm |
 | chunkstorm.service.port | int | `3050` | Service port |
 | chunkstorm.service.type | string | `"ClusterIP"` | Service type |
+| chunkstorm.serviceMonitor | object | `{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}` | ServiceMonitor configuration for chunkstorm |
+| chunkstorm.serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
+| chunkstorm.serviceMonitor.enabled | bool | `false` | Enable or disable the ServiceMonitor for chunkstorm |
+| chunkstorm.serviceMonitor.interval | string | `"60s"` | ServiceMonitor scrape interval |
+| chunkstorm.serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
+| chunkstorm.serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
+| chunkstorm.serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
+| chunkstorm.serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | chunkstorm.stamperstorePath | string | `"/app/stamperstore"` | Path to the stamperstore directory (persistent volume) |
 | chunkstorm.tag | string | `"0.2.0"` | Chunkstorm container image tag |
 | config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/main/.env.example |

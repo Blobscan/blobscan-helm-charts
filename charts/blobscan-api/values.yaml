@@ -272,6 +272,22 @@ chunkstorm:
     type: ClusterIP
     # -- Service port
     port: 3050
+  # -- ServiceMonitor configuration for chunkstorm
+  serviceMonitor:
+    # -- Enable or disable the ServiceMonitor for chunkstorm
+    enabled: false
+    # -- Additional ServiceMonitor labels
+    labels: {}
+    # -- Additional ServiceMonitor annotations
+    annotations: {}
+    # -- ServiceMonitor scrape interval
+    interval: 60s
+    # -- ServiceMonitor TLS configuration
+    tlsConfig: {}
+    # -- ServiceMonitor scrape timeout
+    scrapeTimeout: 30s
+    # -- ServiceMonitor relabelings
+    relabelings: []
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []

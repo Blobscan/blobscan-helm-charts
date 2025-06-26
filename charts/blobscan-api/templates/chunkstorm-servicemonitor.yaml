@@ -1,0 +1,43 @@
+{{- if and (eq .Values.config.SWARM_CHUNKSTORM_ENABLED "true") .Values.chunkstorm.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: chunkstorm
+  {{- if .Values.chunkstorm.serviceMonitor.namespace }}
+  namespace: {{ .Values.chunkstorm.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+    {{- include "chunkstorm.labels" . | nindent 4 }}
+    {{- if .Values.chunkstorm.serviceMonitor.labels }}
+    {{- toYaml .Values.chunkstorm.serviceMonitor.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.chunkstorm.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml .Values.chunkstorm.serviceMonitor.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+  - interval: {{ .Values.chunkstorm.serviceMonitor.interval }}
+    {{- if .Values.chunkstorm.serviceMonitor.scrapeTimeout }}
+    scrapeTimeout: {{ .Values.chunkstorm.serviceMonitor.scrapeTimeout }}
+    {{- end }}
+    honorLabels: true
+    port: http
+    path: /metrics
+    scheme: http
+    {{- if .Values.chunkstorm.serviceMonitor.tlsConfig }}
+    tlsConfig:
+      {{- toYaml .Values.chunkstorm.serviceMonitor.tlsConfig | nindent 6 }}
+    {{- end }}
+    {{- if .Values.chunkstorm.serviceMonitor.relabelings }}
+    relabelings:
+      {{- toYaml .Values.chunkstorm.serviceMonitor.relabelings | nindent 6 }}
+    {{- end }}
+  jobLabel: "{{ .Release.Name }}-chunkstorm"
+  selector:
+    matchLabels:
+      {{- include "chunkstorm.selectorLabels" . | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+{{- end }}

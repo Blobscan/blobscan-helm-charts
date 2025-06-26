@@ -4,8 +4,7 @@ kind: Service
 metadata:
   name: chunkstorm
   labels:
-    {{- include "blobscan.labels" . | nindent 4 }}
-    app.kubernetes.io/component: chunkstorm
+    {{- include "chunkstorm.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.chunkstorm.service.type | default "ClusterIP" }}
   ports:
@@ -14,6 +13,5 @@ spec:
       protocol: TCP
       targetPort: 3050
   selector:
-    {{- include "blobscan.selectorLabels" . | nindent 4 }}
-    app.kubernetes.io/component: chunkstorm
+    {{- include "chunkstorm.selectorLabels" . | nindent 4 }}
 {{- end }}

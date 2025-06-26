@@ -52,6 +52,18 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
+{{/*
+Chunkstorm labels
+*/}}
+{{- define "chunkstorm.labels" -}}
+helm.sh/chart: {{ include "blobscan.chart" . }}
+{{ include "chunkstorm.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
 
 {{/*
 Selector labels
@@ -63,6 +75,11 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{- define "bullmq.selectorLabels" -}}
 app.kubernetes.io/name: bullmq-exporter
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{- define "chunkstorm.selectorLabels" -}}
+app.kubernetes.io/name: chunkstorm
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 

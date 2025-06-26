@@ -4,19 +4,16 @@ kind: Deployment
 metadata:
   name: chunkstorm
   labels:
-    {{- include "blobscan.labels" . | nindent 4 }}
-    app.kubernetes.io/component: chunkstorm
+    {{- include "chunkstorm.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "blobscan.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: chunkstorm
+      {{- include "chunkstorm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "blobscan.selectorLabels" . | nindent 8 }}
-        app.kubernetes.io/component: chunkstorm
+        {{- include "chunkstorm.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "blobscan.serviceAccountName" . }}
       securityContext:

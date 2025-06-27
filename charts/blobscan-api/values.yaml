@@ -241,6 +241,8 @@ extraVolumeMounts: []
 
 # -- Chunkstorm configuration for Swarm batch uploads
 chunkstorm:
+  # -- Custom annotations for the chunkstorm deployment
+  annotations: {}
   # -- Number of chunkstorm replicas
   replicaCount: 1
   # -- Deployment strategy configuration for chunkstorm
@@ -252,7 +254,7 @@ chunkstorm:
   # -- Chunkstorm container image repository
   repository: blossomlabs/chunkstorm
   # -- Chunkstorm container image tag
-  tag: 0.2.0
+  tag: 0
   # -- Chunkstorm container pull policy
   pullPolicy: IfNotPresent
   # -- Path to the keystore file inside the container

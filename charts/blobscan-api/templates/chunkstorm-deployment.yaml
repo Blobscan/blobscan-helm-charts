@@ -3,6 +3,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: chunkstorm
+  {{- with .Values.chunkstorm.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   labels:
     {{- include "chunkstorm.labels" . | nindent 4 }}
 spec:

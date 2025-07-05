@@ -1,7 +1,7 @@
 dependencies:
 - name: blobscan-web
   repository: file://../blobscan-web
-  version: 0.6.0
+  version: 0.6.1
 - name: blobscan-api
   repository: file://../blobscan-api
   version: 0.7.0
@@ -14,5 +14,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.6.4
-digest: sha256:e00adf2328c2b408bb6bdf66d96abb6193fa0e21e738dd1b1eb71f7deac83fc6
-generated: "2025-07-05T19:28:42.775970441+02:00"
+digest: sha256:1d4252e122999f764b203190af858d2bc9a9b2eb5b47787de13767c1931f6d02
+generated: "2025-07-05T19:35:54.964574597+02:00"

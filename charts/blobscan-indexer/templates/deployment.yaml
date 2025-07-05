@@ -71,6 +71,10 @@ spec:
               value: {{ .Values.config.BLOBSCAN_API_ENDPOINT | quote }}
             - name: RUST_LOG
               value: {{ .Values.config.RUST_LOG | quote }}
+            - name: NETWORK_NAME
+              value: {{ .Values.config.NETWORK_NAME | quote }}
+            - name: DENCUN_FORK_SLOT
+              value: {{ .Values.config.DENCUN_FORK_SLOT | quote }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

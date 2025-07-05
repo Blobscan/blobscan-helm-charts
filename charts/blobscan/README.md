@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.9.16](https://img.shields.io/badge/Version-0.9.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.9.17](https://img.shields.io/badge/Version-0.9.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
@@ -25,10 +25,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` | Affinity configuration for pods |
-| annotations | object | `{}` | Annotations for the Deployment |
-| args | list | `[]` | Command arguments |
-| blobscan-api | object | `{"affinity":{},"annotations":{},"args":[],"bullmqExporter":{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}}},"config":{"BEE_ENDPOINT":"http://localhost:1633","BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"CHAIN_ID":"1","ETH_PRICE_SYNCER_CHAIN_ID":"137","ETH_PRICE_SYNCER_CRON_PATTERN":"* * * * *","ETH_PRICE_SYNCER_ENABLED":false,"ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS":"0xF9680D99D6C9589e2a93a78A04A279e509205945","ETH_PRICE_SYNCER_TIME_TOLERANCE":60,"GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","LOG_LEVEL":"info","METRICS_ENABLED":"false","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","POSTGRES_STORAGE_ENABLED":"true","SWARM_BATCH_ID":"","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"containerSecurityContext":{},"customArgs":[],"customCommand":[],"enabled":true,"externalConfigMaps":[],"externalSecrets":[],"extraContainers":[],"extraEnv":[],"extraPodPorts":[],"extraPorts":[],"extraVolumeMounts":[],"extraVolumes":[],"httpPort":3001,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-api","tag":"latest"},"imagePullSecrets":[],"ingress":{"annotations":{},"enabled":false,"hosts":[{"host":"chart-example.local","paths":[]}],"tls":[]},"initContainers":[],"livenessProbe":{"initialDelaySeconds":60,"periodSeconds":120,"tcpSocket":{"port":"http"}},"nodeSelector":{},"podAnnotations":{},"podDisruptionBudget":{},"podLabels":{},"priorityClassName":null,"readinessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"1Gi"},"requests":{"cpu":1,"memory":"512Mi"}},"secretEnv":{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN_API":"","WEAVEVM_API_KEY":""},"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"service":{"type":"ClusterIP"},"serviceAccount":{"annotations":{},"create":false,"name":""},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"namespace":null,"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}},"terminationGracePeriodSeconds":30,"tolerations":[]}` | Values for the blobscan-api subchart |
+| blobscan-api | object | `{"affinity":{},"annotations":{},"args":[],"bullmqExporter":{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}}},"config":{"BEE_ENDPOINT":"http://localhost:1633","BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"CHAIN_ID":"1","ETH_PRICE_SYNCER_CHAIN_ID":"137","ETH_PRICE_SYNCER_CRON_PATTERN":"* * * * *","ETH_PRICE_SYNCER_ENABLED":false,"ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS":"0xF9680D99D6C9589e2a93a78A04A279e509205945","ETH_PRICE_SYNCER_TIME_TOLERANCE":60,"GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","LOG_LEVEL":"info","METRICS_ENABLED":"false","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","POSTGRES_STORAGE_ENABLED":"true","SWARM_BATCH_ID":"","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"containerSecurityContext":{},"customArgs":[],"customCommand":[],"enabled":true,"externalConfigMaps":[],"externalSecrets":[],"extraContainers":[],"extraEnv":[],"extraPodPorts":[],"extraPorts":[],"extraVolumeMounts":[{"mountPath":"/tmp/blobscan-blobs","name":"blobs-tmp"}],"extraVolumes":[{"name":"blobs-tmp","persistentVolumeClaim":{"claimName":"blobscan-blobs-tmp"}}],"httpPort":3001,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-api","tag":"latest"},"imagePullSecrets":[],"ingress":{"annotations":{},"enabled":false,"hosts":[{"host":"chart-example.local","paths":[]}],"tls":[]},"initContainers":[],"livenessProbe":{"initialDelaySeconds":60,"periodSeconds":120,"tcpSocket":{"port":"http"}},"nodeSelector":{},"podAnnotations":{},"podDisruptionBudget":{},"podLabels":{},"priorityClassName":null,"readinessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"1Gi"},"requests":{"cpu":1,"memory":"512Mi"}},"secretEnv":{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN_API":"","WEAVEVM_API_KEY":""},"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"service":{"type":"ClusterIP"},"serviceAccount":{"annotations":{},"create":false,"name":""},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"namespace":null,"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}},"terminationGracePeriodSeconds":30,"tolerations":[]}` | Values for the blobscan-api subchart |
 | blobscan-api.affinity | object | `{}` | Affinity configuration for pods |
 | blobscan-api.annotations | object | `{}` | Annotations for the Deployment |
 | blobscan-api.args | list | `[]` | Command arguments |
@@ -79,8 +76,8 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-api.extraEnv | list | `[]` | Additional env variables |
 | blobscan-api.extraPodPorts | list | `[]` | Extra Pod ports |
 | blobscan-api.extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
-| blobscan-api.extraVolumeMounts | list | `[]` | Additional volume mounts |
-| blobscan-api.extraVolumes | list | `[]` | Additional volumes |
+| blobscan-api.extraVolumeMounts | list | `[{"mountPath":"/tmp/blobscan-blobs","name":"blobs-tmp"}]` | Additional volume mounts |
+| blobscan-api.extraVolumes | list | `[{"name":"blobs-tmp","persistentVolumeClaim":{"claimName":"blobscan-blobs-tmp"}}]` | Additional volumes |
 | blobscan-api.httpPort | int | `3001` | Ports |
 | blobscan-api.image.pullPolicy | string | `"IfNotPresent"` | Docker image pull policy for blobscan-api |
 | blobscan-api.image.repository | string | `"blossomlabs/blobscan-api"` | Docker image repository for blobscan-api |
@@ -203,31 +200,8 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscandb.image.tag | string | `"16-debian-12"` | PostgreSQL image tag |
 | blobscandb.primary.enabled | bool | `true` | Enable PostgreSQL primary instance |
 | blobscandb.primary.persistence.size | string | `"8Gi"` | Size of the PostgreSQL persistent volume |
-| containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the blobscan container |
-| extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
-| extraPodPorts | list | `[]` | Extra Pod ports |
-| extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
-| extraVolumeMounts | list | `[]` | Additional volume mounts |
-| extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | int | `3000` | Ports |
-| imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
-| ingress.annotations | object | `{}` | Annotations for Ingress |
-| ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
-| ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths | list | `[]` |  |
-| ingress.tls | list | `[]` | Ingress TLS |
-| initContainers | list | `[]` | Additional init containers |
-| livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
-| nodeSelector | object | `{}` | Node selector for pods |
-| podAnnotations | object | `{}` | Pod annotations |
-| podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
-| podLabels | object | `{}` | Pod labels |
-| priorityClassName | string | `nil` | Pod priority class |
-| readinessProbe | object | See `values.yaml` | Readiness probe |
 | redis.architecture | string | `"standalone"` |  |
 | redis.auth.enabled | bool | `false` |  |
 | redis.auth.password | string | `""` |  |
@@ -249,12 +223,3 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | redis.replica.resources.requests.memory | string | `"128Mi"` |  |
 | redis.service.port | int | `6379` |  |
 | redis.service.type | string | `"ClusterIP"` |  |
-| secretEnv | object | `{}` | Secret env variables injected via a created secret |
-| securityContext | object | See `values.yaml` | The security context for pods |
-| service.type | string | `"ClusterIP"` | Service type |
-| serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
-| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
-| serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
-| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
-| tolerations | list | `[]` | Tolerations for pods |
-| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

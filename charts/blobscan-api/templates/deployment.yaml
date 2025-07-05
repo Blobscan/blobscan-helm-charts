@@ -8,6 +8,10 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
+  {{- if .Values.strategy }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "blobscan.selectorLabels" . | nindent 6 }}

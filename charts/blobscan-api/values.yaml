@@ -7,6 +7,14 @@ fullnameOverride: ""
 # -- Number of replicas
 replicas: 1
 
+# -- Deployment strategy configuration
+# @default -- See `values.yaml`
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 0
+    maxUnavailable: 1
+
 image:
   # -- blobscan-api container image repository
   repository: blossomlabs/blobscan-api

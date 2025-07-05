@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -96,8 +96,8 @@ Blobscan API
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
-| extraVolumeMounts | list | `[{"mountPath":"/tmp/blobscan-blobs","name":"blobs-tmp"}]` | Additional volume mounts |
-| extraVolumes | list | `[{"name":"blobs-tmp","persistentVolumeClaim":{"claimName":"blobscan-blobs-tmp"}}]` | Additional volumes |
+| extraVolumeMounts | list | `[]` | Additional volume mounts |
+| extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3001` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan-api container pull policy |

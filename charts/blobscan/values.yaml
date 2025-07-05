@@ -91,6 +91,12 @@ blobscan-api:
   enabled: true
   # -- Number of blobscan-api replicas
   replicas: 1
+  # -- Deployment strategy configuration
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   image:
     # -- Docker image repository for blobscan-api
     repository: blossomlabs/blobscan-api

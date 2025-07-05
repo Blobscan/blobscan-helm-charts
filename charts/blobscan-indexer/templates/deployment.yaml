@@ -73,8 +73,10 @@ spec:
               value: {{ .Values.config.RUST_LOG | quote }}
             - name: NETWORK_NAME
               value: {{ .Values.config.NETWORK_NAME | quote }}
+            {{- if .Values.config.DENCUN_FORK_SLOT }}
             - name: DENCUN_FORK_SLOT
               value: {{ .Values.config.DENCUN_FORK_SLOT | quote }}
+            {{- end }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

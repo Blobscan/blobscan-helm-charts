@@ -267,14 +267,9 @@ blobscan-api:
   # -- Additional containers
   extraContainers: []
   # -- Additional volumes
-  extraVolumes:
-    - name: blobs-tmp
-      persistentVolumeClaim:
-        claimName: "blobscan-blobs-tmp"
+  extraVolumes: []
   # -- Additional volume mounts
-  extraVolumeMounts:
-    - name: blobs-tmp
-      mountPath: /tmp/blobscan-blobs
+  extraVolumeMounts: []
   # -- Additional ports. Useful when using extraContainers
   extraPorts: []
   serviceMonitor:

@@ -4,7 +4,7 @@ dependencies:
   version: 0.6.0
 - name: blobscan-api
   repository: file://../blobscan-api
-  version: 0.7.3
+  version: 0.7.4
 - name: blobscan-indexer
   repository: file://../blobscan-indexer
   version: 0.4.2
@@ -14,5 +14,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.6.4
-digest: sha256:a579ec548e00479d694a3ef5103d4d72b20080b6cfab5b733f5d50066c9b6833
-generated: "2025-07-05T22:26:12.160573914+02:00"
+digest: sha256:675018609a7af2d96d2de9d12a0665517bb21abfd72a783254918a347b82118b
+generated: "2025-07-05T22:34:00.203741053+02:00"

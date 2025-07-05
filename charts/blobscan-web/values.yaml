@@ -215,10 +215,15 @@ initContainers: []
 extraContainers: []
 
 # -- Additional volumes
-extraVolumes: []
+extraVolumes:
+  - name: blobs-tmp
+    persistentVolumeClaim:
+      claimName: "blobscan-blobs-tmp"
 
 # -- Additional volume mounts
-extraVolumeMounts: []
+extraVolumeMounts:
+  - name: blobs-tmp
+    mountPath: /tmp/blobscan-blobs
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []

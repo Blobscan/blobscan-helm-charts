@@ -1,7 +1,7 @@
 
 # blobscan-web
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan Web UI
 
@@ -42,8 +42,8 @@ Blobscan Web UI
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
-| extraVolumeMounts | list | `[]` | Additional volume mounts |
-| extraVolumes | list | `[]` | Additional volumes |
+| extraVolumeMounts | list | `[{"mountPath":"/tmp/blobscan-blobs","name":"blobs-tmp"}]` | Additional volume mounts |
+| extraVolumes | list | `[{"name":"blobs-tmp","persistentVolumeClaim":{"claimName":"blobscan-blobs-tmp"}}]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3000` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan-web container pull policy |

@@ -1,7 +1,7 @@
 
 # blobscan-api
 
-![Version: 0.6.13](https://img.shields.io/badge/Version-0.6.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan API
 
@@ -18,6 +18,10 @@ Blobscan API
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| blobsStorage | object | `{"enabled":true,"size":"10Gi","storageClassName":""}` | Configuration for temporary directory for blob storage |
+| blobsStorage.enabled | bool | `true` | Enable persistent storage for temporary blob storage |
+| blobsStorage.size | string | `"10Gi"` | Size of the persistent volume for temporary blob storage |
+| blobsStorage.storageClassName | string | `""` | Storage class name for the persistent volume (leave empty to use default storage class) |
 | bullmqExporter | object | `{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"podAnnotations":{},"resources":{},"service":{"annotations":{}},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"60s","labels":{},"relabelings":[],"scrapeTimeout":"30s","tlsConfig":{}}}` | BullMQ Prometheus exporter configuration |
 | bullmqExporter.databaseMapping | string | `"0:ethereum-prod"` | Redis database and namespace to monitor, in the format "<db>:<namespace>" |
 | bullmqExporter.enabled | bool | `false` | Enable or disable the BullMQ Prometheus exporter |
@@ -92,8 +96,8 @@ Blobscan API
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
-| extraVolumeMounts | list | `[]` | Additional volume mounts |
-| extraVolumes | list | `[]` | Additional volumes |
+| extraVolumeMounts | list | `[{"mountPath":"/tmp/blobscan-blobs","name":"blobs-tmp"}]` | Additional volume mounts |
+| extraVolumes | list | `[{"name":"blobs-tmp","persistentVolumeClaim":{"claimName":"blobscan-blobs-tmp"}}]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3001` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan-api container pull policy |

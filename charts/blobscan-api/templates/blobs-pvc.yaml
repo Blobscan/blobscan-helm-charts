@@ -1,0 +1,17 @@
+{{- if .Values.blobsStorage.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: blobscan-blobs-tmp
+  labels:
+    {{- include "blobscan.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.blobsStorage.size }}
+  {{- if .Values.blobsStorage.storageClassName }}
+  storageClassName: {{ .Values.blobsStorage.storageClassName }}
+  {{- end }}
+{{- end }}

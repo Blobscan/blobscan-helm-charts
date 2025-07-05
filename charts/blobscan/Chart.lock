@@ -7,12 +7,12 @@ dependencies:
   version: 0.7.0
 - name: blobscan-indexer
   repository: file://../blobscan-indexer
-  version: 0.4.0
+  version: 0.4.1
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 15.5.20
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.6.4
-digest: sha256:04c5758dd19847868b1dfaa45608beafe3b8c9c17ce0e1d1131301340948bec2
-generated: "2025-07-05T18:52:26.921461395+02:00"
+digest: sha256:e00adf2328c2b408bb6bdf66d96abb6193fa0e21e738dd1b1eb71f7deac83fc6
+generated: "2025-07-05T19:28:42.775970441+02:00"

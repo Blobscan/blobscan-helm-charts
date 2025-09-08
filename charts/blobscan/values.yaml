@@ -145,8 +145,6 @@ blobscan-api:
   args: []
   # -- Custom args for the blobscan-api container
   customArgs: []
-  # -- Command replacement for the blobscan-api container
-  customCommand: []
   config:
     # -- Ethereum network chain ID (1 for mainnet)
     CHAIN_ID: "1"

@@ -247,15 +247,6 @@ extraVolumes: []
 # -- Additional volume mounts
 extraVolumeMounts: []
 
-# -- Configuration for temporary directory for blob storage
-blobsStorage:
-  # -- Enable persistent storage for temporary blob storage
-  enabled: true
-  # -- Size of the persistent volume for temporary blob storage
-  size: 10Gi
-  # -- Storage class name for the persistent volume (leave empty to use default storage class)
-  storageClassName: ""
-
 # -- Chunkstorm configuration for Swarm batch uploads
 chunkstorm:
   # -- Custom annotations for the chunkstorm deployment

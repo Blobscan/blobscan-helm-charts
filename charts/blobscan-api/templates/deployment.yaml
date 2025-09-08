@@ -60,12 +60,10 @@ spec:
           {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          {{- if .Values.extraVolumeMounts }}
           volumeMounts:
-            - name: blobs-tmp
-              mountPath: /tmp/blobscan-blobs
-            {{- if .Values.extraVolumeMounts }}
-              {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
-            {{- end }}
+            {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ include "blobscan.httpPort" . }}
@@ -182,9 +180,6 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
-        - name: blobs-tmp
-          persistentVolumeClaim:
-            claimName: "blobscan-blobs-tmp"
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}

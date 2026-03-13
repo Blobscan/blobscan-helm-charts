@@ -1,0 +1,15 @@
+{{- if .Values.usercode.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "blobscan-dagster.fullname" . }}-workspace
+  labels:
+    {{- include "blobscan-dagster.labels" . | nindent 4 }}
+data:
+  workspace.yaml: |
+    load_from:
+      - grpc_server:
+          host: {{ include "blobscan-dagster.fullname" . }}-usercode
+          port: {{ .Values.usercode.port }}
+          location_name: "usercode"
+{{- end }}

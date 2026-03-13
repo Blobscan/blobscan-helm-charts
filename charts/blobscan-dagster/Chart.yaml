@@ -1,0 +1,18 @@
+apiVersion: v2
+name: blobscan-dagster
+description: Blobscan Dagster orchestration platform for data pipelines and analytics.
+home: https://blobscan.com
+icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+sources:
+  - https://github.com/blobscan/blobscan
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+maintainers:
+  - name: PabloCastellano
+    email: pablo@anche.no
+dependencies:
+  - name: postgresql
+    version: 16.4.1
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled

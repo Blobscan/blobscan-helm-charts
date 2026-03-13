@@ -1,0 +1,126 @@
+{{- if .Values.usercode.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "blobscan-dagster.fullname" . }}-usercode
+  labels:
+    {{- include "blobscan-dagster.usercode.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+spec:
+  replicas: {{ .Values.usercode.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "blobscan-dagster.usercode.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "blobscan-dagster.usercode.selectorLabels" . | nindent 8 }}
+        {{- with .Values.usercode.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- with .Values.usercode.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "blobscan-dagster.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: usercode
+          image: "{{ .Values.usercode.image.repository }}:{{ .Values.usercode.image.tag }}"
+          imagePullPolicy: {{ .Values.usercode.image.pullPolicy }}
+          command: ["dagster"]
+          args:
+            - "api"
+            - "grpc"
+            - "-h"
+            - "0.0.0.0"
+            - "-p"
+            - {{ .Values.usercode.port | quote }}
+            - "-m"
+            - {{ .Values.usercode.module | quote }}
+          securityContext:
+            {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          env:
+            - name: DAGSTER_POSTGRES_HOST
+              value: {{ include "blobscan-dagster.postgresqlHost" . | quote }}
+            - name: DAGSTER_POSTGRES_PORT
+              value: {{ include "blobscan-dagster.postgresqlPort" . | quote }}
+            - name: DAGSTER_POSTGRES_DB
+              value: {{ include "blobscan-dagster.postgresqlDatabase" . | quote }}
+            - name: DAGSTER_POSTGRES_USER
+              value: {{ include "blobscan-dagster.postgresqlUsername" . | quote }}
+            {{- if .Values.postgresql.enabled }}
+            - name: DAGSTER_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "blobscan-dagster.fullname" . }}-postgresql
+                  key: password
+            {{- else }}
+            - name: DAGSTER_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "blobscan-dagster.fullname" . }}-env
+                  key: DAGSTER_POSTGRES_PASSWORD
+            {{- end }}
+          {{- range $key, $value := .Values.secretEnv }}
+            {{- if ne $key "DAGSTER_POSTGRES_PASSWORD" }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "blobscan-dagster.fullname" $ }}-env
+                  key: {{ $key }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.usercode.extraEnv }}
+            {{- toYaml .Values.usercode.extraEnv | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: grpc
+              containerPort: {{ .Values.usercode.port }}
+              protocol: TCP
+          {{- if .Values.usercode.healthCheck.enabled }}
+          startupProbe:
+            exec:
+              command: ["dagster", "api", "grpc-health-check", "-p", {{ .Values.usercode.port | quote }}]
+            initialDelaySeconds: {{ .Values.usercode.healthCheck.initialDelaySeconds }}
+            periodSeconds: {{ .Values.usercode.healthCheck.periodSeconds }}
+            timeoutSeconds: {{ .Values.usercode.healthCheck.timeoutSeconds }}
+            failureThreshold: {{ .Values.usercode.healthCheck.failureThreshold }}
+          livenessProbe:
+            exec:
+              command: ["dagster", "api", "grpc-health-check", "-p", {{ .Values.usercode.port | quote }}]
+            periodSeconds: {{ .Values.usercode.healthCheck.periodSeconds }}
+            timeoutSeconds: {{ .Values.usercode.healthCheck.timeoutSeconds }}
+            failureThreshold: {{ .Values.usercode.healthCheck.failureThreshold }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.usercode.resources | nindent 12 }}
+          volumeMounts:
+            {{- if .Values.usercode.extraVolumeMounts }}
+            {{- toYaml .Values.usercode.extraVolumeMounts | nindent 12 }}
+            {{- end }}
+      {{- if .Values.extraContainers }}
+        {{- toYaml .Values.extraContainers | nindent 8 }}
+      {{- end }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      volumes:
+        {{- if .Values.usercode.extraVolumes }}
+        {{- toYaml .Values.usercode.extraVolumes | nindent 8 }}
+        {{- end }}
+{{- end }}

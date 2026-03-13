@@ -1,0 +1,17 @@
+{{- if .Values.usercode.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "blobscan-dagster.fullname" . }}-usercode
+  labels:
+    {{- include "blobscan-dagster.usercode.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.usercode.service.type }}
+  ports:
+    - port: {{ .Values.usercode.service.port }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+  selector:
+    {{- include "blobscan-dagster.usercode.selectorLabels" . | nindent 4 }}
+{{- end }}

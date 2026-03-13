@@ -7,6 +7,42 @@ Blobscan Web UI
 
 **Homepage:** <https://blobscan.com>
 
+## Architecture
+
+The Blobscan Web UI is a Next.js application that provides a browser interface for exploring Ethereum blob data. It connects to the Blobscan API backend and requires access to PostgreSQL and Redis.
+
+## Installing the Chart
+
+```bash
+helm repo add blobscan https://blobscan.github.io/blobscan-helm-charts
+helm repo update
+helm install blobscan-web blobscan/blobscan-web
+```
+
+### With custom values
+
+```bash
+helm install blobscan-web blobscan/blobscan-web -f my-values.yaml
+```
+
+## Upgrading
+
+```bash
+helm upgrade blobscan-web blobscan/blobscan-web
+```
+
+## Uninstalling
+
+```bash
+helm uninstall blobscan-web
+```
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| PabloCastellano | pablo@anche.no |  |
+
 ## Source Code
 
 * <https://github.com/blobscan/blobscan/>

@@ -7,6 +7,42 @@ Blobscan-indexer indexes blobs using Blobscan API.
 
 **Homepage:** <https://blobscan.com>
 
+## Architecture
+
+The Blobscan indexer is a Rust service that connects to Ethereum consensus and execution layer nodes to index EIP-4844 blob transactions. It sends indexed data to the Blobscan API for storage.
+
+## Installing the Chart
+
+```bash
+helm repo add blobscan https://blobscan.github.io/blobscan-helm-charts
+helm repo update
+helm install blobscan-indexer blobscan/blobscan-indexer
+```
+
+### With custom values
+
+```bash
+helm install blobscan-indexer blobscan/blobscan-indexer -f my-values.yaml
+```
+
+## Upgrading
+
+```bash
+helm upgrade blobscan-indexer blobscan/blobscan-indexer
+```
+
+## Uninstalling
+
+```bash
+helm uninstall blobscan-indexer
+```
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| PabloCastellano | pablo@anche.no |  |
+
 ## Source Code
 
 * <https://github.com/blobscan/blobscan-indexer>

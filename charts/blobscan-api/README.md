@@ -7,6 +7,45 @@ Blobscan API
 
 **Homepage:** <https://blobscan.com>
 
+## Architecture
+
+The Blobscan API is the REST backend that serves indexed blob data. It connects to PostgreSQL for storage and Redis for caching and job queues. It also supports optional sidecars:
+
+- **BullMQ Exporter** — Prometheus metrics exporter for BullMQ job queues
+- **Chunkstorm** — Swarm batch upload handler for decentralized blob storage
+
+## Installing the Chart
+
+```bash
+helm repo add blobscan https://blobscan.github.io/blobscan-helm-charts
+helm repo update
+helm install blobscan-api blobscan/blobscan-api
+```
+
+### With custom values
+
+```bash
+helm install blobscan-api blobscan/blobscan-api -f my-values.yaml
+```
+
+## Upgrading
+
+```bash
+helm upgrade blobscan-api blobscan/blobscan-api
+```
+
+## Uninstalling
+
+```bash
+helm uninstall blobscan-api
+```
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| PabloCastellano | pablo@anche.no |  |
+
 ## Source Code
 
 * <https://github.com/blobscan/blobscan/>

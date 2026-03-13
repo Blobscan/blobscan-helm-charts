@@ -1,4 +1,5 @@
-{{- if and (eq .Values.config.SWARM_CHUNKSTORM_ENABLED "true") .Values.chunkstorm.stamperstorePersistentVolume.enabled }}
+{{- if .Values.chunkstorm.stamperstorePersistentVolume.enabled }}
+# TODO: No eliminar este recurso si se pone
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

@@ -7,6 +7,52 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
 **Homepage:** <https://blobscan.com>
 
+## Architecture
+
+This is the Blobscan meta-chart that deploys the full Blobscan stack as a single release:
+
+- **blobscan-api** — REST API backend for blob data indexing and querying
+- **blobscan-web** — Web UI for exploring blobs, transactions, and blocks
+- **blobscan-indexer** — Indexes blobs from Ethereum consensus and execution layer nodes
+- **PostgreSQL** — Database for storing indexed blob data (Bitnami subchart)
+- **Redis** — Cache and queue backend (Bitnami subchart)
+
+Each sub-component can be individually enabled/disabled and configured via its own values section.
+
+## Installing the Chart
+
+```bash
+helm repo add blobscan https://blobscan.github.io/blobscan-helm-charts
+helm repo update
+helm install blobscan blobscan/blobscan
+```
+
+### With custom values
+
+```bash
+helm install blobscan blobscan/blobscan -f my-values.yaml
+```
+
+## Upgrading
+
+```bash
+helm upgrade blobscan blobscan/blobscan
+```
+
+## Uninstalling
+
+```bash
+helm uninstall blobscan
+```
+
+> **Note:** This will not delete PostgreSQL or Redis PVCs. To fully clean up, delete them manually.
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| PabloCastellano | pablo@anche.no |  |
+
 ## Source Code
 
 * <https://github.com/blobscan/blobscan/>
@@ -25,7 +71,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| blobscan-api | object | `{"affinity":{},"annotations":{},"args":[],"bullmqExporter":{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}}},"config":{"BEE_ENDPOINT":"http://localhost:1633","BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"CHAIN_ID":"1","ETH_PRICE_SYNCER_CHAIN_ID":"137","ETH_PRICE_SYNCER_CRON_PATTERN":"* * * * *","ETH_PRICE_SYNCER_ENABLED":false,"ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS":"0xF9680D99D6C9589e2a93a78A04A279e509205945","ETH_PRICE_SYNCER_TIME_TOLERANCE":60,"GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","LOG_LEVEL":"info","METRICS_ENABLED":"false","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","POSTGRES_STORAGE_ENABLED":"true","SWARM_BATCH_ID":"","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"containerSecurityContext":{},"customArgs":[],"enabled":true,"externalConfigMaps":[],"externalSecrets":[],"extraContainers":[],"extraEnv":[],"extraPodPorts":[],"extraPorts":[],"extraVolumeMounts":[],"extraVolumes":[],"httpPort":3001,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-api","tag":"latest"},"imagePullSecrets":[],"ingress":{"annotations":{},"enabled":false,"hosts":[{"host":"chart-example.local","paths":[]}],"tls":[]},"initContainers":[],"livenessProbe":{"initialDelaySeconds":60,"periodSeconds":120,"tcpSocket":{"port":"http"}},"nodeSelector":{},"podAnnotations":{},"podDisruptionBudget":{},"podLabels":{},"priorityClassName":null,"readinessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"1Gi"},"requests":{"cpu":1,"memory":"512Mi"}},"secretEnv":{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN_API":"","WEAVEVM_API_KEY":""},"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"service":{"type":"ClusterIP"},"serviceAccount":{"annotations":{},"create":false,"name":""},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"namespace":null,"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}},"strategy":{"rollingUpdate":{"maxSurge":0,"maxUnavailable":1},"type":"RollingUpdate"},"terminationGracePeriodSeconds":30,"tolerations":[]}` | Values for the blobscan-api subchart |
+| blobscan-api | object | `{"affinity":{},"annotations":{},"args":[],"bullmqExporter":{"databaseMapping":"0:ethereum-prod","enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/bullmq-prometheus","tag":"latest"},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}}},"config":{"BEE_ENDPOINT":"http://localhost:1633","BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"CHAIN_ID":"1","ETH_PRICE_SYNCER_CHAIN_ID":"137","ETH_PRICE_SYNCER_CRON_PATTERN":"* * * * *","ETH_PRICE_SYNCER_ENABLED":false,"ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS":"0xF9680D99D6C9589e2a93a78A04A279e509205945","ETH_PRICE_SYNCER_TIME_TOLERANCE":60,"GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","LOG_LEVEL":"info","METRICS_ENABLED":"false","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","POSTGRES_STORAGE_ENABLED":"true","SWARM_BATCH_ID":"","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"containerSecurityContext":{},"customArgs":[],"enabled":true,"externalConfigMaps":[],"externalSecrets":[],"extraContainers":[],"extraEnv":[],"extraPodPorts":[],"extraPorts":[],"extraVolumeMounts":[],"extraVolumes":[],"httpPort":3001,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-api","tag":"latest"},"imagePullSecrets":[],"ingress":{"annotations":{},"enabled":false,"hosts":[{"host":"chart-example.local","paths":[]}],"tls":[]},"initContainers":[],"livenessProbe":{"initialDelaySeconds":60,"periodSeconds":120,"tcpSocket":{"port":"http"}},"nodeSelector":{},"podAnnotations":{},"podDisruptionBudget":{},"podLabels":{},"priorityClassName":null,"readinessProbe":{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":"http"}},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"1Gi"},"requests":{"cpu":1,"memory":"512Mi"}},"secretEnv":{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN":"","WEAVEVM_API_KEY":""},"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"service":{"type":"ClusterIP"},"serviceAccount":{"annotations":{},"create":false,"name":""},"serviceMonitor":{"annotations":{},"enabled":false,"interval":"15s","labels":{},"namespace":null,"path":"/metrics","relabelings":[],"scheme":"http","scrapeTimeout":"30s","tlsConfig":{}},"strategy":{"rollingUpdate":{"maxSurge":0,"maxUnavailable":1},"type":"RollingUpdate"},"terminationGracePeriodSeconds":30,"tolerations":[]}` | Values for the blobscan-api subchart |
 | blobscan-api.affinity | object | `{}` | Affinity configuration for pods |
 | blobscan-api.annotations | object | `{}` | Annotations for the Deployment |
 | blobscan-api.args | list | `[]` | Command arguments |
@@ -100,7 +146,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-api.resources.requests | object | `{"cpu":1,"memory":"512Mi"}` | Resource requests for blobscan-api pods |
 | blobscan-api.resources.requests.cpu | int | `1` | CPU request for blobscan-api |
 | blobscan-api.resources.requests.memory | string | `"512Mi"` | Memory request for blobscan-api |
-| blobscan-api.secretEnv | object | `{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN_API":"","WEAVEVM_API_KEY":""}` | Secret env variables injected via a created secret |
+| blobscan-api.secretEnv | object | `{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require","DIRECT_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require","ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL":"http://polygon-rpc:8545","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://blobscan-redis-master:6379/1","SECRET_KEY":"supersecret","SENTRY_DSN":"","WEAVEVM_API_KEY":""}` | Secret env variables injected via a created secret |
 | blobscan-api.secretEnv.DATABASE_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?pgbouncer=true&sslmode=require"` | PostgreSQL connection string for the main database connection |
 | blobscan-api.secretEnv.DIRECT_URL | string | `"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?sslmode=require"` | Direct PostgreSQL connection string, used for Prisma direct database access |
 | blobscan-api.secretEnv.ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL | string | `"http://polygon-rpc:8545"` | RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID |
@@ -109,7 +155,7 @@ Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
 | blobscan-api.secretEnv.OTLP_AUTH_USERNAME | string | `""` | Username for OpenTelemetry authentication |
 | blobscan-api.secretEnv.REDIS_URI | string | `"redis://blobscan-redis-master:6379/1"` | Redis connection URI for caching and queue management |
 | blobscan-api.secretEnv.SECRET_KEY | string | `"supersecret"` | Secret key used for session management and encryption |
-| blobscan-api.secretEnv.SENTRY_DSN_API | string | `""` | Sentry DSN for API |
+| blobscan-api.secretEnv.SENTRY_DSN | string | `""` | Sentry DSN for API |
 | blobscan-api.secretEnv.WEAVEVM_API_KEY | string | `""` | API key for WeaveVM integration |
 | blobscan-api.securityContext | object | `{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}` | The security context for pods |
 | blobscan-api.service.type | string | `"ClusterIP"` | Service type |

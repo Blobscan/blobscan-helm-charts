@@ -138,7 +138,7 @@ blobscan-api:
     # -- RPC endpoint for the chain specified in ETH_PRICE_SYNCER_CHAIN_ID
     ETH_PRICE_SYNCER_CHAIN_JSON_RPC_URL: "http://polygon-rpc:8545"
     # -- Sentry DSN for API
-    SENTRY_DSN_API: ""
+    SENTRY_DSN: ""  # TODO: rename
   # -- Ports
   httpPort: 3001
   # -- Command arguments

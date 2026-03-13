@@ -2,11 +2,53 @@
 {{ template "chart.header" . }}
 {{ template "chart.deprecationWarning" . }}
 
-{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
 
 {{ template "chart.description" . }}
 
 {{ template "chart.homepageLine" . }}
+
+## Architecture
+
+This is the Blobscan meta-chart that deploys the full Blobscan stack as a single release:
+
+- **blobscan-api** — REST API backend for blob data indexing and querying
+- **blobscan-web** — Web UI for exploring blobs, transactions, and blocks
+- **blobscan-indexer** — Indexes blobs from Ethereum consensus and execution layer nodes
+- **PostgreSQL** — Database for storing indexed blob data (Bitnami subchart)
+- **Redis** — Cache and queue backend (Bitnami subchart)
+
+Each sub-component can be individually enabled/disabled and configured via its own values section.
+
+## Installing the Chart
+
+```bash
+helm repo add blobscan https://blobscan.github.io/blobscan-helm-charts
+helm repo update
+helm install blobscan blobscan/blobscan
+```
+
+### With custom values
+
+```bash
+helm install blobscan blobscan/blobscan -f my-values.yaml
+```
+
+## Upgrading
+
+```bash
+helm upgrade blobscan blobscan/blobscan
+```
+
+## Uninstalling
+
+```bash
+helm uninstall blobscan
+```
+
+> **Note:** This will not delete PostgreSQL or Redis PVCs. To fully clean up, delete them manually.
+
+{{ template "chart.maintainersSection" . }}
 
 {{ template "chart.sourcesSection" . }}
 

@@ -4,15 +4,18 @@ dependencies:
   version: 0.6.0
 - name: blobscan-api
   repository: file://../blobscan-api
-  version: 0.8.0
+  version: 0.8.1
 - name: blobscan-indexer
   repository: file://../blobscan-indexer
   version: 0.4.2
+- name: blobscan-ipld
+  repository: file://../blobscan-ipld
+  version: 0.1.0
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 15.5.20
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.6.4
-digest: sha256:71e612e13baacf8276146f88183e4b9e35aba96b0b07f5e5df15f3bd01fbf658
-generated: "2025-09-08T21:30:19.149635932+02:00"
+digest: sha256:cbe84337778ac0138e52d240c6d14d9f6588c4d85d518a99204e011c71330774
+generated: "2026-06-22T18:43:42.228823657+02:00"

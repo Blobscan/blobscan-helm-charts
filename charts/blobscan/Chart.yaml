@@ -17,7 +17,7 @@ dependencies:
   condition: blobscan-web.enabled
 - name: blobscan-api
   repository: "file://../blobscan-api"
-  version: 0.8.0
+  version: 0.8.1
   condition: blobscan-api.enabled
 - name: blobscan-indexer
   repository: "file://../blobscan-indexer"

@@ -1,0 +1,17 @@
+{{- if .Values.database.create }}
+{{- if not .Values.database.clusterName }}
+{{- fail "blobscan-ipld: database.create is true but database.clusterName is empty" }}
+{{- end }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: {{ include "blobscan-ipld.fullname" . }}-db
+  labels:
+    {{- include "blobscan-ipld.labels" . | nindent 4 }}
+spec:
+  name: {{ .Values.database.name }}
+  owner: {{ .Values.database.owner }}
+  cluster:
+    name: {{ .Values.database.clusterName }}
+  databaseReclaimPolicy: {{ .Values.database.databaseReclaimPolicy }}
+{{- end }}

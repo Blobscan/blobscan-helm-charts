@@ -1,0 +1,12 @@
+apiVersion: v2
+name: blobscan-ipld
+description: Automatic IPLD DAG generator for Ethereum EIP-4844 blob data
+home: https://blobscan.com
+icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+sources:
+  - https://github.com/blobscan/blobscan-ipld
+type: application
+version: 0.1.0
+maintainers:
+  - name: PabloCastellano
+    email: pablo@anche.no

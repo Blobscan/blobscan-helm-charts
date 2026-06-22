@@ -1,7 +1,7 @@
 apiVersion: v2
 name: blobscan
-version: 0.10.0
-description: Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
+version: 0.11.0
+description: Blobscan meta-chart (depends on blobscan-api, blobscan-web, blobscan-indexer and blobscan-ipld)
 type: application
 keywords:
   - ethereum
@@ -23,6 +23,10 @@ dependencies:
   repository: "file://../blobscan-indexer"
   version: 0.4.2
   condition: blobscan-indexer.enabled
+- name: blobscan-ipld
+  repository: "file://../blobscan-ipld"
+  version: 0.1.0
+  condition: blobscan-ipld.enabled
 - name: postgresql
   repository: "https://charts.bitnami.com/bitnami"
   version: 15.5.20

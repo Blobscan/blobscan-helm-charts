@@ -386,6 +386,11 @@ blobscan-indexer:
     # -- Rust logging configuration for the blob indexer
     RUST_LOG: "blob_indexer=INFO"
 
+# -- Values for the blobscan-ipld subchart
+blobscan-ipld:
+  # -- Enable or disable the blobscan-ipld component
+  enabled: false
+
 # -- Values for the PostgreSQL subchart
 blobscandb:
   # -- Enable or disable the PostgreSQL database component

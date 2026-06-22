@@ -1,0 +1,210 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of blobscan-ipld replicas
+replicas: 1
+
+image:
+  # -- blobscan-ipld container image repository
+  repository: ghcr.io/blobscan/blobscan-ipld
+  # -- blobscan-ipld container image tag
+  tag: latest
+  # -- blobscan-ipld container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Container args (e.g. ["run"], ["serve"], ["serve", "-pull"])
+args: ["run"]
+
+# -- Command replacement. Only change this if you need to override the entrypoint
+customCommand: []
+
+# -- Custom args appended after the entrypoint
+customArgs: []
+
+# -- Secret env variables injected via a created secret.
+# POSTGRES_DSN is the PostgreSQL connection string; leave others empty to omit.
+secretEnv:
+  # -- PostgreSQL connection string (postgres://user:pass@host:5432/db?sslmode=...)
+  POSTGRES_DSN: ""
+  # -- Beacon node REST API base URL
+  BEACON_RPC: ""
+  # -- Execution-layer JSON-RPC URL (optional; enables tx_hash/block enrichment)
+  EXECUTION_RPC: ""
+  # -- Blobscan API key (value of IPFS_STORAGE_API_KEY in blobscan; optional)
+  BLOBSCAN_API_KEY: ""
+  # -- Sentry DSN for error tracking (optional)
+  SENTRY_DSN: ""
+
+# -- Non-secret configuration injected as plain env vars.
+# Only keys with a non-empty value are rendered, so unset keys fall back to the
+# binary's built-in defaults.
+# @default -- See `values.yaml`
+config:
+  # -- Ethereum network name (mainnet, sepolia, gnosis, hoodi)
+  NETWORK_NAME: "mainnet"
+  # -- IPFS HTTP RPC address — multiaddr or host:port (e.g. "ipfs:5001")
+  IPFS_API_ADDR: ""
+  # -- Recursively pin each epoch CID after upload
+  IPFS_PIN_ON_ADD: ""
+  # -- Compute CIDs only; skip all IPFS interaction
+  IPFS_SKIP_UPLOAD: ""
+  # -- Root directory for state file and generated data
+  DATA_DIR: "/data"
+  # -- Directory for per-epoch CAR v2 files
+  CAR_DIR: "/car"
+  # -- Blobscan REST API base URL for reporting CID references (optional)
+  BLOBSCAN_API_URL: ""
+  # -- First epoch to process (defaults to network Dencun fork epoch when unset)
+  GENERATOR_START_EPOCH: ""
+  # -- Resume from last processed epoch instead of GENERATOR_START_EPOCH
+  GENERATOR_SKIP_EXISTING_EPOCHS: ""
+  # -- Max requests/second to beacon RPC
+  BEACON_RATE_LIMIT: ""
+  # -- Token bucket burst size
+  BEACON_RATE_BURST: ""
+  # -- Initial backoff on HTTP 429 errors
+  BEACON_429_BACKOFF: ""
+  # -- Parallel epoch builders during backfill
+  BACKFILL_EPOCH_WORKERS: ""
+  # -- Address for the HTTP push API (e.g. ":8080"); leave empty to disable
+  GENERATOR_API_LISTEN: ""
+
+# -- Additional env variables
+extraEnv: []
+
+# -- External ConfigMaps to mount as environment variables
+externalConfigMaps: []
+
+# -- External Secrets to mount as environment variables
+externalSecrets: []
+
+# -- CNPG Database resource for provisioning the ipld database declaratively.
+database:
+  # -- If true, a postgresql.cnpg.io/v1 Database CRD is created
+  create: false
+  # -- Name of the CNPG Cluster the database belongs to
+  clusterName: ""
+  # -- Database name to create
+  name: ipld_mainnet
+  # -- Owner role of the database (must already exist in the cluster)
+  owner: blobscan
+  # -- Reclaim policy when the Database resource is deleted (delete | retain)
+  databaseReclaimPolicy: retain
+
+# -- Persistence for /data (state file) and /car (CAR archives).
+persistence:
+  # -- If true, a PVC is created and mounted; otherwise an emptyDir is used
+  enabled: false
+  # -- Storage class for the PVC
+  storageClass: ""
+  # -- Access mode for the PVC
+  accessMode: ReadWriteOnce
+  # -- Size of the data volume
+  size: 20Gi
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- HTTP port exposed by the push API / metrics
+httpPort: 8080
+
+# -- Liveness/readiness probes. Disabled by default since the default `run`
+# mode does not serve HTTP unless GENERATOR_API_LISTEN is set.
+livenessProbe: {}
+readinessProbe: {}
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the Deployment
+annotations: {}
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Extra Pod ports
+extraPodPorts: []
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000
+
+# -- The security context for containers
+containerSecurityContext: {}
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+topologySpreadConstraints: []
+
+# -- Additional init containers
+initContainers: []
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 15s
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []

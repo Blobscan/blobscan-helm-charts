@@ -1,0 +1,19 @@
+blobscan-ipld has been deployed.
+
+  Release:   {{ .Release.Name }}
+  Namespace: {{ .Release.Namespace }}
+  Network:   {{ .Values.config.NETWORK_NAME }}
+  Image:     {{ .Values.image.repository }}:{{ .Values.image.tag }}
+
+Follow the logs with:
+
+  kubectl --namespace {{ .Release.Namespace }} logs -f \
+    -l "app.kubernetes.io/name={{ include "blobscan-ipld.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+
+{{- if .Values.database.create }}
+
+A CNPG Database "{{ .Values.database.name }}" (owner {{ .Values.database.owner }})
+was requested on cluster "{{ .Values.database.clusterName }}". Check its status:
+
+  kubectl --namespace {{ .Release.Namespace }} get database {{ include "blobscan-ipld.fullname" . }}-db
+{{- end }}

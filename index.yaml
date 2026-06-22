@@ -59,6 +59,54 @@ entries:
     version: 0.16.7
   blobscan:
   - apiVersion: v2
+    created: "2026-06-22T17:19:00.462331846Z"
+    dependencies:
+    - condition: blobscan-web.enabled
+      name: blobscan-web
+      repository: file://../blobscan-web
+      version: 0.6.0
+    - condition: blobscan-api.enabled
+      name: blobscan-api
+      repository: file://../blobscan-api
+      version: 0.8.2
+    - condition: blobscan-indexer.enabled
+      name: blobscan-indexer
+      repository: file://../blobscan-indexer
+      version: 0.4.2
+    - condition: blobscan-ipld.enabled
+      name: blobscan-ipld
+      repository: file://../blobscan-ipld
+      version: 0.1.1
+    - alias: blobscandb
+      condition: blobscandb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.20
+    - alias: redis
+      condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.6.4
+    description: Blobscan meta-chart (depends on blobscan-api, blobscan-web, blobscan-indexer
+      and blobscan-ipld)
+    digest: 79acc27b66a7b7d785154efe6b0a01dc17c07f96ad12ef82e87eb12c4f38ccd2
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    keywords:
+    - ethereum
+    - eip4844
+    - blobs
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-0.11.2/blobscan-0.11.2.tgz
+    version: 0.11.2
+  - apiVersion: v2
     created: "2026-06-22T17:01:41.075415377Z"
     dependencies:
     - condition: blobscan-web.enabled
@@ -3477,6 +3525,22 @@ entries:
     version: 0.2.1
   blobscan-ipld:
   - apiVersion: v2
+    created: "2026-06-22T17:19:00.702828724Z"
+    description: Automatic IPLD DAG generator for Ethereum EIP-4844 blob data
+    digest: 7cb45a768aa87a6e800fdd0b56a2fe61c22a1d1ac16e69b655eeccc7259f1968
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan-ipld
+    sources:
+    - https://github.com/blobscan/blobscan-ipld
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-ipld-0.1.1/blobscan-ipld-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2026-06-22T16:45:55.348298072Z"
     description: Automatic IPLD DAG generator for Ethereum EIP-4844 blob data
     digest: 352987697f731fb6ab90dd3419e6f6948e226be7711375bca46b75494004457c
@@ -3713,4 +3777,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.3.1/blobscan-web-0.3.1.tgz
     version: 0.3.1
-generated: "2026-06-22T17:01:41.263193606Z"
+generated: "2026-06-22T17:19:00.70327641Z"

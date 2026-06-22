@@ -9,7 +9,7 @@ replicas: 1
 
 image:
   # -- blobscan-ipld container image repository
-  repository: ghcr.io/blobscan/blobscan-ipld
+  repository: blossomlabs/blobscan-ipld
   # -- blobscan-ipld container image tag
   tag: latest
   # -- blobscan-ipld container pull policy

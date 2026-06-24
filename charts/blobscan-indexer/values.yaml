@@ -100,15 +100,32 @@ securityContext:
   runAsGroup: 10001
   runAsNonRoot: true
   runAsUser: 10001
+  seccompProfile:
+    type: RuntimeDefault
 
-# -- The security context for containers
+# -- The security context for containers (Pod Security Standards "restricted"
+# compliant by default). readOnlyRootFilesystem is left off because some
+# components write to the filesystem; enable it per-deployment if supported.
 # @default -- See `values.yaml`
-containerSecurityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+# -- NetworkPolicy restricting ingress to this component's pods. Disabled by
+# default; enable per-environment. Requires a policy-enforcing CNI (e.g.
+# Cilium on DOKS). The indexer is a background worker that serves no inbound
+# traffic, so the default (empty from/ports) is full default-deny ingress.
+networkPolicy:
+  enabled: false
+  ingress:
+    # Add monitoring here if a metrics port is exposed via extraPodPorts.
+    from: []
+    ports: []
   # runAsUser: 1000
 
 serviceAccount:

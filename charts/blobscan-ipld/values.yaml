@@ -151,9 +151,32 @@ securityContext:
   runAsGroup: 1000
   runAsNonRoot: true
   runAsUser: 1000
+  seccompProfile:
+    type: RuntimeDefault
 
-# -- The security context for containers
-containerSecurityContext: {}
+# -- The security context for containers (Pod Security Standards "restricted"
+# compliant by default). readOnlyRootFilesystem is left off because the
+# generator writes CAR archives / state to disk.
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+# -- NetworkPolicy restricting ingress to this component's pods. Disabled by
+# default; enable per-environment. Requires a policy-enforcing CNI (e.g.
+# Cilium on DOKS). The push API (8080) only listens when GENERATOR_API_LISTEN
+# is set; in pull mode set ports to [] for full default-deny ingress.
+networkPolicy:
+  enabled: false
+  ingress:
+    from: []
+    ports:
+      - port: 8080
+        protocol: TCP
 
 serviceAccount:
   # -- Specifies whether a service account should be created

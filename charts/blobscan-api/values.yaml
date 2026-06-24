@@ -199,16 +199,41 @@ securityContext:
   runAsGroup: 1000
   runAsNonRoot: true
   runAsUser: 1000
+  seccompProfile:
+    type: RuntimeDefault
 
-# -- The security context for containers
+# -- The security context for containers (Pod Security Standards "restricted"
+# compliant by default). readOnlyRootFilesystem is left off because some
+# components write to the filesystem; enable it per-deployment if supported.
 # @default -- See `values.yaml`
-containerSecurityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+# -- NetworkPolicy restricting ingress to this component's pods. Disabled by
+# default; enable per-environment. Requires a policy-enforcing CNI (e.g.
+# Cilium on DOKS). With `from` empty it is default-deny.
+networkPolicy:
+  enabled: false
+  ingress:
+    # Sources permitted to reach the ports below. Typically the ingress
+    # controller namespace and the monitoring namespace.
+    from: []
+      # - namespaceSelector:
+      #     matchLabels:
+      #       kubernetes.io/metadata.name: ingress
+      # - namespaceSelector:
+      #     matchLabels:
+      #       kubernetes.io/metadata.name: monitoring
+    # Ports exposed to the sources above.
+    ports:
+      - port: 3001
+        protocol: TCP
 
 serviceAccount:
   # -- Specifies whether a service account should be created

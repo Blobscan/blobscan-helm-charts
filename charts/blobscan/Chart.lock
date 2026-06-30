@@ -10,12 +10,12 @@ dependencies:
   version: 0.4.3
 - name: blobscan-ipld
   repository: file://../blobscan-ipld
-  version: 0.1.2
+  version: 0.1.3
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 15.5.20
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.6.4
-digest: sha256:f3f2dee79f3dcec0851c4e985cbd2cd191b1511d7f2ef41496879f7b235179df
-generated: "2026-06-24T17:27:16.4815095+02:00"
+digest: sha256:b99fd6aa7d4442f189d6ec8d9afca94b21c9bdff5b9f0790b822cd7feea70643
+generated: "2026-06-30T23:31:44.990684911+02:00"

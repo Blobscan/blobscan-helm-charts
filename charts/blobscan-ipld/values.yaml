@@ -113,7 +113,29 @@ service:
 httpPort: 8080
 
 # -- Liveness/readiness probes. Disabled by default since the default `run`
-# mode does not serve HTTP unless GENERATOR_API_LISTEN is set.
+# mode does not serve HTTP unless GENERATOR_API_LISTEN is set; enabling a probe
+# without the HTTP API running would crash-loop the pod. When you set
+# `config.GENERATOR_API_LISTEN` (e.g. ":8080") to serve the push API, enable the
+# probes below — the IPLD node exposes:
+#   /healthz — liveness: 200 while the HTTP server is up (no dependency checks)
+#   /readyz  — readiness: 200 when the kubo node is reachable, 503 otherwise
+# Example (uncomment to enable):
+# livenessProbe:
+#   httpGet:
+#     path: /healthz
+#     port: http
+#   initialDelaySeconds: 10
+#   periodSeconds: 15
+#   timeoutSeconds: 3
+#   failureThreshold: 3
+# readinessProbe:
+#   httpGet:
+#     path: /readyz
+#     port: http
+#   initialDelaySeconds: 5
+#   periodSeconds: 10
+#   timeoutSeconds: 5
+#   failureThreshold: 3
 livenessProbe: {}
 readinessProbe: {}
 

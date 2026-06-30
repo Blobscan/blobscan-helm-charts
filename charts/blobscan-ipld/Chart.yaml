@@ -6,7 +6,7 @@ icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/lo
 sources:
   - https://github.com/blobscan/blobscan-ipld
 type: application
-version: 0.1.2
+version: 0.1.3
 maintainers:
   - name: PabloCastellano
     email: pablo@anche.no

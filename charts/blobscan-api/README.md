@@ -122,6 +122,7 @@ helm uninstall blobscan-api
 | config.SWARM_CHUNKSTORM_URL | string | `""` | Swarm chunkstorm endpoint URL |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| config.TRUSTED_PROXIES | string | `""` | Comma-separated list of trusted proxy IPs/CIDRs (e.g. ingress-nginx), enabling Express "trust proxy" so client IPs are read from X-Forwarded-For |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan-api container |
 | customCommand | list | `[]` | Command replacement for the blobscan-api container |

@@ -92,6 +92,8 @@ config:
   TRACES_ENABLED: "false"
   # -- Log level (info, warning, error, debug)
   LOG_LEVEL: "info"
+  # -- Comma-separated list of trusted proxy IPs/CIDRs (e.g. ingress-nginx), enabling Express "trust proxy" so client IPs are read from X-Forwarded-For
+  TRUSTED_PROXIES: ""
   # -- Enable the ETH price syncer job
   ETH_PRICE_SYNCER_ENABLED: false
   # -- Cron pattern for the job that periodically stores ETH price in database

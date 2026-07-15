@@ -126,6 +126,10 @@ spec:
             {{- end }}
             - name: LOG_LEVEL
               value: {{ .Values.config.LOG_LEVEL | quote }}
+            {{- if .Values.config.TRUSTED_PROXIES }}
+            - name: TRUSTED_PROXIES
+              value: {{ .Values.config.TRUSTED_PROXIES | quote }}
+            {{- end }}
             {{- if .Values.config.ETH_PRICE_SYNCER_ENABLED }}
             - name: ETH_PRICE_SYNCER_ENABLED
               value: {{ .Values.config.ETH_PRICE_SYNCER_ENABLED | quote }}

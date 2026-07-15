@@ -65,6 +65,8 @@ config:
   GOOGLE_STORAGE_PROJECT_ID: ""
   # -- Application logging level (debug, info, warn, error)
   LOG_LEVEL: "info"
+  # -- Number of trusted reverse-proxy hops in front of the app (e.g. ingress-nginx), used to pick the real client IP from X-Forwarded-For for rate limiting; 0 disables (uses the socket peer)
+  TRUSTED_PROXY_COUNT: ""
   # -- Protocol used for OpenTelemetry data export
   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
   # -- Endpoint URL for OpenTelemetry data export

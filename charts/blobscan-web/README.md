@@ -69,6 +69,7 @@ helm uninstall blobscan-web
 | config.POSTGRES_STORAGE_ENABLED | string | `"true"` | Enable PostgreSQL storage for blob data |
 | config.SWARM_STORAGE_ENABLED | string | `"false"` | Enable Swarm decentralized storage for blob data |
 | config.TRACES_ENABLED | string | `"false"` | Enable distributed tracing |
+| config.TRUSTED_PROXY_COUNT | string | `""` | Number of trusted reverse-proxy hops in front of the app (e.g. ingress-nginx), used to pick the real client IP from X-Forwarded-For for rate limiting; 0 disables (uses the socket peer) |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["web"]` | Custom args for the blobscan-web container |
 | customCommand | list | `[]` | Command replacement for the blobscan-web container |

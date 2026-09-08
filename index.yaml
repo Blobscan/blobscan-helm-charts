@@ -59,6 +59,54 @@ entries:
     version: 0.16.7
   blobscan:
   - apiVersion: v2
+    created: "2026-09-08T10:34:21.304937205Z"
+    dependencies:
+    - condition: blobscan-web.enabled
+      name: blobscan-web
+      repository: file://../blobscan-web
+      version: 0.6.2
+    - condition: blobscan-api.enabled
+      name: blobscan-api
+      repository: file://../blobscan-api
+      version: 0.8.4
+    - condition: blobscan-indexer.enabled
+      name: blobscan-indexer
+      repository: file://../blobscan-indexer
+      version: 0.4.4
+    - condition: blobscan-ipld.enabled
+      name: blobscan-ipld
+      repository: file://../blobscan-ipld
+      version: 0.1.3
+    - alias: blobscandb
+      condition: blobscandb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.20
+    - alias: redis
+      condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.6.4
+    description: Blobscan meta-chart (depends on blobscan-api, blobscan-web, blobscan-indexer
+      and blobscan-ipld)
+    digest: eac106b49dedf15d48fbcd9c1604ffcd93a385014909f00464b3525b6c88537c
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    keywords:
+    - ethereum
+    - eip4844
+    - blobs
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan
+    sources:
+    - https://github.com/blobscan/blobscan/
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-0.11.7/blobscan-0.11.7.tgz
+    version: 0.11.7
+  - apiVersion: v2
     created: "2026-07-15T09:29:12.975657995Z"
     dependencies:
     - condition: blobscan-web.enabled
@@ -3450,6 +3498,22 @@ entries:
     version: 0.1.0
   blobscan-indexer:
   - apiVersion: v2
+    created: "2026-09-08T10:34:21.435673426Z"
+    description: Blobscan-indexer indexes blobs using Blobscan API.
+    digest: 1ee093d7043ccd8aeb162e6f4c8cde128fd1b815ee5798dda95c264352e1812c
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan-indexer
+    sources:
+    - https://github.com/blobscan/blobscan-indexer
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-indexer-0.4.4/blobscan-indexer-0.4.4.tgz
+    version: 0.4.4
+  - apiVersion: v2
     created: "2026-06-30T21:37:10.700296776Z"
     description: Blobscan-indexer indexes blobs using Blobscan API.
     digest: 594b201338566c8d4fef3e67b298060bef52387efa264c1cb73b14f6056fb45b
@@ -4005,4 +4069,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.3.1/blobscan-web-0.3.1.tgz
     version: 0.3.1
-generated: "2026-07-15T09:29:13.135421536Z"
+generated: "2026-09-08T10:34:21.43613533Z"

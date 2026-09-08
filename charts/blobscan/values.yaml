@@ -343,8 +343,12 @@ blobscan-indexer:
   # -- External Secrets to mount as environment variables
   # Example: ["blobscan-indexer-secrets"]
   externalSecrets: []
-  # -- Number of blobscan-indexer replicas
-  replicas: 1
+  # NOTE: there is deliberately no `replicas` key here. Unlike api, web and
+  # ipld, the indexer must never run more than one pod: two indexers ingest the
+  # same chain concurrently, and the damage is written data, not just wasted
+  # work. The deployment template therefore hardcodes `replicas: 1`, and the
+  # only supported choice is whether the component runs at all -- `enabled`,
+  # above, which the umbrella wires to `condition: blobscan-indexer.enabled`.
   image:
     # -- blobscan-indexer container image repository
     repository: blossomlabs/blobscan-indexer

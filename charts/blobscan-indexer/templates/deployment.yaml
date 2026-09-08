@@ -7,6 +7,10 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
+  # Intentionally not configurable. Two indexers ingest the same chain at the
+  # same time, so a second replica corrupts data rather than sharing load --
+  # there is no value of this above 1 that is ever correct. Use
+  # `blobscan-indexer.enabled` to choose whether the indexer runs at all.
   replicas: 1
   selector:
     matchLabels:

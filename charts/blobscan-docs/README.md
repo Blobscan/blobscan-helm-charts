@@ -1,7 +1,7 @@
 
 # blobscan-docs
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Helm chart for deploying Blobscan documentation website
 
@@ -69,6 +69,7 @@ helm uninstall blobscan-docs
 | ingress.tls | list | `[]` | Ingress TLS configuration |
 | livenessProbe | object | `{"httpGet":{"path":"/","port":3002},"initialDelaySeconds":30,"periodSeconds":10}` | Liveness probe configuration |
 | nameOverride | string | `""` | Overrides the chart's name |
+| networkPolicy | object | `{"enabled":false,"ingress":{"from":[],"ports":[{"port":3002,"protocol":"TCP"}]}}` | NetworkPolicy restricting ingress to this component's pods. Disabled by default; enable per-environment. Requires a policy-enforcing CNI (Cilium, or kube-router on k3s; plain flannel does not enforce it). NB: `from` empty does NOT mean default-deny here. The rule below still lists a port, and Kubernetes reads a rule with ports and no `from` as "this port, from anywhere" -- so flipping `enabled` alone restricts nothing. Default-deny needs BOTH empty, which is what blobscan-indexer does. |
 | nodeSelector | object | `{}` | Node selector for pod assignment |
 | podAnnotations | object | `{}` | Annotations for the Pod |
 | podLabels | object | `{}` | Pod labels |

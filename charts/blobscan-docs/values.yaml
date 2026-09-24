@@ -98,6 +98,33 @@ ingress:
   # -- Ingress TLS configuration
   tls: []
 
+# -- NetworkPolicy restricting ingress to this component's pods. Disabled by
+# default; enable per-environment. Requires a policy-enforcing CNI (Cilium, or
+# kube-router on k3s; plain flannel does not enforce it).
+#
+# NB: `from` empty does NOT mean default-deny here. The rule below still lists a
+# port, and Kubernetes reads a rule with ports and no `from` as "this port, from
+# anywhere" -- so flipping `enabled` alone restricts nothing. Default-deny needs
+# BOTH empty, which is what blobscan-indexer does.
+networkPolicy:
+  enabled: false
+  ingress:
+    # Sources permitted to reach the ports below. Typically the ingress
+    # controller namespace and the monitoring namespace.
+    from: []
+      # - namespaceSelector:
+      #     matchLabels:
+      #       kubernetes.io/metadata.name: ingress
+      # - namespaceSelector:
+      #     matchLabels:
+      #       kubernetes.io/metadata.name: monitoring
+    # Ports exposed to the sources above. 3002, NOT the 80 above: that is the
+    # Service port, and NetworkPolicy filters at the pod, which listens on
+    # 3002 (see the containerPort in deployment.yaml).
+    ports:
+      - port: 3002
+        protocol: TCP
+
 # -- Liveness probe configuration
 livenessProbe:
   httpGet:

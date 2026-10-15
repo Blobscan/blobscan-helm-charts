@@ -63,6 +63,19 @@ rbac:
 dagsterInstance:
   # -- Run coordinator max concurrent runs
   maxConcurrentRuns: 5
+  # -- Run coordinator tag concurrency limits. The defaults are the ones in
+  # apps/dagster/dagster.yaml: at most one run per metrics table (the jobs tag
+  # their runs with blobscan/metrics_table), so slow runs queue up instead of
+  # piling on the database, and at most 3 backfill runs, leaving room for the
+  # scheduled ones while a backfill is in progress.
+  # @default -- See `values.yaml`
+  tagConcurrencyLimits:
+    - key: "blobscan/metrics_table"
+      value:
+        applyLimitPerUniqueValue: true
+      limit: 1
+    - key: "dagster/backfill"
+      limit: 3
 
 # ---------------------------------------------------------------------------
 # Webserver (dagster-webserver)

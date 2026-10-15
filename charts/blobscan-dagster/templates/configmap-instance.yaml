@@ -15,6 +15,10 @@ data:
       class: QueuedRunCoordinator
       config:
         max_concurrent_runs: {{ .Values.dagsterInstance.maxConcurrentRuns }}
+        {{- with .Values.dagsterInstance.tagConcurrencyLimits }}
+        tag_concurrency_limits:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
 
     # Each run is a Kubernetes Job in the user code image (the code server
     # reports it as DAGSTER_CURRENT_IMAGE). The Job pod mounts this ConfigMap

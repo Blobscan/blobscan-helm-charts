@@ -1,0 +1,35 @@
+{{- if .Values.rbac.create }}
+# What the K8sRunLauncher needs: the daemon creates a Job per run and the
+# webserver and daemon follow its pods to report status and terminate runs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "blobscan-dagster.fullname" . }}
+  labels:
+    {{- include "blobscan-dagster.labels" . | nindent 4 }}
+rules:
+  - apiGroups: ["batch"]
+    resources: ["jobs", "jobs/status"]
+    verbs: ["create", "delete", "get", "list", "watch", "patch", "update"]
+  - apiGroups: [""]
+    resources: ["pods", "pods/log", "pods/status"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "blobscan-dagster.fullname" . }}
+  labels:
+    {{- include "blobscan-dagster.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "blobscan-dagster.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "blobscan-dagster.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+{{- end }}

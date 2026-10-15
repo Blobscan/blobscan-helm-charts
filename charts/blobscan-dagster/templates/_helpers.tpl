@@ -152,3 +152,56 @@ PostgreSQL username
 {{- .Values.externalPostgresql.username }}
 {{- end }}
 {{- end }}
+
+{{/*
+User code image. Also the image the K8sRunLauncher runs each run in: the
+launcher takes it from DAGSTER_CURRENT_IMAGE on the code server.
+*/}}
+{{- define "blobscan-dagster.usercodeImage" -}}
+{{- printf "%s:%s" .Values.usercode.image.repository .Values.usercode.image.tag }}
+{{- end }}
+
+{{/*
+The DAGSTER_POSTGRES_* variables dagster.yaml reads its storage settings from.
+Every process that opens the instance needs them: webserver, daemon, code
+server and each launched run.
+*/}}
+{{- define "blobscan-dagster.postgresEnv" -}}
+- name: DAGSTER_POSTGRES_HOST
+  value: {{ include "blobscan-dagster.postgresqlHost" . | quote }}
+- name: DAGSTER_POSTGRES_PORT
+  value: {{ include "blobscan-dagster.postgresqlPort" . | quote }}
+- name: DAGSTER_POSTGRES_DB
+  value: {{ include "blobscan-dagster.postgresqlDatabase" . | quote }}
+- name: DAGSTER_POSTGRES_USER
+  value: {{ include "blobscan-dagster.postgresqlUsername" . | quote }}
+- name: DAGSTER_POSTGRES_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      {{- if .Values.postgresql.enabled }}
+      name: {{ include "blobscan-dagster.fullname" . }}-postgresql
+      key: password
+      {{- else if .Values.externalPostgresql.existingSecret }}
+      name: {{ .Values.externalPostgresql.existingSecret }}
+      key: {{ .Values.externalPostgresql.existingSecretKey }}
+      {{- else }}
+      name: {{ include "blobscan-dagster.fullname" . }}-env
+      key: DAGSTER_POSTGRES_PASSWORD
+      {{- end }}
+{{- end }}
+
+{{/*
+secretEnv entries, as references into the chart's -env Secret.
+DAGSTER_POSTGRES_PASSWORD is skipped: postgresEnv already sets it.
+*/}}
+{{- define "blobscan-dagster.secretEnvRefs" -}}
+{{- range $key, $value := .Values.secretEnv }}
+{{- if ne $key "DAGSTER_POSTGRES_PASSWORD" }}
+- name: {{ $key }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "blobscan-dagster.fullname" $ }}-env
+      key: {{ $key }}
+{{- end }}
+{{- end }}
+{{- end }}

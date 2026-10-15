@@ -14,7 +14,7 @@ This chart deploys three main components:
 
 - **Webserver** — The Dagster UI (dagster-webserver) for monitoring and managing pipeline runs, served on port 3000.
 - **Daemon** — The Dagster daemon responsible for scheduling, sensor evaluation, and run queuing.
-- **User Code** — A gRPC server that hosts the user-defined Dagster definitions (jobs, assets, schedules), served on port 4000.
+- **User Code** — A gRPC server that hosts the user-defined Dagster definitions (jobs, assets, schedules), served on port 4000. Its image is also the image every run executes in.
 
 All components share a PostgreSQL database for run storage, event log storage, and schedule storage.
 
@@ -44,25 +44,31 @@ helm upgrade blobscan-dagster blobscan/blobscan-dagster
 helm uninstall blobscan-dagster
 ```
 
-> **Note:** This will not delete the PostgreSQL PVC. To fully clean up, delete the PVC manually.
+## PostgreSQL
 
-## Using an External PostgreSQL
-
-To use an external PostgreSQL instance instead of the bundled subchart:
+The bundled Bitnami subchart is disabled by default (Bitnami stopped publishing
+its free images in 2025). Point the chart at an existing PostgreSQL instead:
 
 ```yaml
-postgresql:
-  enabled: false
-
 externalPostgresql:
   host: "my-postgres-host"
   port: 5432
   database: "dagster"
   username: "dagster"
-
-secretEnv:
-  DAGSTER_POSTGRES_PASSWORD: "my-secret-password"
+  # An existing Secret holding the password, e.g. a CloudNativePG role secret.
+  existingSecret: "my-postgres-secret"
+  existingSecretKey: "password"
 ```
+
+Without `existingSecret`, the password is read from
+`secretEnv.DAGSTER_POSTGRES_PASSWORD`.
+
+## Runs
+
+Runs are launched by the `K8sRunLauncher`: each run is a Kubernetes Job in the
+user code image, with the same environment as the user code server. The chart
+creates the ServiceAccount, Role and RoleBinding this needs (`serviceAccount.create`,
+`rbac.create`).
 
 {{ template "chart.maintainersSection" . }}
 

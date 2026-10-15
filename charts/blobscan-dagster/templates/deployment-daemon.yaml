@@ -43,48 +43,23 @@ spec:
           image: "{{ .Values.daemon.image.repository }}:{{ .Values.daemon.image.tag }}"
           imagePullPolicy: {{ .Values.daemon.image.pullPolicy }}
           command: ["dagster-daemon"]
-          args: ["run"]
+          args: ["run", "-w", "/opt/dagster/dagster_home/workspace.yaml"]
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           env:
             - name: DAGSTER_HOME
               value: "/opt/dagster/dagster_home"
-            - name: DAGSTER_POSTGRES_HOST
-              value: {{ include "blobscan-dagster.postgresqlHost" . | quote }}
-            - name: DAGSTER_POSTGRES_PORT
-              value: {{ include "blobscan-dagster.postgresqlPort" . | quote }}
-            - name: DAGSTER_POSTGRES_DB
-              value: {{ include "blobscan-dagster.postgresqlDatabase" . | quote }}
-            - name: DAGSTER_POSTGRES_USER
-              value: {{ include "blobscan-dagster.postgresqlUsername" . | quote }}
-            {{- if .Values.postgresql.enabled }}
-            - name: DAGSTER_POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "blobscan-dagster.fullname" . }}-postgresql
-                  key: password
-            {{- else }}
-            - name: DAGSTER_POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "blobscan-dagster.fullname" . }}-env
-                  key: DAGSTER_POSTGRES_PASSWORD
-            {{- end }}
-          {{- range $key, $value := .Values.secretEnv }}
-            {{- if ne $key "DAGSTER_POSTGRES_PASSWORD" }}
-            - name: {{ $key }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "blobscan-dagster.fullname" $ }}-env
-                  key: {{ $key }}
-            {{- end }}
-          {{- end }}
+            {{- include "blobscan-dagster.postgresEnv" . | nindent 12 }}
+            {{- include "blobscan-dagster.secretEnvRefs" . | nindent 12 }}
           {{- if .Values.daemon.extraEnv }}
             {{- toYaml .Values.daemon.extraEnv | nindent 12 }}
           {{- end }}
           resources:
             {{- toYaml .Values.daemon.resources | nindent 12 }}
           volumeMounts:
+            # Writable DAGSTER_HOME: the image has none and the pod is not root.
+            - name: dagster-home
+              mountPath: /opt/dagster/dagster_home
             - name: dagster-instance
               mountPath: /opt/dagster/dagster_home/dagster.yaml
               subPath: dagster.yaml
@@ -107,6 +82,8 @@ spec:
         {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: dagster-home
+          emptyDir: {}
         - name: dagster-instance
           configMap:
             name: {{ include "blobscan-dagster.fullname" . }}-instance

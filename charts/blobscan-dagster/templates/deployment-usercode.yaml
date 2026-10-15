@@ -34,7 +34,7 @@ spec:
       {{- end }}
       containers:
         - name: usercode
-          image: "{{ .Values.usercode.image.repository }}:{{ .Values.usercode.image.tag }}"
+          image: {{ include "blobscan-dagster.usercodeImage" . | quote }}
           imagePullPolicy: {{ .Values.usercode.image.pullPolicy }}
           command: ["dagster"]
           args:
@@ -49,36 +49,10 @@ spec:
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           env:
-            - name: DAGSTER_POSTGRES_HOST
-              value: {{ include "blobscan-dagster.postgresqlHost" . | quote }}
-            - name: DAGSTER_POSTGRES_PORT
-              value: {{ include "blobscan-dagster.postgresqlPort" . | quote }}
-            - name: DAGSTER_POSTGRES_DB
-              value: {{ include "blobscan-dagster.postgresqlDatabase" . | quote }}
-            - name: DAGSTER_POSTGRES_USER
-              value: {{ include "blobscan-dagster.postgresqlUsername" . | quote }}
-            {{- if .Values.postgresql.enabled }}
-            - name: DAGSTER_POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "blobscan-dagster.fullname" . }}-postgresql
-                  key: password
-            {{- else }}
-            - name: DAGSTER_POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "blobscan-dagster.fullname" . }}-env
-                  key: DAGSTER_POSTGRES_PASSWORD
-            {{- end }}
-          {{- range $key, $value := .Values.secretEnv }}
-            {{- if ne $key "DAGSTER_POSTGRES_PASSWORD" }}
-            - name: {{ $key }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "blobscan-dagster.fullname" $ }}-env
-                  key: {{ $key }}
-            {{- end }}
-          {{- end }}
+            - name: DAGSTER_CURRENT_IMAGE
+              value: {{ include "blobscan-dagster.usercodeImage" . | quote }}
+            {{- include "blobscan-dagster.postgresEnv" . | nindent 12 }}
+            {{- include "blobscan-dagster.secretEnvRefs" . | nindent 12 }}
           {{- if .Values.usercode.extraEnv }}
             {{- toYaml .Values.usercode.extraEnv | nindent 12 }}
           {{- end }}

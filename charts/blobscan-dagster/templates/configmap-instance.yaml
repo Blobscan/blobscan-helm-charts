@@ -16,18 +16,70 @@ data:
       config:
         max_concurrent_runs: {{ .Values.dagsterInstance.maxConcurrentRuns }}
 
+    # Each run is a Kubernetes Job in the user code image (the code server
+    # reports it as DAGSTER_CURRENT_IMAGE). The Job pod mounts this ConfigMap
+    # as DAGSTER_HOME and gets the same environment as the code server, by
+    # reference: no secret value is copied into the Job spec.
     run_launcher:
       module: dagster_k8s
       class: K8sRunLauncher
       config:
+        instance_config_map: {{ include "blobscan-dagster.fullname" . }}-instance
+        dagster_home: /opt/dagster/dagster_home
         service_account_name: {{ include "blobscan-dagster.serviceAccountName" . }}
         job_namespace: {{ .Release.Namespace }}
-        env_vars:
-          - DAGSTER_POSTGRES_USER
-          - DAGSTER_POSTGRES_PASSWORD
-          - DAGSTER_POSTGRES_DB
-          - DAGSTER_POSTGRES_HOST
-          - DAGSTER_POSTGRES_PORT
+        load_incluster_config: true
+        image_pull_policy: {{ .Values.usercode.image.pullPolicy }}
+        {{- with .Values.imagePullSecrets }}
+        image_pull_secrets:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        run_k8s_config:
+          container_config:
+            env:
+              {{- include "blobscan-dagster.postgresEnv" . | nindent 14 }}
+              {{- include "blobscan-dagster.secretEnvRefs" . | nindent 14 }}
+              {{- with .Values.usercode.extraEnv }}
+              {{- toYaml . | nindent 14 }}
+              {{- end }}
+            {{- with .Values.containerSecurityContext }}
+            securityContext:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with .Values.runLauncher.resources }}
+            resources:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+          pod_spec_config:
+            {{- with .Values.securityContext }}
+            securityContext:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with .Values.nodeSelector }}
+            nodeSelector:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with .Values.tolerations }}
+            tolerations:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+          {{- with .Values.runLauncher.podLabels }}
+          pod_template_spec_metadata:
+            labels:
+              {{- toYaml . | nindent 14 }}
+          {{- end }}
+          {{- with .Values.runLauncher.jobSpecConfig }}
+          job_spec_config:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+    # Runs execute in their own pods, whose DAGSTER_HOME is the read-only
+    # ConfigMap above, and the webserver could not read a run pod's local files
+    # anyway. Step stdout/stderr stays in the run pod's log (kubectl logs);
+    # structured events still go to the event log in Postgres.
+    compute_logs:
+      module: dagster.core.storage.noop_compute_log_manager
+      class: NoOpComputeLogManager
 
     run_storage:
       module: dagster_postgres.run_storage
@@ -76,3 +128,6 @@ data:
             env: DAGSTER_POSTGRES_DB
           port:
             env: DAGSTER_POSTGRES_PORT
+
+    telemetry:
+      enabled: false

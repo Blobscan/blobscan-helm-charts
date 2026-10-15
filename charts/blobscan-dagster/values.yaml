@@ -34,16 +34,28 @@ securityContext:
 
 # -- The security context for containers
 # @default -- See `values.yaml`
-containerSecurityContext: {}
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
 
 serviceAccount:
-  # -- Specifies whether a service account should be created
-  create: false
+  # -- Specifies whether a service account should be created.
+  # The K8sRunLauncher creates Jobs as this account, see `rbac.create`.
+  create: true
   # -- Annotations to add to the service account
   annotations: {}
   # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+
+rbac:
+  # -- Create the Role and RoleBinding the K8sRunLauncher needs to create run
+  # Jobs and follow their pods. Without it every launched run fails.
+  create: true
 
 # ---------------------------------------------------------------------------
 # Dagster instance configuration (dagster.yaml)
@@ -59,10 +71,12 @@ webserver:
   # -- Enable the webserver deployment
   enabled: true
   image:
-    # -- Webserver container image repository
-    repository: blossomlabs/blobscan-dagster
-    # -- Webserver container image tag
-    tag: latest
+    # -- Webserver container image repository. The official image: it ships
+    # dagster-webserver, dagster-daemon, dagster-postgres and dagster-k8s.
+    repository: dagster/dagster-k8s
+    # -- Webserver container image tag. Keep it on the dagster version the user
+    # code image is locked to.
+    tag: "1.12.19"
     # -- Webserver container pull policy
     pullPolicy: IfNotPresent
   # -- Number of webserver replicas
@@ -114,10 +128,12 @@ daemon:
   # -- Enable the daemon deployment
   enabled: true
   image:
-    # -- Daemon container image repository
-    repository: blossomlabs/blobscan-dagster
-    # -- Daemon container image tag
-    tag: latest
+    # -- Daemon container image repository. The official image: it ships
+    # dagster-webserver, dagster-daemon, dagster-postgres and dagster-k8s.
+    repository: dagster/dagster-k8s
+    # -- Daemon container image tag. Keep it on the dagster version the user
+    # code image is locked to.
+    tag: "1.12.19"
     # -- Daemon container pull policy
     pullPolicy: IfNotPresent
   # -- Resource requests and limits
@@ -147,7 +163,7 @@ usercode:
   enabled: true
   image:
     # -- User code container image repository
-    repository: blossomlabs/blobscan-dagster-usercode
+    repository: blossomlabs/blobscan-dagster
     # -- User code container image tag
     tag: latest
     # -- User code container pull policy
@@ -190,6 +206,21 @@ usercode:
     failureThreshold: 5
 
 # ---------------------------------------------------------------------------
+# Run launcher (K8sRunLauncher)
+# ---------------------------------------------------------------------------
+# Each run is a Job in the user code image, with the user code environment
+# (postgres variables, secretEnv and usercode.extraEnv) and the pod and
+# container security contexts above.
+runLauncher:
+  # -- Resource requests and limits for run pods
+  resources: {}
+  # -- Labels added to run pods
+  podLabels: {}
+  # -- Extra fields for the run Job spec, e.g. ttlSecondsAfterFinished or
+  # backoffLimit. Dagster deletes finished Jobs after a day by default.
+  jobSpecConfig: {}
+
+# ---------------------------------------------------------------------------
 # Secret env variables injected via a created secret
 # ---------------------------------------------------------------------------
 secretEnv: {}
@@ -199,8 +230,10 @@ secretEnv: {}
 # PostgreSQL (Bitnami subchart)
 # ---------------------------------------------------------------------------
 postgresql:
-  # -- Enable the PostgreSQL subchart
-  enabled: true
+  # -- Enable the PostgreSQL subchart. Off by default: Bitnami stopped
+  # publishing its free images in 2025, so the subchart no longer pulls
+  # without an image override. Use `externalPostgresql`.
+  enabled: false
   auth:
     # -- PostgreSQL username
     username: dagster
@@ -231,8 +264,12 @@ externalPostgresql:
   database: "dagster"
   # -- External PostgreSQL username
   username: "dagster"
-  # -- External PostgreSQL password (use secretEnv.DAGSTER_POSTGRES_PASSWORD instead)
-  password: ""
+  # -- Existing Secret holding the password, e.g. the basic-auth Secret of a
+  # CloudNativePG managed role. When empty, the password is read from
+  # `secretEnv.DAGSTER_POSTGRES_PASSWORD`.
+  existingSecret: ""
+  # -- Key in `existingSecret` that holds the password
+  existingSecretKey: password
 
 # ---------------------------------------------------------------------------
 # How long to wait until the pod is forcefully terminated

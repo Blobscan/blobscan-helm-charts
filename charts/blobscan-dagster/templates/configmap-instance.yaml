@@ -1,9 +1,25 @@
+{{- /*
+Two copies of the instance config. The webserver and daemon read
+<fullname>-instance; run pods mount <fullname>-instance-run, the same config
+with should_autocreate_tables: false.
+
+With it true, every storage object Dagster builds first runs
+inspect().get_table_names() to see whether its tables exist, and inside a run
+pod that connection is never closed. A backfill run writing one materialization
+per partition builds storages dozens of times: one week of hourly_metrics left
+63 idle connections open on the run pod, enough with the rest of staging to
+reach max_connections (100) and fail the run as it recorded its results. By the
+time any run starts the webserver and daemon have created the tables, so run
+pods skip the check.
+*/}}
+{{- range $run := list false true }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "blobscan-dagster.fullname" . }}-instance
+  name: {{ include "blobscan-dagster.fullname" $ }}-instance{{ if $run }}-run{{ end }}
   labels:
-    {{- include "blobscan-dagster.labels" . | nindent 4 }}
+    {{- include "blobscan-dagster.labels" $ | nindent 4 }}
 data:
   dagster.yaml: |
     scheduler:
@@ -18,14 +34,14 @@ data:
 
     concurrency:
       runs:
-        max_concurrent_runs: {{ .Values.dagsterInstance.maxConcurrentRuns }}
-        {{- with .Values.dagsterInstance.tagConcurrencyLimits }}
+        max_concurrent_runs: {{ $.Values.dagsterInstance.maxConcurrentRuns }}
+        {{- with $.Values.dagsterInstance.tagConcurrencyLimits }}
         tag_concurrency_limits:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-      {{- if not (kindIs "invalid" .Values.dagsterInstance.poolDefaultLimit) }}
+      {{- if not (kindIs "invalid" $.Values.dagsterInstance.poolDefaultLimit) }}
       pools:
-        default_limit: {{ .Values.dagsterInstance.poolDefaultLimit }}
+        default_limit: {{ $.Values.dagsterInstance.poolDefaultLimit }}
       {{- end }}
 
     # Each run is a Kubernetes Job in the user code image (the code server
@@ -36,51 +52,51 @@ data:
       module: dagster_k8s
       class: K8sRunLauncher
       config:
-        instance_config_map: {{ include "blobscan-dagster.fullname" . }}-instance
+        instance_config_map: {{ include "blobscan-dagster.fullname" $ }}-instance-run
         dagster_home: /opt/dagster/dagster_home
-        service_account_name: {{ include "blobscan-dagster.serviceAccountName" . }}
-        job_namespace: {{ .Release.Namespace }}
+        service_account_name: {{ include "blobscan-dagster.serviceAccountName" $ }}
+        job_namespace: {{ $.Release.Namespace }}
         load_incluster_config: true
-        image_pull_policy: {{ .Values.usercode.image.pullPolicy }}
-        {{- with .Values.imagePullSecrets }}
+        image_pull_policy: {{ $.Values.usercode.image.pullPolicy }}
+        {{- with $.Values.imagePullSecrets }}
         image_pull_secrets:
           {{- toYaml . | nindent 10 }}
         {{- end }}
         run_k8s_config:
           container_config:
             env:
-              {{- include "blobscan-dagster.postgresEnv" . | nindent 14 }}
-              {{- include "blobscan-dagster.secretEnvRefs" . | nindent 14 }}
-              {{- with .Values.usercode.extraEnv }}
+              {{- include "blobscan-dagster.postgresEnv" $ | nindent 14 }}
+              {{- include "blobscan-dagster.secretEnvRefs" $ | nindent 14 }}
+              {{- with $.Values.usercode.extraEnv }}
               {{- toYaml . | nindent 14 }}
               {{- end }}
-            {{- with .Values.containerSecurityContext }}
+            {{- with $.Values.containerSecurityContext }}
             securityContext:
               {{- toYaml . | nindent 14 }}
             {{- end }}
-            {{- with .Values.runLauncher.resources }}
+            {{- with $.Values.runLauncher.resources }}
             resources:
               {{- toYaml . | nindent 14 }}
             {{- end }}
           pod_spec_config:
-            {{- with .Values.securityContext }}
+            {{- with $.Values.securityContext }}
             securityContext:
               {{- toYaml . | nindent 14 }}
             {{- end }}
-            {{- with .Values.nodeSelector }}
+            {{- with $.Values.nodeSelector }}
             nodeSelector:
               {{- toYaml . | nindent 14 }}
             {{- end }}
-            {{- with .Values.tolerations }}
+            {{- with $.Values.tolerations }}
             tolerations:
               {{- toYaml . | nindent 14 }}
             {{- end }}
-          {{- with .Values.runLauncher.podLabels }}
+          {{- with $.Values.runLauncher.podLabels }}
           pod_template_spec_metadata:
             labels:
               {{- toYaml . | nindent 14 }}
           {{- end }}
-          {{- with .Values.runLauncher.jobSpecConfig }}
+          {{- with $.Values.runLauncher.jobSpecConfig }}
           job_spec_config:
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -97,6 +113,9 @@ data:
       module: dagster_postgres.run_storage
       class: PostgresRunStorage
       config:
+        {{- if $run }}
+        should_autocreate_tables: false
+        {{- end }}
         postgres_db:
           hostname:
             env: DAGSTER_POSTGRES_HOST
@@ -113,6 +132,9 @@ data:
       module: dagster_postgres.schedule_storage
       class: PostgresScheduleStorage
       config:
+        {{- if $run }}
+        should_autocreate_tables: false
+        {{- end }}
         postgres_db:
           hostname:
             env: DAGSTER_POSTGRES_HOST
@@ -129,6 +151,9 @@ data:
       module: dagster_postgres.event_log
       class: PostgresEventLogStorage
       config:
+        {{- if $run }}
+        should_autocreate_tables: false
+        {{- end }}
         postgres_db:
           hostname:
             env: DAGSTER_POSTGRES_HOST
@@ -143,3 +168,4 @@ data:
 
     telemetry:
       enabled: false
+{{- end }}

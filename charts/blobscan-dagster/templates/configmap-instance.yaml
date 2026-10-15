@@ -1,27 +1,7 @@
-{{- /*
-Two copies of the instance config, differing only in should_autocreate_tables:
-
-  <fullname>-instance         webserver   true: creates the storage tables on
-                                          a fresh install
-  <fullname>-instance-daemon  daemon      false
-
-The daemon's copy matters for runs: the K8sRunLauncher runs in the daemon, and
-a run pod gets the daemon's instance config serialized in its execute_run
-arguments (instance_ref). It does not read any ConfigMap. With the setting
-true, each storage object a run pod builds first checks its tables exist
-(inspect().get_table_names()) and leaves that connection open: on staging a
-one-week hourly_metrics backfill run held 64 idle connections, every one last
-running that check, and the cluster reached max_connections (100).
-
-The daemon waits for the webserver at start (see deployment-daemon.yaml), so
-on a fresh install the tables exist before it runs anything.
-*/}}
-{{- range $daemon := list false true }}
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "blobscan-dagster.fullname" $ }}-instance{{ if $daemon }}-daemon{{ end }}
+  name: {{ include "blobscan-dagster.fullname" $ }}-instance
   labels:
     {{- include "blobscan-dagster.labels" $ | nindent 4 }}
 data:
@@ -56,7 +36,7 @@ data:
       module: dagster_k8s
       class: K8sRunLauncher
       config:
-        instance_config_map: {{ include "blobscan-dagster.fullname" $ }}-instance-daemon
+        instance_config_map: {{ include "blobscan-dagster.fullname" $ }}-instance
         dagster_home: /opt/dagster/dagster_home
         service_account_name: {{ include "blobscan-dagster.serviceAccountName" $ }}
         job_namespace: {{ $.Release.Namespace }}
@@ -117,9 +97,6 @@ data:
       module: dagster_postgres.run_storage
       class: PostgresRunStorage
       config:
-        {{- if $daemon }}
-        should_autocreate_tables: false
-        {{- end }}
         postgres_db:
           hostname:
             env: DAGSTER_POSTGRES_HOST
@@ -136,9 +113,6 @@ data:
       module: dagster_postgres.schedule_storage
       class: PostgresScheduleStorage
       config:
-        {{- if $daemon }}
-        should_autocreate_tables: false
-        {{- end }}
         postgres_db:
           hostname:
             env: DAGSTER_POSTGRES_HOST
@@ -155,9 +129,6 @@ data:
       module: dagster_postgres.event_log
       class: PostgresEventLogStorage
       config:
-        {{- if $daemon }}
-        should_autocreate_tables: false
-        {{- end }}
         postgres_db:
           hostname:
             env: DAGSTER_POSTGRES_HOST
@@ -172,4 +143,3 @@ data:
 
     telemetry:
       enabled: false
-{{- end }}

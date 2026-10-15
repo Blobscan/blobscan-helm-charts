@@ -93,6 +93,9 @@ spec:
             {{- if .Values.webserver.extraVolumeMounts }}
             {{- toYaml .Values.webserver.extraVolumeMounts | nindent 12 }}
             {{- end }}
+        {{- if .Values.webserver.locationReloader.enabled }}
+        {{- include "blobscan-dagster.locationReloader" . | nindent 8 }}
+        {{- end }}
       {{- if .Values.extraContainers }}
         {{- toYaml .Values.extraContainers | nindent 8 }}
       {{- end }}

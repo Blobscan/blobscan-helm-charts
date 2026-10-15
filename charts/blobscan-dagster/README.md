@@ -1,7 +1,7 @@
 
 # blobscan-dagster
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 Blobscan Dagster orchestration platform for data pipelines and analytics.
 
@@ -98,7 +98,7 @@ creates the ServiceAccount, Role and RoleBinding this needs (`serviceAccount.cre
 | daemon.extraVolumes | list | `[]` | Additional volumes |
 | daemon.image.pullPolicy | string | `"IfNotPresent"` | Daemon container pull policy |
 | daemon.image.repository | string | `"dagster/dagster-k8s"` | Daemon container image repository. The official image: it ships dagster-webserver, dagster-daemon, dagster-postgres and dagster-k8s. |
-| daemon.image.tag | string | `"1.12.19"` | Daemon container image tag. Keep it on the dagster version the user code image is locked to. |
+| daemon.image.tag | string | `"1.13.26"` | Daemon container image tag. Keep it on the dagster version the user code image is locked to. |
 | daemon.podAnnotations | object | `{}` | Pod annotations |
 | daemon.podLabels | object | `{}` |  |
 | daemon.resources | object | `{}` | Resource requests and limits |
@@ -160,8 +160,10 @@ creates the ServiceAccount, Role and RoleBinding this needs (`serviceAccount.cre
 | webserver.extraVolumes | list | `[]` | Additional volumes |
 | webserver.image.pullPolicy | string | `"IfNotPresent"` | Webserver container pull policy |
 | webserver.image.repository | string | `"dagster/dagster-k8s"` | Webserver container image repository. The official image: it ships dagster-webserver, dagster-daemon, dagster-postgres and dagster-k8s. |
-| webserver.image.tag | string | `"1.12.19"` | Webserver container image tag. Keep it on the dagster version the user code image is locked to. |
+| webserver.image.tag | string | `"1.13.26"` | Webserver container image tag. Keep it on the dagster version the user code image is locked to. |
 | webserver.livenessProbe | object | `{"httpGet":{"path":"/server_info","port":"http"},"initialDelaySeconds":30,"periodSeconds":10}` | Liveness probe configuration |
+| webserver.locationReloader.enabled | bool | `true` | Run a sidecar that reloads any code location the webserver holds in an error state. The webserver does not retry a location that failed to load, e.g. when it reached the code server while a rollout was replacing it, and then lists no assets until someone presses Reload. |
+| webserver.locationReloader.intervalSeconds | int | `30` | How often to check the code locations |
 | webserver.podAnnotations | object | `{}` | Pod annotations |
 | webserver.podLabels | object | `{}` |  |
 | webserver.port | int | `3000` | Webserver port |

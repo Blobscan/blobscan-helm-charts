@@ -230,31 +230,56 @@ image values (it only needs the dagster CLI) and the root context.
     {{- toYaml $.Values.containerSecurityContext | nindent 4 }}
 {{- end }}
 
+
 {{/*
-Init container that waits for the webserver to answer. The daemon's instance
-config does not create the storage tables (should_autocreate_tables: false,
-see configmap-instance.yaml); the webserver's does, at start. Waiting for it
-means the tables exist before the daemon touches them on a fresh install.
+Sidecar that reloads code locations the webserver holds in an error state,
+through the webserver's own GraphQL API (the Reload button in Deployment ->
+Code locations). It restarts nothing, so a location that is genuinely broken
+just keeps showing its error in the UI. Runs in the webserver image, which
+has Python.
 */}}
-{{- define "blobscan-dagster.waitForWebserver" -}}
-{{- $image := index . 0 }}
-{{- $ := index . 1 -}}
-- name: wait-for-webserver
-  image: "{{ $image.repository }}:{{ $image.tag }}"
-  imagePullPolicy: {{ $image.pullPolicy }}
+{{- define "blobscan-dagster.locationReloader" -}}
+- name: location-reloader
+  image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
+  imagePullPolicy: {{ .Values.webserver.image.pullPolicy }}
   command:
     - python
+    - -u
     - -c
     - |
-      import time, urllib.request
-      url = "http://{{ include "blobscan-dagster.fullname" $ }}-webserver:{{ $.Values.webserver.service.port }}/server_info"
+      import json, time, urllib.request
+      URL = "http://localhost:{{ .Values.webserver.port }}/graphql"
+      INTERVAL = {{ .Values.webserver.locationReloader.intervalSeconds }}
+      ERRORED = """{ workspaceOrError { ... on Workspace { locationEntries {
+        name locationOrLoadError { __typename } } } } }"""
+      RELOAD = """mutation($name: String!) { reloadRepositoryLocation(
+        repositoryLocationName: $name) { __typename ... on WorkspaceLocationEntry {
+        locationOrLoadError { __typename } } } }"""
+
+      def query(q, variables=None):
+          body = json.dumps({"query": q, "variables": variables or {}}).encode()
+          req = urllib.request.Request(URL, data=body, headers={"Content-Type": "application/json"})
+          with urllib.request.urlopen(req, timeout=30) as resp:
+              return json.load(resp)["data"]
+
       while True:
+          time.sleep(INTERVAL)
           try:
-              urllib.request.urlopen(url, timeout=5)
-              break
+              entries = query(ERRORED)["workspaceOrError"]["locationEntries"]
+              for entry in entries:
+                  if (entry["locationOrLoadError"] or {}).get("__typename") != "PythonError":
+                      continue
+                  result = query(RELOAD, {"name": entry["name"]})["reloadRepositoryLocation"]
+                  state = (result.get("locationOrLoadError") or {}).get("__typename")
+                  print(f"reloaded code location {entry['name']}: {state}")
           except Exception as err:
-              print(f"waiting for the webserver: {err}", flush=True)
-              time.sleep(2)
+              print(f"location check failed: {err}")
   securityContext:
-    {{- toYaml $.Values.containerSecurityContext | nindent 4 }}
+    {{- toYaml .Values.containerSecurityContext | nindent 4 }}
+  resources:
+    requests:
+      cpu: 5m
+      memory: 32Mi
+    limits:
+      memory: 64Mi
 {{- end }}

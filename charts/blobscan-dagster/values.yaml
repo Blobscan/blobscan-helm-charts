@@ -89,7 +89,7 @@ webserver:
     repository: dagster/dagster-k8s
     # -- Webserver container image tag. Keep it on the dagster version the user
     # code image is locked to.
-    tag: "1.12.19"
+    tag: "1.13.26"
     # -- Webserver container pull policy
     pullPolicy: IfNotPresent
   # -- Number of webserver replicas
@@ -133,6 +133,14 @@ webserver:
       port: http
     initialDelaySeconds: 15
     periodSeconds: 10
+  locationReloader:
+    # -- Run a sidecar that reloads any code location the webserver holds in an
+    # error state. The webserver does not retry a location that failed to load,
+    # e.g. when it reached the code server while a rollout was replacing it,
+    # and then lists no assets until someone presses Reload.
+    enabled: true
+    # -- How often to check the code locations
+    intervalSeconds: 30
 
 # ---------------------------------------------------------------------------
 # Daemon (dagster-daemon)
@@ -146,7 +154,7 @@ daemon:
     repository: dagster/dagster-k8s
     # -- Daemon container image tag. Keep it on the dagster version the user
     # code image is locked to.
-    tag: "1.12.19"
+    tag: "1.13.26"
     # -- Daemon container pull policy
     pullPolicy: IfNotPresent
   # -- Resource requests and limits

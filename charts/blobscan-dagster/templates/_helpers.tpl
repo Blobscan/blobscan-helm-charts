@@ -229,3 +229,32 @@ image values (it only needs the dagster CLI) and the root context.
   securityContext:
     {{- toYaml $.Values.containerSecurityContext | nindent 4 }}
 {{- end }}
+
+{{/*
+Init container that waits for the webserver to answer. The daemon's instance
+config does not create the storage tables (should_autocreate_tables: false,
+see configmap-instance.yaml); the webserver's does, at start. Waiting for it
+means the tables exist before the daemon touches them on a fresh install.
+*/}}
+{{- define "blobscan-dagster.waitForWebserver" -}}
+{{- $image := index . 0 }}
+{{- $ := index . 1 -}}
+- name: wait-for-webserver
+  image: "{{ $image.repository }}:{{ $image.tag }}"
+  imagePullPolicy: {{ $image.pullPolicy }}
+  command:
+    - python
+    - -c
+    - |
+      import time, urllib.request
+      url = "http://{{ include "blobscan-dagster.fullname" $ }}-webserver:{{ $.Values.webserver.service.port }}/server_info"
+      while True:
+          try:
+              urllib.request.urlopen(url, timeout=5)
+              break
+          except Exception as err:
+              print(f"waiting for the webserver: {err}", flush=True)
+              time.sleep(2)
+  securityContext:
+    {{- toYaml $.Values.containerSecurityContext | nindent 4 }}
+{{- end }}

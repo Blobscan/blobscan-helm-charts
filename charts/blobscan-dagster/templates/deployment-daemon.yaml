@@ -35,10 +35,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- $waitForUsercode := and .Values.usercode.enabled .Values.waitForUsercode }}
-      {{- if or $waitForUsercode .Values.initContainers }}
+      {{- if or $waitForUsercode .Values.webserver.enabled .Values.initContainers }}
       initContainers:
         {{- if $waitForUsercode }}
         {{- include "blobscan-dagster.waitForUsercode" (list .Values.daemon.image $) | nindent 8 }}
+        {{- end }}
+        {{- if .Values.webserver.enabled }}
+        {{- include "blobscan-dagster.waitForWebserver" (list .Values.daemon.image $) | nindent 8 }}
         {{- end }}
         {{- with .Values.initContainers }}
         {{- toYaml . | nindent 8 }}
@@ -92,7 +95,7 @@ spec:
           emptyDir: {}
         - name: dagster-instance
           configMap:
-            name: {{ include "blobscan-dagster.fullname" . }}-instance
+            name: {{ include "blobscan-dagster.fullname" . }}-instance-daemon
         - name: dagster-workspace
           configMap:
             name: {{ include "blobscan-dagster.fullname" . }}-workspace

@@ -213,11 +213,22 @@ error: a location that fails its first load is not retried, so the UI shows no
 assets until someone reloads the location by hand. Takes the component's
 image values (it only needs the dagster CLI) and the root context.
 */}}
+{{/*
+Upstream dagster image (webserver, daemon) for an image values block: the tag
+defaults to the chart's appVersion, the Dagster version the chart is released
+for. Takes the image values and the root context.
+*/}}
+{{- define "blobscan-dagster.dagsterImage" -}}
+{{- $image := index . 0 }}
+{{- $ := index . 1 -}}
+{{- printf "%s:%s" $image.repository ($image.tag | default $.Chart.AppVersion) }}
+{{- end }}
+
 {{- define "blobscan-dagster.waitForUsercode" -}}
 {{- $image := index . 0 }}
 {{- $ := index . 1 -}}
 - name: wait-for-usercode
-  image: "{{ $image.repository }}:{{ $image.tag }}"
+  image: {{ include "blobscan-dagster.dagsterImage" (list $image $) | quote }}
   imagePullPolicy: {{ $image.pullPolicy }}
   command:
     - sh
@@ -240,7 +251,7 @@ has Python.
 */}}
 {{- define "blobscan-dagster.locationReloader" -}}
 - name: location-reloader
-  image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
+  image: {{ include "blobscan-dagster.dagsterImage" (list .Values.webserver.image .) | quote }}
   imagePullPolicy: {{ .Values.webserver.image.pullPolicy }}
   command:
     - python

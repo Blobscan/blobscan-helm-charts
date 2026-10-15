@@ -46,7 +46,7 @@ spec:
       {{- end }}
       containers:
         - name: webserver
-          image: "{{ .Values.webserver.image.repository }}:{{ .Values.webserver.image.tag }}"
+          image: {{ include "blobscan-dagster.dagsterImage" (list .Values.webserver.image .) | quote }}
           imagePullPolicy: {{ .Values.webserver.image.pullPolicy }}
           command: ["dagster-webserver"]
           args:

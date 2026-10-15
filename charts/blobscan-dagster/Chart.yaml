@@ -6,8 +6,10 @@ icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/lo
 sources:
   - https://github.com/blobscan/blobscan
 type: application
-version: 0.2.6
-appVersion: "0.1.0"
+version: 0.2.7
+# The Dagster version: the default webserver/daemon image tag. Keep it on the
+# dagster version in apps/dagster/uv.lock (blobscan CI checks it).
+appVersion: "1.13.26"
 maintainers:
   - name: PabloCastellano
     email: pablo@anche.no

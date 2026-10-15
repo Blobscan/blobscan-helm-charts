@@ -87,9 +87,9 @@ webserver:
     # -- Webserver container image repository. The official image: it ships
     # dagster-webserver, dagster-daemon, dagster-postgres and dagster-k8s.
     repository: dagster/dagster-k8s
-    # -- Webserver container image tag. Keep it on the dagster version the user
-    # code image is locked to.
-    tag: "1.13.26"
+    # -- Webserver container image tag. Empty means the chart's appVersion, the
+    # dagster version the user code image is locked to.
+    tag: ""
     # -- Webserver container pull policy
     pullPolicy: IfNotPresent
   # -- Number of webserver replicas
@@ -152,9 +152,9 @@ daemon:
     # -- Daemon container image repository. The official image: it ships
     # dagster-webserver, dagster-daemon, dagster-postgres and dagster-k8s.
     repository: dagster/dagster-k8s
-    # -- Daemon container image tag. Keep it on the dagster version the user
-    # code image is locked to.
-    tag: "1.13.26"
+    # -- Daemon container image tag. Empty means the chart's appVersion, the
+    # dagster version the user code image is locked to.
+    tag: ""
     # -- Daemon container pull policy
     pullPolicy: IfNotPresent
   # -- Resource requests and limits

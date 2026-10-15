@@ -46,7 +46,7 @@ spec:
       {{- end }}
       containers:
         - name: daemon
-          image: "{{ .Values.daemon.image.repository }}:{{ .Values.daemon.image.tag }}"
+          image: {{ include "blobscan-dagster.dagsterImage" (list .Values.daemon.image .) | quote }}
           imagePullPolicy: {{ .Values.daemon.image.pullPolicy }}
           command: ["dagster-daemon"]
           args: ["run", "-w", "/opt/dagster/dagster_home/workspace.yaml"]

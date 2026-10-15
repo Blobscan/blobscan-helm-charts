@@ -1,7 +1,7 @@
 
 # blobscan-dagster
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 Blobscan Dagster orchestration platform for data pipelines and analytics.
 
@@ -114,7 +114,7 @@ creates the ServiceAccount, Role and RoleBinding this needs (`serviceAccount.cre
 | extraContainers | list | `[]` |  |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
-| initContainers | list | `[]` |  |
+| initContainers | list | `[]` | Additional init containers (webserver and daemon) |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | postgresql.auth.database | string | `"dagster"` | PostgreSQL database name |
@@ -153,6 +153,7 @@ creates the ServiceAccount, Role and RoleBinding this needs (`serviceAccount.cre
 | usercode.resources | object | `{}` | Resource requests and limits |
 | usercode.service.port | int | `4000` | Service port |
 | usercode.service.type | string | `"ClusterIP"` | Service type |
+| waitForUsercode | bool | `true` |  |
 | webserver.enabled | bool | `true` | Enable the webserver deployment |
 | webserver.extraEnv | list | `[]` | Additional env variables |
 | webserver.extraVolumeMounts | list | `[]` | Additional volume mounts |

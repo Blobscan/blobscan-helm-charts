@@ -205,3 +205,27 @@ DAGSTER_POSTGRES_PASSWORD is skipped: postgresEnv already sets it.
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+Init container that waits for the user code server to answer gRPC. Without it
+the webserver can start first, fail to reach the code server, and keep that
+error: a location that fails its first load is not retried, so the UI shows no
+assets until someone reloads the location by hand. Takes the component's
+image values (it only needs the dagster CLI) and the root context.
+*/}}
+{{- define "blobscan-dagster.waitForUsercode" -}}
+{{- $image := index . 0 }}
+{{- $ := index . 1 -}}
+- name: wait-for-usercode
+  image: "{{ $image.repository }}:{{ $image.tag }}"
+  imagePullPolicy: {{ $image.pullPolicy }}
+  command:
+    - sh
+    - -c
+    - |
+      until dagster api grpc-health-check --host {{ include "blobscan-dagster.fullname" $ }}-usercode -p {{ $.Values.usercode.port }}; do
+        echo "waiting for the user code server"; sleep 2
+      done
+  securityContext:
+    {{- toYaml $.Values.containerSecurityContext | nindent 4 }}
+{{- end }}

@@ -292,7 +292,12 @@ terminationGracePeriodSeconds: 30
 # ---------------------------------------------------------------------------
 # Init containers
 # ---------------------------------------------------------------------------
-# -- Additional init containers
+# -- Make the webserver and daemon wait until the user code server answers
+# gRPC. A webserver that starts first keeps the "could not reach user code
+# server" error and shows no assets until the location is reloaded by hand.
+waitForUsercode: true
+
+# -- Additional init containers (webserver and daemon)
 initContainers: []
 
 # ---------------------------------------------------------------------------

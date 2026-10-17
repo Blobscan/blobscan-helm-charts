@@ -1,7 +1,7 @@
 
 # blobscan-indexer
 
-![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan-indexer indexes blobs using Blobscan API.
 
@@ -54,12 +54,12 @@ helm uninstall blobscan-indexer
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config | object | See `values.yaml` | Config file https://github.com/Blobscan/blobscan/blob/next/.env.example |
+| config | object | See `values.yaml` | Environment variables. Keys the template knows (the ones below) are rendered explicitly; any other key is passed through as an env var unchanged, unless extraEnv or secretEnv sets the same name. https://github.com/Blobscan/blobscan/blob/next/.env.example |
 | config.BLOBSCAN_API_ENDPOINT | string | `"http://blobscan-api:3001"` | Blobscan API service endpoint URL |
 | config.DENCUN_FORK_SLOT | string | `""` | Slot number when Dencun fork activated (uncomment and set for testnets) |
 | config.NETWORK_NAME | string | `"mainnet"` | Ethereum network name (mainnet, holesky, sepolia, gnosis) |
 | config.RUST_LOG | string | `"blob_indexer=INFO"` | Rust logging configuration for the blob indexer |
-| containerSecurityContext | object | See `values.yaml` | The security context for containers |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers (Pod Security Standards "restricted" compliant by default). readOnlyRootFilesystem is left off because some components write to the filesystem; enable it per-deployment if supported. |
 | customArgs | list | `[]` | Custom args for the blobscan-indexer container |
 | customCommand | list | `[]` | Command replacement for the blobscan-indexer container |
 | externalConfigMaps | list | `[]` | External ConfigMaps to mount as environment variables Example: ["blobscan-indexer-config"] |
@@ -77,6 +77,7 @@ helm uninstall blobscan-indexer
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | initContainers | list | `[]` | Additional init containers |
 | nameOverride | string | `""` | Overrides the chart's name |
+| networkPolicy | object | `{"enabled":false,"ingress":{"from":[],"ports":[]}}` | NetworkPolicy restricting ingress to this component's pods. Disabled by default; enable per-environment. Requires a policy-enforcing CNI (e.g. Cilium on DOKS). The indexer is a background worker that serves no inbound traffic, so the default (empty from/ports) is full default-deny ingress. |
 | nodeSelector | object | `{}` | Node selector for pods |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |

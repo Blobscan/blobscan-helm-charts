@@ -117,6 +117,24 @@ spec:
               value: {{ .Values.config.TRUSTED_PROXY_COUNT | quote }}
             {{- end }}
 
+          {{- /*
+          Every other `config` key becomes an env var as is. The keys above are
+          rendered explicitly (some only under a condition), so they are left
+          out here. Keys also set in extraEnv or secretEnv are skipped too:
+          those win, and a duplicate env name is rejected by server-side apply.
+          Before this, an unknown key was silently dropped.
+          */}}
+          {{- $known := list "BEE_ENDPOINT" "BLOBSCAN_API_BASE_URL" "BLOBSCAN_API_PORT" "GOOGLE_STORAGE_BUCKET_NAME" "GOOGLE_STORAGE_ENABLED" "GOOGLE_STORAGE_PROJECT_ID" "LOG_LEVEL" "METRICS_ENABLED" "NETWORK_NAME" "OTEL_EXPORTER_OTLP_ENDPOINT" "OTEL_EXPORTER_OTLP_PROTOCOL" "POSTGRES_STORAGE_ENABLED" "SWARM_STORAGE_ENABLED" "TRACES_ENABLED" "TRUSTED_PROXY_COUNT" }}
+          {{- $taken := keys (default dict .Values.secretEnv) }}
+          {{- range .Values.extraEnv }}
+          {{- $taken = append $taken .name }}
+          {{- end }}
+          {{- range $key, $value := .Values.config }}
+          {{- if not (or (has $key $known) (has $key $taken)) }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+          {{- end }}
+          {{- end }}
           {{- range $key, $value := .Values.secretEnv }}
             {{- if ne $value "" }}
             - name: {{ $key }}

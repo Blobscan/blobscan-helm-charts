@@ -26,7 +26,9 @@ secretEnv:
 # -- Command arguments
 args: []
 
-# -- Config file
+# -- Environment variables. Keys the template knows (the ones below) are
+# rendered explicitly; any other key is passed through as an env var
+# unchanged, unless extraEnv or secretEnv sets the same name.
 # @default -- See `values.yaml`
 # https://github.com/Blobscan/blobscan/blob/next/.env.example
 config:

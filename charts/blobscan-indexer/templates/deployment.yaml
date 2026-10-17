@@ -81,6 +81,24 @@ spec:
             - name: DENCUN_FORK_SLOT
               value: {{ .Values.config.DENCUN_FORK_SLOT | quote }}
             {{- end }}
+          {{- /*
+          Every other `config` key becomes an env var as is. The keys above are
+          rendered explicitly (some only under a condition), so they are left
+          out here. Keys also set in extraEnv or secretEnv are skipped too:
+          those win, and a duplicate env name is rejected by server-side apply.
+          Before this, an unknown key was silently dropped.
+          */}}
+          {{- $known := list "BLOBSCAN_API_ENDPOINT" "DENCUN_FORK_SLOT" "NETWORK_NAME" "RUST_LOG" }}
+          {{- $taken := keys (default dict .Values.secretEnv) }}
+          {{- range .Values.extraEnv }}
+          {{- $taken = append $taken .name }}
+          {{- end }}
+          {{- range $key, $value := .Values.config }}
+          {{- if not (or (has $key $known) (has $key $taken)) }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+          {{- end }}
+          {{- end }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:

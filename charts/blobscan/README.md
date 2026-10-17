@@ -1,7 +1,7 @@
 
 # blobscan
 
-![Version: 0.11.8](https://img.shields.io/badge/Version-0.11.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.11.9](https://img.shields.io/badge/Version-0.11.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blobscan meta-chart (depends on blobscan-api, blobscan-web, blobscan-indexer and blobscan-ipld)
 
@@ -62,9 +62,9 @@ helm uninstall blobscan
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../blobscan-api | blobscan-api | 0.8.5 |
-| file://../blobscan-indexer | blobscan-indexer | 0.4.4 |
+| file://../blobscan-indexer | blobscan-indexer | 0.4.5 |
 | file://../blobscan-ipld | blobscan-ipld | 0.1.3 |
-| file://../blobscan-web | blobscan-web | 0.6.2 |
+| file://../blobscan-web | blobscan-web | 0.6.3 |
 | https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.20 |
 | https://charts.bitnami.com/bitnami | redis(redis) | 19.6.4 |
 

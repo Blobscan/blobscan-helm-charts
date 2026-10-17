@@ -12,6 +12,21 @@ spec:
   # there is no value of this above 1 that is ever correct. Use
   # `blobscan-indexer.enabled` to choose whether the indexer runs at all.
   replicas: 1
+  # Recreate, also intentionally not configurable, for the same reason: the
+  # default RollingUpdate (maxSurge 25% -> 1) starts the new indexer before
+  # stopping the old one, so every rollout and every Keel image bump ran two
+  # indexers on the same chain for ~30s. Recreate stops the old pod first; the
+  # cost is a few seconds without indexing.
+  #
+  # `rollingUpdate: null` is what removes the defaulted rollingUpdate block of
+  # an existing Deployment; without it the API rejects type Recreate. It only
+  # works through a client-side patch: server-side apply never deletes a field
+  # it doesn't own, and that default is owned by nobody. So the first upgrade
+  # to this version must run with `--server-side=false`; later ones can go
+  # either way.
+  strategy:
+    type: Recreate
+    rollingUpdate: null
   selector:
     matchLabels:
       {{- include "blobscan-indexer.selectorLabels" . | nindent 6 }}

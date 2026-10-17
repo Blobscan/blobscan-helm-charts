@@ -142,6 +142,25 @@ spec:
             - name: ETH_PRICE_SYNCER_TIME_TOLERANCE
               value: {{ .Values.config.ETH_PRICE_SYNCER_TIME_TOLERANCE | quote }}
             {{- end }}
+          {{- /*
+          Every other `config` key becomes an env var as is. The keys above are
+          rendered explicitly (some only under a condition), so they are left
+          out here; so is BLOBSCAN_API_PORT, which comes from `httpPort`. Keys
+          also set in extraEnv or secretEnv are skipped too: those win, and a
+          duplicate env name is rejected by server-side apply. Before this, an
+          unknown key was silently dropped.
+          */}}
+          {{- $known := list "BEE_ENDPOINT" "BLOBSCAN_API_BASE_URL" "BLOBSCAN_API_PORT" "CHAIN_ID" "ETH_PRICE_SYNCER_CHAIN_ID" "ETH_PRICE_SYNCER_CRON_PATTERN" "ETH_PRICE_SYNCER_ENABLED" "ETH_PRICE_SYNCER_ETH_USD_PRICE_FEED_CONTRACT_ADDRESS" "ETH_PRICE_SYNCER_TIME_TOLERANCE" "GOOGLE_STORAGE_BUCKET_NAME" "GOOGLE_STORAGE_ENABLED" "GOOGLE_STORAGE_PROJECT_ID" "LOG_LEVEL" "METRICS_ENABLED" "NETWORK_NAME" "OTEL_EXPORTER_OTLP_ENDPOINT" "OTEL_EXPORTER_OTLP_PROTOCOL" "POSTGRES_STORAGE_ENABLED" "SWARM_BATCH_ID" "SWARM_CHUNKSTORM_ENABLED" "SWARM_CHUNKSTORM_URL" "SWARM_STORAGE_ENABLED" "TRACES_ENABLED" "TRUSTED_PROXIES" }}
+          {{- $taken := keys (default dict .Values.secretEnv) }}
+          {{- range .Values.extraEnv }}
+          {{- $taken = append $taken .name }}
+          {{- end }}
+          {{- range $key, $value := .Values.config }}
+          {{- if not (or (has $key $known) (has $key $taken)) }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+          {{- end }}
+          {{- end }}
 
 
           {{- range $key, $value := .Values.secretEnv }}

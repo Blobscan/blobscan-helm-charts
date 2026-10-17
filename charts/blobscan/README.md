@@ -1,9 +1,9 @@
 
 # blobscan
 
-![Version: 0.10.0](https://img.shields.io/badge/Version-0.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.11.8](https://img.shields.io/badge/Version-0.11.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Blobscan meta-chart (depends on blobscan-api, blobscan-web and blobscan-indexer)
+Blobscan meta-chart (depends on blobscan-api, blobscan-web, blobscan-indexer and blobscan-ipld)
 
 **Homepage:** <https://blobscan.com>
 
@@ -61,9 +61,10 @@ helm uninstall blobscan
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../blobscan-api | blobscan-api | 0.8.0 |
-| file://../blobscan-indexer | blobscan-indexer | 0.4.2 |
-| file://../blobscan-web | blobscan-web | 0.6.0 |
+| file://../blobscan-api | blobscan-api | 0.8.5 |
+| file://../blobscan-indexer | blobscan-indexer | 0.4.4 |
+| file://../blobscan-ipld | blobscan-ipld | 0.1.3 |
+| file://../blobscan-web | blobscan-web | 0.6.2 |
 | https://charts.bitnami.com/bitnami | blobscandb(postgresql) | 15.5.20 |
 | https://charts.bitnami.com/bitnami | redis(redis) | 19.6.4 |
 
@@ -175,7 +176,7 @@ helm uninstall blobscan
 | blobscan-api.strategy | object | `{"rollingUpdate":{"maxSurge":0,"maxUnavailable":1},"type":"RollingUpdate"}` | Deployment strategy configuration |
 | blobscan-api.terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | blobscan-api.tolerations | list | `[]` | Tolerations for pods |
-| blobscan-indexer | object | `{"config":{"BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","DENCUN_FORK_SLOT":"","NETWORK_NAME":"mainnet","RUST_LOG":"blob_indexer=INFO"},"enabled":true,"externalConfigMaps":[],"externalSecrets":[],"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-indexer","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":"1000m","memory":"200Mi"},"requests":{"cpu":"500m","memory":"100Mi"}},"secretEnv":{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","SECRET_KEY":"supersecret","SENTRY_DSN":""}}` | Values for the blobscan-indexer subchart |
+| blobscan-indexer | object | `{"config":{"BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","DENCUN_FORK_SLOT":"","NETWORK_NAME":"mainnet","RUST_LOG":"blob_indexer=INFO"},"enabled":true,"externalConfigMaps":[],"externalSecrets":[],"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-indexer","tag":"latest"},"resources":{"limits":{"cpu":"1000m","memory":"200Mi"},"requests":{"cpu":"500m","memory":"100Mi"}},"secretEnv":{"BEACON_NODE_ENDPOINT":"http://beacon-node:5052","EXECUTION_NODE_ENDPOINT":"http://execution-node:8545","SECRET_KEY":"supersecret","SENTRY_DSN":""}}` | Values for the blobscan-indexer subchart |
 | blobscan-indexer.config | object | `{"BLOBSCAN_API_ENDPOINT":"http://blobscan-api:3001","DENCUN_FORK_SLOT":"","NETWORK_NAME":"mainnet","RUST_LOG":"blob_indexer=INFO"}` | Config file |
 | blobscan-indexer.config.BLOBSCAN_API_ENDPOINT | string | `"http://blobscan-api:3001"` | Blobscan API service endpoint URL |
 | blobscan-indexer.config.DENCUN_FORK_SLOT | string | `""` | Slot number when Dencun fork activated (uncomment and set for testnets) |
@@ -187,7 +188,6 @@ helm uninstall blobscan
 | blobscan-indexer.image.pullPolicy | string | `"IfNotPresent"` | blobscan-indexer container pull policy |
 | blobscan-indexer.image.repository | string | `"blossomlabs/blobscan-indexer"` | blobscan-indexer container image repository |
 | blobscan-indexer.image.tag | string | `"latest"` | blobscan-indexer container image tag |
-| blobscan-indexer.replicas | int | `1` | Number of blobscan-indexer replicas |
 | blobscan-indexer.resources.limits | object | `{"cpu":"1000m","memory":"200Mi"}` | Resource limits for blobscan-indexer pods |
 | blobscan-indexer.resources.limits.cpu | string | `"1000m"` | CPU limit for blobscan-indexer |
 | blobscan-indexer.resources.limits.memory | string | `"200Mi"` | Memory limit for blobscan-indexer |
@@ -199,6 +199,8 @@ helm uninstall blobscan
 | blobscan-indexer.secretEnv.EXECUTION_NODE_ENDPOINT | string | `"http://execution-node:8545"` | Ethereum execution layer node endpoint URL |
 | blobscan-indexer.secretEnv.SECRET_KEY | string | `"supersecret"` | Secret key used for authentication and encryption |
 | blobscan-indexer.secretEnv.SENTRY_DSN | string | `""` | Sentry DSN for error tracking and monitoring |
+| blobscan-ipld | object | `{"enabled":false}` | Values for the blobscan-ipld subchart |
+| blobscan-ipld.enabled | bool | `false` | Enable or disable the blobscan-ipld component |
 | blobscan-web | object | `{"config":{"BEE_ENDPOINT":"http://bee-0:1633","BLOBSCAN_API_BASE_URL":"http://blobscan-api:3001","BLOBSCAN_API_PORT":3001,"GOOGLE_STORAGE_BUCKET_NAME":"","GOOGLE_STORAGE_ENABLED":"false","GOOGLE_STORAGE_PROJECT_ID":"","LOG_LEVEL":"info","METRICS_ENABLED":"false","NETWORK_NAME":"mainnet","OTEL_EXPORTER_OTLP_ENDPOINT":"http://localhost:4318","OTEL_EXPORTER_OTLP_PROTOCOL":"http/protobuf","POSTGRES_STORAGE_ENABLED":"true","SWARM_STORAGE_ENABLED":"false","TRACES_ENABLED":"false"},"customArgs":["web"],"enabled":true,"externalConfigMaps":[],"externalSecrets":[],"httpPort":3000,"image":{"pullPolicy":"IfNotPresent","repository":"blossomlabs/blobscan-web","tag":"latest"},"replicas":1,"resources":{"limits":{"cpu":3,"memory":"512Mi"},"requests":{"cpu":1,"memory":"128Mi"}},"secretEnv":{"DATABASE_URL":"postgresql://postgres:postgres@blobscan-blobscandb:5432/blobscan?ssl=false","DIRECT_URL":"","FEEDBACK_WEBHOOK_URL":"","GOOGLE_SERVICE_KEY":"","OTLP_AUTH_PASSWORD":"","OTLP_AUTH_USERNAME":"","REDIS_URI":"redis://redis-master:6379/0","SECRET_KEY":"supersecret"}}` | Values for the blobscan-web subchart |
 | blobscan-web.config.BEE_ENDPOINT | string | `"http://bee-0:1633"` | Swarm Bee node endpoint URL for decentralized storage interaction |
 | blobscan-web.config.BLOBSCAN_API_BASE_URL | string | `"http://blobscan-api:3001"` | Base URL for the Blobscan API service |

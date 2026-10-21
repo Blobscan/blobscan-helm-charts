@@ -12,6 +12,9 @@ data:
 
     # Run and pool limits both live under `concurrency`: Dagster rejects
     # max_concurrent_runs in run_coordinator once a `concurrency` block exists.
+    # Do not add pools.default_limit: on Postgres it fails with
+    # InFailedSqlTransaction once a pool row exists. Set pool limits with
+    # `dagster instance concurrency set <pool> <n>`.
     run_coordinator:
       module: dagster.core.run_coordinator
       class: QueuedRunCoordinator
@@ -23,10 +26,6 @@ data:
         tag_concurrency_limits:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-      {{- if not (kindIs "invalid" $.Values.dagsterInstance.poolDefaultLimit) }}
-      pools:
-        default_limit: {{ $.Values.dagsterInstance.poolDefaultLimit }}
-      {{- end }}
 
     # Each run is a Kubernetes Job in the user code image (the code server
     # reports it as DAGSTER_CURRENT_IMAGE). The Job pod mounts this ConfigMap

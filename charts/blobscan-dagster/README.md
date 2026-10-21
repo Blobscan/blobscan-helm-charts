@@ -1,7 +1,7 @@
 
 # blobscan-dagster
 
-![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.26](https://img.shields.io/badge/AppVersion-1.13.26-informational?style=flat-square)
+![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.26](https://img.shields.io/badge/AppVersion-1.13.26-informational?style=flat-square)
 
 Blobscan Dagster orchestration platform for data pipelines and analytics.
 
@@ -103,7 +103,6 @@ creates the ServiceAccount, Role and RoleBinding this needs (`serviceAccount.cre
 | daemon.podLabels | object | `{}` |  |
 | daemon.resources | object | `{}` | Resource requests and limits |
 | dagsterInstance.maxConcurrentRuns | int | `5` | Run coordinator max concurrent runs |
-| dagsterInstance.poolDefaultLimit | int | `1` | Default limit of every concurrency pool (`concurrency.pools.default_limit`). Each metrics asset runs in its own pool (`metrics/<table>`), so 1 means at most one run writes a metrics table at a time, whether scheduled, automation or backfill. Without it Dagster leaves pools unlimited. Set to null to drop it. |
 | dagsterInstance.tagConcurrencyLimits | list | See `values.yaml` | Run coordinator tag concurrency limits. The default is the one in apps/dagster/dagster.yaml: at most 3 backfill runs, leaving room for the scheduled ones while a backfill is in progress. |
 | externalPostgresql.database | string | `"dagster"` | External PostgreSQL database name |
 | externalPostgresql.existingSecret | string | `""` | Existing Secret holding the password, e.g. the basic-auth Secret of a CloudNativePG managed role. When empty, the password is read from `secretEnv.DAGSTER_POSTGRES_PASSWORD`. |

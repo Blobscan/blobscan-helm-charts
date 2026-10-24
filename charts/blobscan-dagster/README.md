@@ -1,7 +1,7 @@
 
 # blobscan-dagster
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.26](https://img.shields.io/badge/AppVersion-1.13.26-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.26](https://img.shields.io/badge/AppVersion-1.13.26-informational?style=flat-square)
 
 Blobscan Dagster orchestration platform for data pipelines and analytics.
 
@@ -103,6 +103,7 @@ creates the ServiceAccount, Role and RoleBinding this needs (`serviceAccount.cre
 | daemon.podLabels | object | `{}` |  |
 | daemon.resources | object | `{}` | Resource requests and limits |
 | dagsterInstance.maxConcurrentRuns | int | `5` | Run coordinator max concurrent runs |
+| dagsterInstance.poolLimits | object | `{}` | Concurrency pool limits, pool name to limit, e.g. `metrics/hourly_metrics: 3`. A post-install/upgrade Job runs `dagster instance concurrency set` for each, so a limit changed by hand is reset on the next upgrade. Pools not listed keep their stored limit, or are unlimited. Do not use `concurrency.pools.default_limit`: it fails with InFailedSqlTransaction on Postgres. Empty means no Job. |
 | dagsterInstance.tagConcurrencyLimits | list | See `values.yaml` | Run coordinator tag concurrency limits. The default is the one in apps/dagster/dagster.yaml: at most 3 backfill runs, leaving room for the scheduled ones while a backfill is in progress. |
 | externalPostgresql.database | string | `"dagster"` | External PostgreSQL database name |
 | externalPostgresql.existingSecret | string | `""` | Existing Secret holding the password, e.g. the basic-auth Secret of a CloudNativePG managed role. When empty, the password is read from `secretEnv.DAGSTER_POSTGRES_PASSWORD`. |

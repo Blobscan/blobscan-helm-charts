@@ -70,6 +70,13 @@ dagsterInstance:
   tagConcurrencyLimits:
     - key: "dagster/backfill"
       limit: 3
+  # -- Concurrency pool limits, pool name to limit, e.g.
+  # `metrics/hourly_metrics: 3`. A post-install/upgrade Job runs
+  # `dagster instance concurrency set` for each, so a limit changed by hand is
+  # reset on the next upgrade. Pools not listed keep their stored limit, or are
+  # unlimited. Do not use `concurrency.pools.default_limit`: it fails with
+  # InFailedSqlTransaction on Postgres. Empty means no Job.
+  poolLimits: {}
 
 # ---------------------------------------------------------------------------
 # Webserver (dagster-webserver)

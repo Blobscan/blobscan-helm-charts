@@ -3547,6 +3547,28 @@ entries:
   blobscan-dagster:
   - apiVersion: v2
     appVersion: 1.13.26
+    created: "2026-10-31T13:14:15.441337433Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.4.1
+    description: Blobscan Dagster orchestration platform for data pipelines and analytics.
+    digest: 460ad55680428298804724dc089377eb1ff9be922e356236491821b6068b4274
+    home: https://blobscan.com
+    icon: https://raw.githubusercontent.com/Blobscan/blobscan/main/.github/assets/logo.svg
+    maintainers:
+    - email: pablo@anche.no
+      name: PabloCastellano
+    name: blobscan-dagster
+    sources:
+    - https://github.com/blobscan/blobscan
+    type: application
+    urls:
+    - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-dagster-0.3.1/blobscan-dagster-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 1.13.26
     created: "2026-10-24T12:16:18.080948292Z"
     dependencies:
     - condition: postgresql.enabled
@@ -4473,4 +4495,4 @@ entries:
     urls:
     - https://github.com/Blobscan/blobscan-helm-charts/releases/download/blobscan-web-0.3.1/blobscan-web-0.3.1.tgz
     version: 0.3.1
-generated: "2026-10-31T12:46:40.487689187Z"
+generated: "2026-10-31T13:14:15.441700224Z"

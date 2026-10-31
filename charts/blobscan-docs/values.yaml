@@ -113,3 +113,16 @@ readinessProbe:
     port: 3002
   initialDelaySeconds: 10
   periodSeconds: 10
+
+# -- Restrict ingress to the pods with a NetworkPolicy
+networkPolicy:
+  # -- Create the NetworkPolicy. With no `from`/`ports` configured it denies all ingress
+  enabled: false
+  ingress:
+    # -- Sources permitted to reach the ports below (NetworkPolicyPeer list),
+    # typically the ingress controller and monitoring namespaces
+    from: []
+    # -- Ports exposed to the sources above
+    ports:
+      - port: 3002
+        protocol: TCP

@@ -1,7 +1,7 @@
 
 # blobscan-docs
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Helm chart for deploying Blobscan documentation website
 
@@ -69,6 +69,10 @@ helm uninstall blobscan-docs
 | ingress.tls | list | `[]` | Ingress TLS configuration |
 | livenessProbe | object | `{"httpGet":{"path":"/","port":3002},"initialDelaySeconds":30,"periodSeconds":10}` | Liveness probe configuration |
 | nameOverride | string | `""` | Overrides the chart's name |
+| networkPolicy | object | `{"enabled":false,"ingress":{"from":[],"ports":[{"port":3002,"protocol":"TCP"}]}}` | Restrict ingress to the pods with a NetworkPolicy |
+| networkPolicy.enabled | bool | `false` | Create the NetworkPolicy. With no `from`/`ports` configured it denies all ingress |
+| networkPolicy.ingress.from | list | `[]` | Sources permitted to reach the ports below (NetworkPolicyPeer list), typically the ingress controller and monitoring namespaces |
+| networkPolicy.ingress.ports | list | `[{"port":3002,"protocol":"TCP"}]` | Ports exposed to the sources above |
 | nodeSelector | object | `{}` | Node selector for pod assignment |
 | podAnnotations | object | `{}` | Annotations for the Pod |
 | podLabels | object | `{}` | Pod labels |

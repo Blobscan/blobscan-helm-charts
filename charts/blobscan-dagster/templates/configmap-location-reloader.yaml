@@ -1,0 +1,11 @@
+{{- if and .Values.webserver.enabled .Values.webserver.locationReloader.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "blobscan-dagster.fullname" . }}-location-reloader
+  labels:
+    {{- include "blobscan-dagster.labels" . | nindent 4 }}
+data:
+  location_reloader.py: |
+    {{- .Files.Get "files/location_reloader.py" | nindent 4 }}
+{{- end }}

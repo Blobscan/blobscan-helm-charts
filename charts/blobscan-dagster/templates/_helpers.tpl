@@ -256,57 +256,18 @@ has Python.
   command:
     - python
     - -u
-    - -c
-    - |
-      import json, time, urllib.request
-      import grpc
-      URL = "http://localhost:{{ .Values.webserver.port }}/graphql"
-      CODE_SERVER = "{{ include "blobscan-dagster.fullname" . }}-usercode:{{ .Values.usercode.port }}"
-      INTERVAL = {{ .Values.webserver.locationReloader.intervalSeconds }}
-      LOCATIONS = """{ workspaceOrError { ... on Workspace { locationEntries {
-        name locationOrLoadError { __typename ... on RepositoryLocation { serverId } } } } } }"""
-      RELOAD = """mutation($name: String!) { reloadRepositoryLocation(
-        repositoryLocationName: $name) { __typename ... on WorkspaceLocationEntry {
-        locationOrLoadError { __typename } } } }"""
-
-      def query(q, variables=None):
-          body = json.dumps({"query": q, "variables": variables or {}}).encode()
-          req = urllib.request.Request(URL, data=body, headers={"Content-Type": "application/json"})
-          with urllib.request.urlopen(req, timeout=30) as resp:
-              return json.load(resp)["data"]
-
-      def live_server_id():
-          # GetServerId replies with one string field (tag 0x0a, 1-byte length). Raw
-          # gRPC: importing dagster here would not fit in the sidecar's memory.
-          call = grpc.insecure_channel(CODE_SERVER).unary_unary(
-              "/api.DagsterApi/GetServerId",
-              request_serializer=lambda b: b, response_deserializer=lambda b: b)
-          reply = call(b"", timeout=10)
-          return reply[2:2 + reply[1]].decode()
-
-      while True:
-          time.sleep(INTERVAL)
-          try:
-              entries = query(LOCATIONS)["workspaceOrError"]["locationEntries"]
-              live = live_server_id()
-              for entry in entries:
-                  loaded = entry["locationOrLoadError"] or {}
-                  # A location in error is never retried by the webserver. A loaded
-                  # one is never refreshed either: if the Service still pointed at the
-                  # old pod while a rollout replaced it, the webserver keeps the old
-                  # definitions (mainnet, 2026-10-31) until the code server's id differs
-                  # from the one it loaded.
-                  if loaded.get("__typename") == "PythonError":
-                      why = "load error"
-                  elif loaded.get("serverId") != live:
-                      why = "code server changed"
-                  else:
-                      continue
-                  result = query(RELOAD, {"name": entry["name"]})["reloadRepositoryLocation"]
-                  state = (result.get("locationOrLoadError") or {}).get("__typename")
-                  print(f"reloaded code location {entry['name']} ({why}): {state}")
-          except Exception as err:
-              print(f"location check failed: {err}")
+    - /scripts/location_reloader.py
+  env:
+    - name: WEBSERVER_URL
+      value: "http://localhost:{{ .Values.webserver.port }}/graphql"
+    - name: CODE_SERVER
+      value: "{{ include "blobscan-dagster.fullname" . }}-usercode:{{ .Values.usercode.port }}"
+    - name: INTERVAL_SECONDS
+      value: {{ .Values.webserver.locationReloader.intervalSeconds | quote }}
+  volumeMounts:
+    - name: location-reloader
+      mountPath: /scripts
+      readOnly: true
   securityContext:
     {{- toYaml .Values.containerSecurityContext | nindent 4 }}
   resources:

@@ -22,6 +22,9 @@ spec:
       annotations:
         checksum/instance: {{ include (print $.Template.BasePath "/configmap-instance.yaml") . | sha256sum }}
         checksum/workspace: {{ include (print $.Template.BasePath "/configmap-workspace.yaml") . | sha256sum }}
+        {{- if .Values.webserver.locationReloader.enabled }}
+        checksum/location-reloader: {{ include (print $.Template.BasePath "/configmap-location-reloader.yaml") . | sha256sum }}
+        {{- end }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- with .Values.webserver.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -117,6 +120,11 @@ spec:
         - name: dagster-workspace
           configMap:
             name: {{ include "blobscan-dagster.fullname" . }}-workspace
+        {{- if .Values.webserver.locationReloader.enabled }}
+        - name: location-reloader
+          configMap:
+            name: {{ include "blobscan-dagster.fullname" . }}-location-reloader
+        {{- end }}
         {{- if .Values.webserver.extraVolumes }}
         {{- toYaml .Values.webserver.extraVolumes | nindent 8 }}
         {{- end }}

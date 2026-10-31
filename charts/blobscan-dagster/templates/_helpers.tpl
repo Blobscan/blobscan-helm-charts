@@ -277,3 +277,16 @@ has Python.
     limits:
       memory: 96Mi
 {{- end }}
+
+{{/*
+Checksum of a rendered template for a pod annotation, without the chart-version
+labels. They change on every chart release, and a changed annotation restarts
+the pod: that would restart the code server (failing any running backfill) and
+the daemon on releases that do not touch them. Usage:
+  include "blobscan-dagster.checksum" (list . "/configmap-instance.yaml")
+*/}}
+{{- define "blobscan-dagster.checksum" -}}
+{{- $ctx := index . 0 -}}
+{{- $rendered := include (print $ctx.Template.BasePath (index . 1)) $ctx -}}
+{{- regexReplaceAll "(?m)^\\s*(helm\\.sh/chart|app\\.kubernetes\\.io/version):.*$" $rendered "" | sha256sum -}}
+{{- end }}

@@ -20,9 +20,9 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       annotations:
-        checksum/instance: {{ include (print $.Template.BasePath "/configmap-instance.yaml") . | sha256sum }}
-        checksum/workspace: {{ include (print $.Template.BasePath "/configmap-workspace.yaml") . | sha256sum }}
-        checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        checksum/instance: {{ include "blobscan-dagster.checksum" (list . "/configmap-instance.yaml") }}
+        checksum/workspace: {{ include "blobscan-dagster.checksum" (list . "/configmap-workspace.yaml") }}
+        checksum/secrets: {{ include "blobscan-dagster.checksum" (list . "/secret.yaml") }}
         {{- with .Values.daemon.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
